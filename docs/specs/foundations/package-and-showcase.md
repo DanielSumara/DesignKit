@@ -1,5 +1,5 @@
 # Package and showcase
-Status: Draft · Repo: DesignKit · Feature: foundations · Module or target: `Package.swift`, DesignKit, DesignSystem, `DemoApps/`, `scripts/gate.sh`, `.swiftlint.yml` · Depends on: —
+Status: Approved · Repo: DesignKit · Feature: foundations · Module or target: `Package.swift`, DesignKit, DesignSystem, `DemoApps/`, `scripts/gate.sh`, `.swiftlint.yml` · Depends on: —
 
 ## Goal
 A buildable package skeleton with the fundamentals every later spec builds on, the three showcase apps to verify it in, and a single command (the gate) that checks the repo. After this spec, a token, theme or component spec adds only its own code and its showcase page.
@@ -119,7 +119,7 @@ A buildable package skeleton with the fundamentals every later spec builds on, t
   3. `xcodebuild -scheme DesignSystem -destination 'generic/platform=iOS' build SWIFT_TREAT_WARNINGS_AS_ERRORS=YES`
   4. `xcodegen generate` in `DemoApps/`
   5. builds of ShowcasePhone and ShowcasePad (`generic/platform=iOS Simulator`) and ShowcaseMac (`platform=macOS`), each with `SWIFT_TREAT_WARNINGS_AS_ERRORS=YES`
-  - It is this repo's gate in `implement-increment` (Q-11); the slice that adds it adds the gate line to DesignKit CLAUDE.md › Commands.
+  - It is this repo's gate in `implement-increment` (Q-11). The first slice changes the DesignKit CLAUDE.md › Commands build lines to the forms of steps 2, 3 and 5; the slice that adds the script adds the gate line. The first slice's baseline is a clean `git status` (Q-12).
 - BR-12 Gate output: all tool output to one log file (default in `$TMPDIR`, or the path given as the first argument); the terminal shows one line per step (name, pass or fail), and on failure the step's `error:` lines (at most 20), the log path, exit status non-zero. A missing tool (`swiftlint`, `xcodegen`, `xcodebuild`) fails step 0 with its name, before any step runs.
 
 ## Copy
@@ -170,7 +170,7 @@ Showcase only, English (BR-6). Keys identify the element; they aren't catalog ke
 - AC-2 Given the package, when gate step 3 runs, then DesignSystem builds for `generic/platform=iOS` with no warnings; its macOS build is covered by AC-1 and AC-4.
 - AC-3 Given the repo, when `swiftlint lint --strict --quiet` runs, then it reports no violations, `DemoApps/` included; a literal styling value (e.g. `.padding(8)`) in a `DemoApps/` Swift file is reported by `no_literal_styling`.
 - AC-4 Given `DemoApps/` and no development team configured, when `xcodegen generate` runs, then `Showcase.xcodeproj` has the schemes ShowcasePhone, ShowcasePad and ShowcaseMac, each builds for its destination in gate step 5 with no warnings, and the project isn't tracked by git.
-- AC-5 Given the package, then `Sources/DesignKit` holds exactly the Swift files `DK.swift` and `DK+{ViewState,EdgeCase,CallToAction,Alert,Tone,Option,Icon,AccentTint,TextSize}.swift`, and `Sources/DesignSystem` exactly `DS.swift` and `DS+BindableViewModel.swift`, with no resources.
+- AC-5 Given the package, then `Sources/DesignKit` holds exactly the files `DK.swift` and `DK+{ViewState,EdgeCase,CallToAction,Alert,Tone,Option,Icon,AccentTint,TextSize}.swift`, and `Sources/DesignSystem` exactly `DS.swift` and `DS+BindableViewModel.swift`, no subfolders and no resources.
 - AC-6 Given a clean repo, when `scripts/gate.sh` runs, then every step prints pass and it exits 0.
 - AC-7 Given a lint violation, a compile error or a Swift warning, when `scripts/gate.sh` runs, then it stops at that step, prints fail with the step name, at most 20 `error:` lines and the log path, runs no later step and exits non-zero.
 - AC-8 Given `xcodegen` isn't installed, when `scripts/gate.sh` runs, then it fails before step 1, naming the missing tool.
@@ -182,8 +182,8 @@ Showcase only, English (BR-6). Keys identify the element; they aren't catalog ke
 - AC-14 Given the Playground with the system in dark mode, when Appearance is Light, then the preview renders light on a light background while the chrome stays dark; Dark renders it dark; System follows the system; after leaving and reopening the page within the session, Appearance is kept while the tab is Playground and Sample text is its default. (manual)
 - AC-15 Given the Variants tab of Page anatomy, then Short and Long each show a light and a dark rendering, each on its own appearance's background, and Long wraps onto at least three lines in each column at the app's launch window size. (manual)
 - AC-16 Given the Configuration tab of Page anatomy, then Properties lists, under Name, Type and Default, `sampleText`, `String` and its default, and Component tokens shows "None". (manual)
-- AC-17 Given each file of AC-5 and its FinanceTracker `Kits/DesignKit` source, when compared with `git diff --no-index -w`, then the only differences are Q-4 (`symbol: String` → `icon: DK.Icon`) and SwiftLint formatting; checked once in the slice that ports them, since the sources aren't in this repo.
-- AC-18 Given the showcase sources, then Page anatomy is one file in `DemoApps/Shared/` plus one catalog entry, and the sidebar, detail and page model files name no page.
+- AC-17 Given each file of AC-5 and its FinanceTracker `Kits/DesignKit` source (`Sources/DesignKit/`, `Sources/DesignKitUI/`, `Sources/DesignKitUI/Support/` for `DS+BindableViewModel.swift`), when compared with `git diff --no-index -w`, then the only differences are Q-4 (`symbol: String` → `icon: DK.Icon`) and SwiftLint formatting; checked once in the slice that ports them, since the sources aren't in this repo.
+- AC-18 Given the showcase sources, when `DemoApps/` is searched for the Page anatomy page's type name, then exactly two files match: its own file in `DemoApps/Shared/` and the catalog.
 
 ## Open questions
 - None

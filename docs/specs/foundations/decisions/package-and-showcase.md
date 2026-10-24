@@ -11,3 +11,4 @@
 - Q-9 How is the port checked against FinanceTracker? — By an exact file list (AC-5) and a once-per-port `git diff --no-index -w` against each source (AC-17), not by comparing APIs by hand. (BR-3)
 - Q-10 Do Swift warnings fail the gate? — Yes: `-warnings-as-errors` for `swift build`, `SWIFT_TREAT_WARNINGS_AS_ERRORS=YES` for `xcodebuild`. (BR-11, AC-1, AC-2, AC-4, AC-7)
 - Q-11 Does `implement-increment` use the gate script? — Yes: in a repo with `scripts/gate.sh`, it is the gate. (BR-11, US-4)
+- Q-12 How does the first slice pass `implement-increment`'s baseline with no sources yet? — A repo with no Swift sources has a clean `git status` as its baseline, recorded `Baseline: empty` in the plan (`implement-increment` §2). (BR-11)
