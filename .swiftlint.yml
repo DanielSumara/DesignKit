@@ -1,0 +1,81 @@
+strict: true
+excluded:
+  - .build
+  - .swiftpm
+  - DerivedData
+  - DemoApps/Showcase.xcodeproj
+opt_in_rules:
+  - file_name
+  - one_declaration_per_file
+  - explicit_top_level_acl
+  - force_unwrapping
+  - sorted_imports
+  - empty_count
+  - first_where
+  - contains_over_first_not_nil
+  - redundant_type_annotation
+  - toggle_bool
+  - private_swiftui_state
+  - unneeded_parentheses_in_closure_argument
+disabled_rules:
+  - nesting
+  - trailing_comma
+  - opening_brace
+line_length:
+  warning: 160
+  ignores_urls: true
+identifier_name:
+  min_length: 1
+  excluded: [id, x, y]
+type_name:
+  min_length: 2
+file_name:
+  nested_type_separator: "."
+
+custom_rules:
+  no_comments:
+    name: No comments
+    regex: '(?://|/\*)(?!\s*(?:Workaround:|swiftlint:))'
+    match_kinds: [comment, doccomment]
+    message: "No comments; clear names instead. Sole exception: one line `// Workaround: …` on a non-obvious framework workaround."
+    severity: error
+  designkit_imports:
+    name: Designkit imports
+    included: 'Sources/DesignKit/.*\.swift'
+    regex: '^import\s+(?!Foundation\b|Synchronization\b)\w+'
+    match_kinds: [keyword, identifier]
+    message: "DesignKit imports Foundation only."
+    severity: error
+  designkit_platform_conditionals:
+    name: Designkit platform conditionals
+    included: 'Sources/DesignKit/.*\.swift'
+    regex: '#if\s+(os|canImport)\('
+    message: "DesignKit is platform-independent: no #if os."
+    severity: error
+  designsystem_imports:
+    name: Designsystem imports
+    included: 'Sources/DesignSystem/.*\.swift'
+    regex: '^import\s+(AppKit|UIKit)\b'
+    match_kinds: [keyword, identifier]
+    message: "AppKit and UIKit only in the platform design-system targets."
+    severity: error
+  mac_designsystem_imports:
+    name: Mac designsystem imports
+    included: 'Sources/MacDesignSystem/.*\.swift'
+    regex: '^import\s+UIKit\b'
+    match_kinds: [keyword, identifier]
+    message: "MacDesignSystem uses AppKit, never UIKit."
+    severity: error
+  touch_designsystem_imports:
+    name: Touch designsystem imports
+    included: 'Sources/(Pad|Phone)DesignSystem/.*\.swift'
+    regex: '^import\s+AppKit\b'
+    match_kinds: [keyword, identifier]
+    message: "Pad and Phone design-system targets use UIKit, never AppKit."
+    severity: error
+  no_literal_styling:
+    name: No literal styling
+    included: 'Sources/(\w*DesignSystem)/.*\.swift'
+    regex: '(Color\((red|white|hue|hex):|Color\.(red|orange|yellow|green|mint|teal|cyan|blue|indigo|purple|pink|brown|gray|black|white)\b|\.font\(\.system\(size:|\.(padding|cornerRadius)\(\s*\d|(spacing|cornerRadius|lineWidth|radius):\s*\d|\.frame\((width|height|minWidth|maxWidth|minHeight|maxHeight):\s*\d|\.(milliseconds|seconds)\(\d|\.opacity\(\s*0?\.\d)'
+    message: "Styling only through mds APIs (tokens); literal values belong to primitives."
+    severity: error
