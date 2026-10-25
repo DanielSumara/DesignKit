@@ -92,7 +92,7 @@ Requires the base-atoms plan `Done` (Status Icon, Action Button, `DK.Status`).
 | Slice | Status | Base | Head | Review |
 |---|---|---|---|---|
 | S1 | Done | 6bf539f | fb1bfc2 | 1 fixed / 0 rejected |
-| S2 | Pending | — | — | — |
+| S2 | Done | 2088584 | f4cec1c | 1 fixed / 0 rejected |
 | S3 | Pending | — | — | — |
 | S4 | Pending | — | — | — |
 | S5 | Pending | — | — | — |
