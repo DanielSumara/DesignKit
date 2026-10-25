@@ -30,8 +30,8 @@ docs/
 ## 3. Targets
 | Target | Imports | Namespace | Holds |
 |---|---|---|---|
-| DesignKit | Foundation | `DK` | display-ready data objects Cores fill (`DK.ViewState`, `DK.ActionButton`, `DK.InlineAlert`, …); primitive values and the semantic and component token definitions, `package` access |
-| DesignSystem | DesignKit, SwiftUI | `DS` (+ `MDS`) | theme resolution to SwiftUI values, `mds` APIs, `@MDS`, scene setup, text size, components shared by every platform |
+| DesignKit | Foundation | `DK` | display-ready data objects Cores fill (`DK.ViewState`, `DK.ActionButton`, `DK.InlineAlert`, …); primitive values only, `package` access |
+| DesignSystem | DesignKit, SwiftUI | `DS` (+ `MDS`) | semantic and component token definitions (`DS.Theme.SemanticTokens`, `DS.Theme.Components`), theme resolution to SwiftUI values, `mds` APIs, `@MDS`, scene setup, text size, components shared by every platform |
 | MacDesignSystem | DesignSystem, AppKit | `DS` | what only macOS needs (e.g. AppKit tables, save panel) |
 | PadDesignSystem | DesignSystem, UIKit | `DS` | what only iPad needs |
 | PhoneDesignSystem | DesignSystem, UIKit | `DS` | what only iPhone needs |
@@ -39,31 +39,32 @@ docs/
 - The platform targets extend `DS`, so a screen reads the same name on every platform; they exist only once they hold code.
 - iPhone and iPad share the iOS SDK, so the compiler can't keep their targets apart: an iOS app depends on PadDesignSystem, PhoneDesignSystem or both, and a universal screen picks by size class.
 - DesignKit is platform-independent so Cores (Foundation only) build the data components render.
-- Token values live in DesignKit with `package` access: DesignSystem resolves them, apps and Cores can't read raw values.
+- Primitive values live in DesignKit with `package` access: DesignSystem resolves them, apps and Cores can't read raw values. Semantic and component definitions are DesignSystem types, since colors resolve as SwiftUI shape styles; their values are opaque, readable only through `mds`.
 
 ## 4. Token tiers
 Following Figma's design-token architecture, three tiers, each referring only to the tier below:
 
 | Tier | What | Example | Who uses it |
 |---|---|---|---|
-| Primitive | raw values: color ramps `{family}{step}` (step ≈ CIE L*), spacing, radius, border width, duration, opacity scales | `blue96`, `space16` | themes and amendments only |
-| Semantic | purpose: Colors (Background, OnBackground, Foreground, Border, Focus), Spacing, Typography, Radius, BorderWidth, Motion; each value an alias of a primitive (a light/dark pair for colors) | `Background.infoSubtle → blue96 / blue17` | components and screens through `mds` |
-| Component | per-component configuration in `DS.Theme.Components`: aliases of semantic tokens, or primitives for sizes | `InlineAlert.background(info) → Background.infoSubtle` | its component through `@MDS(\.{component})` |
+| Primitive | raw values: color ramps `{family}{step}` (step ≈ CIE L*) and the scales `space`, `size`, `radius`, `stroke`, `duration`, `opacity`, `fontSize` | `blue94`, `space16` | themes and amendments only |
+| Semantic | purpose: Colors (Background, OnBackground, Foreground, Border, Focus), Spacing, Typography, Radius, BorderWidth, Motion; each value an alias of a primitive: a color a light and a dark color primitive, each with an optional opacity primitive, plus an optional Increase Contrast pair of the same form; a macOS Typography style a `fontSize` primitive; Typography design a `Design` case, the one non-primitive token value | `Background.infoSubtle → blue94 / blue16` | components and screens through `mds` |
+| Component | per-component configuration in `DS.Theme.Components`: aliases of semantic tokens, or `size` primitives for sizes | `InlineAlert.background(info) → Background.infoSubtle` | its component through `@MDS(\.{component})` |
 
 - A theme is a complete mapping: semantic → primitive and component → semantic. A missing value fails to compile; a literal where an alias belongs fails to compile.
 - Built-in theme `standard`; an amendment overrides any subset of semantic or component tokens of one base theme with other primitives or aliases; at most one applies.
-- Colors resolve where they render (theme, color scheme, Increase Contrast); `mds` animations honor Reduce Motion.
+- Colors resolve where they render (theme, color scheme, Increase Contrast pair when on); `mds` animations honor Reduce Motion.
 
 ## 5. Theme, scaling and access
 - Access only through `mds`: view modifiers (`.font(mds:)`, `.foregroundStyle(mds:)`, `.background(mds:)`, `.border(mds:width:cornerRadius:)`, `.padding(mds:)`, …), `Color(mds:)`, `@MDS var mds`, `@MDS(\.{component})`; key paths are typed per group, so an unknown or misplaced token fails to compile.
-- `.theme(_:)` at every scene root injects the theme, tint, font design and page background; views without it render `standard`; replacing the theme restyles views in place.
+- `.themeRoot(_:)` at every scene root and `.theme(_:)` at any depth inject the theme, tint and font design; `.themeRoot(_:)` also sets the page background as the window container background on macOS only, iOS and iPadOS keep system backgrounds; views without either render `standard`; replacing the theme restyles views in place.
+- Typography: macOS uses the `fontSize` ramp scaled by text size; iOS and iPadOS use the system text styles with Dynamic Type, ignoring text size.
 - Text size (`DK.TextSize`, seven steps 85–200 %): `mds` fonts and text-bound component sizes scale with it; spacing, radii, border widths and durations don't.
 
 ## 6. Components
 - Atomic levels: Atoms → Molecules → Organisms → Templates, each composing only lower levels; Pages are app screens.
 - One component per file `DS+{Component}.swift`; it renders DesignKit data, wraps native controls, reaches tokens only through `mds`, and has light and dark previews.
 - Native controls and system chrome kept (HIG, Liquid Glass); the theme drives content and tint.
-- No gallery or catalog types in the library: the showcase apps hold them.
+- No gallery or catalog types in the library: the showcase apps hold them; the one exception is the `@_spi(Showcase)` token inventory in DesignSystem.
 
 ## 7. Showcase apps
 - `ShowcasePhone`, `ShowcasePad`, `ShowcaseMac`, generated from `DemoApps/project.yml`, sharing `DemoApps/Shared/`.
@@ -73,8 +74,3 @@ Following Figma's design-token architecture, three tiers, each referring only to
 
 ## 8. Component lifecycle
 Design System canvas: Prototype → Approved → spec (`docs/specs/components/{name}.md`) `Approved` → implemented in DesignSystem → showcase page → canvas status Implemented. A change to look or behavior goes through the canvas first.
-
-## 9. Open in the foundations specs
-- How token storage enforces aliasing between tiers.
-- iOS and iPadOS type ramp: Dynamic Type or the fixed macOS ramp scaled by text size.
-- Cross-platform replacements for AppKit system colors and the macOS-only window container background.
