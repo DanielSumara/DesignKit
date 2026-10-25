@@ -1,8 +1,8 @@
 # Base atoms — implementation plan
 Spec: DesignKit/docs/specs/components/base-atoms.md
 Repo: DesignKit
-Status: Ready
-Run base: —
+Status: In progress
+Run base: 42052493fd47c83a0d67c57cb9147e3871cac27b
 
 ## Slices
 ### S1 — DesignKit, DesignSystem: Status and component configurations
