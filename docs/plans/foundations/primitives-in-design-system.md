@@ -1,7 +1,7 @@
 # Primitives in DesignSystem — implementation plan
 Spec: DesignKit/docs/specs/foundations/primitives-in-design-system.md
 Repo: DesignKit
-Status: In progress
+Status: Done
 Run base: a24d291eb7901aac11c7b94a84df6b8951e75fcf
 
 ## Slices
@@ -46,7 +46,7 @@ Run base: a24d291eb7901aac11c7b94a84df6b8951e75fcf
 | Slice | Status | Base | Head | Review |
 |---|---|---|---|---|
 | S1 | Done | a24d291 | 543404c | 1 fixed / 0 rejected |
-| S2 | Done | d240f56 | HomeBudgetApps 5c44216 | 2 fixed / 3 rejected |
+| S2 | Done | d240f56 | HomeBudgetApps a75d7bf | 2 fixed / 3 rejected |
 
 ## Open questions
 - None

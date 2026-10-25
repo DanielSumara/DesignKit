@@ -22,8 +22,8 @@ A themable SwiftUI design system for iOS, iPadOS and macOS apps, built on Apple'
 
 | Product | Platforms | Imports | Holds |
 |---|---|---|---|
-| `DesignKit` | all | Foundation | `DK` data objects; token values (package-internal) |
-| `DesignSystem` | all | DesignKit, SwiftUI | `DS` components, theme, `mds` APIs, scene setup |
+| `DesignKit` | all | Foundation | `DK` data objects only |
+| `DesignSystem` | all | DesignKit, SwiftUI | `DS` components, theme, `mds` APIs, scene setup; every token tier, `internal` primitives |
 | `MacDesignSystem` | macOS | DesignSystem, AppKit | macOS-only components and AppKit wrappers |
 | `PadDesignSystem` | iPadOS | DesignSystem, UIKit | iPad-only components and UIKit wrappers |
 | `PhoneDesignSystem` | iOS | DesignSystem, UIKit | iPhone-only components and UIKit wrappers |
