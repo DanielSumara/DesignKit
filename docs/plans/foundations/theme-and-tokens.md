@@ -1,8 +1,8 @@
 # Theme and tokens — implementation plan
 Spec: DesignKit/docs/specs/foundations/theme-and-tokens.md
 Repo: DesignKit
-Status: Ready
-Run base: —
+Status: In progress
+Run base: 4a3b70d3a19779a69dc2f3faf930b91e4ba05ffd
 
 ## Slices
 ### S1 — DesignKit: primitive tier
