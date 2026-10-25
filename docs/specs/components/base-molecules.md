@@ -2,13 +2,14 @@
 Status: Draft · Repo: DesignKit · Feature: components · Module or target: DesignKit, DesignSystem, DemoApps · Depends on: components/base-atoms, foundations/theme-and-tokens, foundations/foundations-pages, foundations/package-and-showcase
 
 Split from base-components (Q-6); ids are kept from it, so gaps are the rules and criteria of components/base-atoms.
+Ids are cited with the spec name: `base-atoms BR-10`, `base-molecules BR-10`; AC-1 to AC-26 are taken across both specs, new ones start at AC-27.
 
 ## Goal
 The first two DesignSystem molecules, both `Approved` on the Design System canvas, ported from FinanceTracker (`Kits/DesignKit/Sources/DesignKitUI/Molecules`) and brought to their canvas look: Inline Alert and Edge Case, composed of the base atoms. Each gets its component tokens, light and dark previews and a showcase page. They bring DesignSystem its String Catalog and the first component override of the sample amendment.
 
 ## Scope
 - In:
-  - `DK.InlineAlert` (new); `DK.EdgeCase`, `DK.Icon`, `DK.AccentTint` used as ported (package-and-showcase BR-3)
+  - `DK.InlineAlert` (ported, with `Style` → `Status` and `Notice.style` → `Notice.status`, BR-1); `DK.EdgeCase`, `DK.Icon`, `DK.AccentTint` used as ported (package-and-showcase BR-3)
   - `DS.InlineAlert`, `DS.EdgeCaseView`
   - Component configurations `inlineAlert`, `edgeCase` in `DS.Theme.Components`, their text-bound sizes on the scaling list
   - The `DK.AccentTint` color mapping (theme-and-tokens Scope Out); the sample amendment's component override (theme-and-tokens BR-10)
@@ -18,6 +19,7 @@ The first two DesignSystem molecules, both `Approved` on the Design System canva
   - Activity Indicator, Action Button, Status Icon, `DK.Status` (components/base-atoms)
   - `DK.Tone` mapping and `foregroundStyle(tone:)`; `DK.Alert` and its alert modifier
   - Loadable view, progress bar, field errors, badges; platform design-system targets (nothing here differs per platform beyond native controls)
+  - No per-platform differences: the layout adapts to the space given (AC-30)
 
 ## Glossary
 | PL | EN | Meaning |
@@ -39,6 +41,7 @@ The first two DesignSystem molecules, both `Approved` on the Design System canva
 - Static: no actions, no dismissal, no focus. Full available width, leading-aligned.
 - Background, border and icon in the alert's status (the most severe notice's).
 - VoiceOver: one element reading the status label, then every title and message in order.
+- The error alert's border is Border.criticalSubtle, unlike the other statuses (Data table); this is by design (AC-29).
 
 ### Edge Case (molecule, `DS.EdgeCaseView`)
 - `DS.EdgeCaseView(_ edgeCase: DK.EdgeCase)`, wrapping the system unavailable-content view, so it centers itself and adapts to the space it gets.
@@ -78,13 +81,13 @@ The first two DesignSystem molecules, both `Approved` on the Design System canva
 - BR-1 Port: each component starts from its FinanceTracker file (`DS+InlineAlert.swift`, `DS+EdgeCaseView.swift`, `DK+InlineAlert.swift`), public names and signatures kept, with these deviations only: `DK.CallToAction` is `DK.ActionButton` (already ported); `DK.InlineAlert.Style` becomes `DK.Status` with four cases and `Notice.style` becomes `Notice.status` (Q-4); the Inline Alert icon is a `DS.StatusIcon` in Foreground colors, not OnBackground subtle ones (canvas changelog, 24 October 2026); `DS.EdgeCaseView` renders `DK.Icon`, not a symbol name (package-and-showcase BR-3); the component tokens of Data replace FinanceTracker's literal configuration values.
 - BR-7 Inline Alert: the alert's status is its most severe notice's (error, warning, success, info) and sets the icon, background and border; notices `noticeSpacing` apart, title and message `titleSpacing` apart, icon `iconSpacing` before the text, `padding` inside, `radius` corners, `borderWidth` border. An empty title or message is omitted with its spacing; a notice with neither is not drawn. The icon is vertically centered on the first drawn line at every text size.
 - BR-8 Inline Alert accessibility: one combined element; the icon's label is the status word of Copy for every status (Q-3), read before the notices.
-- BR-9 Edge Case: the system unavailable-content view lays out icon, title, description and actions; the message is omitted when empty; actions keep their order and each is a `DS.ActionButton`, so a primary action is the default key. Image and monogram are `edgeCase.iconSize` (Q-2); image data is decoded with ImageIO (Q-5); undecodable data draws the symbol `photo` in Foreground.secondary instead. Monogram initials in Typography title2 semibold in the tint's foreground on its background (Data), drawn as given on one line, scaled down to fit the circle. The icon is hidden from VoiceOver; title, message and actions are read.
+- BR-9 Edge Case: the system unavailable-content view lays out icon, title, description and actions; the message is omitted when empty; actions keep their order and each is a `DS.ActionButton`, so a primary action is the default key. Image and monogram are `edgeCase.iconSize` (Q-2); image data is decoded with ImageIO (Q-5); undecodable data draws the symbol `photo` in Foreground.secondary instead. Monogram initials in Typography title2 semibold in the tint's foreground on its background (Data), drawn as given on one line, scaling until it fits the circle and never wrapping. The icon is hidden from VoiceOver; title, message and actions are read.
 - BR-10 Configuration: every token of Data is a property of its component configuration in `DS.Theme.Components`, read only through `@MDS(\.{component})`; every built-in theme defines it (a missing one fails to compile); the two tokens marked "scales" join the text-bound scaling list (theme-and-tokens BR-7).
 - BR-11 The sample amendment overrides `inlineAlert.radius` with Radius.large (theme-and-tokens BR-10).
 - BR-12 Copy: DesignSystem gets a String Catalog (`Sources/DesignSystem/Resources/Localizable.xcstrings`, resources declared in `Package.swift`); package-and-showcase BR-1 ("no resources") is marked superseded by this rule in the same slice. Keys `designSystem.{component}.{element}`, pl and en; the status words are named for the Status Icon, so every owner of a labelled Status Icon reuses them. Showcase copy stays English literals (package-and-showcase BR-6).
 - BR-13 Previews: each component file has a light and a dark preview showing its variants.
-- BR-14 Lifecycle: before this spec is `Approved`, the Edge Case canvas Configuration shows `edgeCase.iconSize` and `imageRadius` (Q-2) and the monogram draws the colors of Data (Q-9), with a changelog entry. Once a component's showcase page is done, its canvas page header shows Implemented and `components.md` (skill `design-system`) gets its entry; the Inline Alert canvas snippet and Configuration show `Notice.status: DK.Status` (Q-4).
-- BR-15 DesignSystem may import ImageIO, for decoding image data only (Q-5); the slice adding it updates the workspace `CLAUDE.md` › Allowed imports (DesignSystem: DesignKit, SwiftUI, ImageIO) and `docs/architecture.md` §3 in the same change.
+- BR-14 Lifecycle: before this spec is `Approved`, the Edge Case canvas Configuration shows `edgeCase.iconSize` and `imageRadius` (Q-2) and the monogram draws the OnBackground colors of Data (Q-9), with a changelog entry. Once a component's showcase page is done, its canvas page header shows Implemented and `components.md` (skill `design-system`) gets its entry; the Inline Alert canvas snippet and Configuration show `Notice.status: DK.Status` (Q-4). Checked by AC-31.
+- BR-15 DesignSystem may import ImageIO, for decoding image data only (Q-5); the slice adding it updates the workspace `CLAUDE.md` › Allowed imports (DesignSystem: DesignKit, SwiftUI, ImageIO) and `docs/architecture.md` §3 in the same change (AC-32).
 
 ## Copy
 | Key | pl | en |
@@ -105,7 +108,13 @@ The first two DesignSystem molecules, both `Approved` on the Design System canva
 - AC-18 (manual) Given Xcode previews of each component file, when they render, then a light and a dark preview show.
 - AC-19 Given a theme missing any token of Data, when the package builds, then it fails to compile (BR-10); given the String Catalog, then every key of Copy has pl and en; both checked once in the slice that adds them.
 - AC-21 (manual) Given an Inline Alert whose first notice has an empty title, when it renders, then its message is the first line, the icon is centered on it and no title spacing shows; a notice with an empty message shows only its title.
-- AC-22 (manual) Given an Edge Case monogram with the initials "ABCD" at text size 200 % on the Mac, when it renders, then the initials stay on one line inside the circle.
+- AC-22 (manual) Given an Edge Case monogram with the initials "ABCD" at text size 200 % on the Mac, when it renders, then the initials scale until they fit the circle and never wrap.
+- AC-27 (manual) Given VoiceOver in Polish and in English on an Edge Case of each icon kind, when it is read, then the icon is skipped and the title, the message (if any) and each action are read in order (BR-9).
+- AC-28 (manual) Given the Inline Alert and Edge Case pages on iPhone at the largest accessibility text size, when they render, then the Inline Alert icon scales and stays centered on the first line, the Edge Case icon, image and monogram scale from 64 pt (`edgeCase.iconSize`) without clipping, the monogram initials never wrap, and nothing scrolls horizontally.
+- AC-29 (manual) Given an error Inline Alert, when it is shown in light and dark, then its border is Border.criticalSubtle while the other statuses use Border.info, .success, .warning (Data table).
+- AC-30 (manual) Given each page on Mac, iPad and iPhone, when it is shown, then the same layout adapts to the space given and no platform-specific variant exists.
+- AC-31 (manual) Given the Design System canvas, when this spec is `Approved`, then the Edge Case Configuration shows `edgeCase.iconSize`, `imageRadius` and the OnBackground monogram colors with a changelog entry; once a showcase page is done, then its canvas header shows Implemented, `components.md` has its entry, and the Inline Alert snippet and Configuration show `Notice.status: DK.Status` (BR-14).
+- AC-32 Given the slice adding ImageIO, when it is committed, then the workspace `CLAUDE.md` › Allowed imports lists ImageIO for DesignSystem and `docs/architecture.md` §3 matches (BR-15).
 
 ## Open questions
 - None.

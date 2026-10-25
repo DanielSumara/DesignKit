@@ -1,7 +1,7 @@
 # Base atoms
 Status: Draft · Repo: DesignKit · Feature: components · Module or target: DesignKit, DesignSystem, DemoApps · Depends on: foundations/theme-and-tokens, foundations/foundations-pages, foundations/package-and-showcase
 
-Split from base-components (Q-6); ids are kept from it, so gaps are the rules and criteria of components/base-molecules.
+Split from base-components (Q-6); ids are kept from it, so gaps are the rules and criteria of components/base-molecules. Ids of another spec are cited with its name (`base-atoms BR-10`, `base-molecules BR-10`); a bare id is this spec's.
 
 ## Goal
 The first three DesignSystem atoms, all `Approved` on the Design System canvas, ported from FinanceTracker (`Kits/DesignKit/Sources/DesignKitUI/Atoms`) and brought to their canvas look: Activity Indicator, Action Button, Status Icon. Each gets its component tokens, light and dark previews and a showcase page. They are the first component configurations, so they also settle what theme-and-tokens left for the first component spec and which values become component tokens (Q-7).
@@ -42,12 +42,13 @@ The first three DesignSystem atoms, all `Approved` on the Design System canvas, 
 
 ### Action Button (atom, `DS.ActionButton`)
 - `DS.ActionButton(data: DK.ActionButton)`; label `title` in Typography body semibold; `.actionButtonStyle(_:)` on any container sets `DS.ActionButton.Style` (primary, secondary, tertiary, success, destructive) for the buttons inside.
-- States: normal; disabled (data `.disabled`): the native disabled look, no taps; loading (data `.loading`, or an action running past the delay): label hidden keeping its width, a small Activity Indicator labelled with the title in its place, taps ignored.
+- States: normal; disabled (data `.disabled`): the native disabled look, no taps; loading (data `.loading`, or an action running past the delay): label hidden keeping its width, a small Activity Indicator labelled with the title in its place, in the label's color (OnBackground.* of the look, BR-3), taps ignored.
 - HIG: native bordered, bordered prominent and borderless buttons on every platform; Return and Esc as the default and cancel keys (Mac, and iPhone and iPad with a hardware keyboard).
 
 ### Status Icon (atom, `DS.StatusIcon`)
 - `DS.StatusIcon(_ status: DK.Status, size: CGFloat, label: Text? = nil)`; the owner passes its own size token value.
 - Symbols: info `info.circle.fill`, success `checkmark.circle.fill`, warning `exclamationmark.triangle.fill`, error `xmark.octagon.fill`; color `statusIcon.color(status)`.
+- Does not scale itself: the owner passes an already scaled size.
 - Hidden from VoiceOver unless the owner gives a label, which it then reads.
 
 ### Showcase pages (DemoApps)
@@ -56,7 +57,7 @@ The first three DesignSystem atoms, all `Approved` on the Design System canvas, 
   - Activity Indicator: control size (five), label.
   - Action Button: title, role (four, none included), state (three), style override (none and five), action duration (instant, 1 s, 3 s).
   - Status Icon: status (four), label on or off.
-- Variants, light and dark: every control size; every role × state and every style override × role; every status.
+- Variants, light and dark (the loading look shows its indicator in the label's color): every control size; every role × state and every style override × role; every status.
 - Configuration: each component token with its chain (component → semantic → primitive), from the inventory.
 
 ## Data
@@ -68,7 +69,7 @@ The first three DesignSystem atoms, all `Approved` on the Design System canvas, 
 |---|---|---|---|
 | activityIndicator | largePlaceholderSize | size48 | yes |
 | activityIndicator | extraLargePlaceholderSize | size64 | yes |
-| actionButton | activityIndicatorDelay | Motion.quick | — |
+| actionButton | activityIndicatorDelay | duration of Motion.quick | — |
 | statusIcon | color(info, success, warning, error) | Foreground.info, .success, .warning, .critical | — |
 
 ## Rules
@@ -83,9 +84,11 @@ The first three DesignSystem atoms, all `Approved` on the Design System canvas, 
 | cancel, none | bordered | prominent, Background.brand / .success, OnBackground.brand / .success label | bordered | borderless, Foreground.brand label | bordered, Foreground.critical label |
 
   Bordered buttons keep the native neutral look, never the scene tint. In an inactive Mac window prominent labels take the system's inactive look. Disabled overrides every look with the native disabled one.
-- BR-4 Action Button behavior: a tap or its key runs `action` on the main actor; while it runs further taps and key presses are ignored; if it runs longer than `activityIndicatorDelay` the loading look appears until it returns, both transitions animated with Motion.quick; a quicker action never shows the indicator. A running action is never cancelled by the button disappearing or receiving new data. Data state `.loading` shows the loading look at once and ignores taps and keys; `.disabled` ignores them.
+- BR-4 Action Button behavior: a tap or its key runs `action` on the main actor; while it runs further taps and key presses are ignored; if it runs longer than `activityIndicatorDelay` the loading look appears until it returns, both transitions animated with Motion.quick, and instant with Reduce Motion (theme-and-tokens BR-11); a quicker action never shows the indicator. A running action is never cancelled by the button disappearing or receiving new data. Data state `.loading` shows the loading look at once and ignores taps and keys; `.disabled` ignores them.
+- BR-4a Loading indicator color: the loading indicator takes the color of the label it replaces, the look's OnBackground.* (BR-3), also under style overrides; a borderless or bordered look uses its label's Foreground.* color.
+- BR-4b activityIndicatorDelay aliases only the duration of Motion.quick, so the delay stays 150 ms with Reduce Motion.
 - BR-5 Action Button keys and roles: primary is the default action (Return), cancel the cancel action (Esc), destructive and none have no key; destructive and cancel set the matching system button role. An owner shows at most one primary and one cancel button per window or sheet; with more, which one answers the key is the system's choice. VoiceOver reads the title.
-- BR-6 Status Icon: color `statusIcon.color(status)`, size the owner's value (no token of its own), hidden from accessibility without a label, read with one.
+- BR-6 Status Icon: color `statusIcon.color(status)`, size the owner's already scaled value (no token of its own, no scaling of its own), hidden from accessibility without a label, read with one.
 - BR-10 Configuration: every token of Data is a property of its component configuration in `DS.Theme.Components`, read only through `@MDS(\.{component})`; every built-in theme defines it (a missing one fails to compile); the two tokens marked "scales" join the text-bound scaling list (theme-and-tokens BR-7); `size48` and `size64` join the `size` primitives in order.
 - BR-13 Previews: each component file has a light and a dark preview showing its variants; the Activity Indicator previews render without `.theme(_:)` (theme-and-tokens BR-9 default).
 - BR-14 Lifecycle: once a component's showcase page is done, its canvas page header shows Implemented and `components.md` (skill `design-system`) gets its entry; the canvas Foundations primitives board lists `size48` and `size64`.
@@ -99,10 +102,14 @@ None: every label comes from the owner (`label`, `title`).
 - AC-2 (manual) Given the Mac showcase at text size 200 %, when the Activity Indicator shows large, then the symbol is 96 pt; on iPhone at the largest accessibility text size it is larger than 48 pt, growing with body (BR-10, theme-and-tokens BR-7).
 - AC-3 (manual) Given VoiceOver on an Activity Indicator labelled "Loading", when it is focused, then VoiceOver reads "Loading" in every size.
 - AC-4 (manual) Given the Action Button Variants, when each role × state and each override × role is shown, then every look matches BR-3 in light and dark, including primary under destructive as prominent critical and destructive under primary and success staying bordered critical.
-- AC-5 (manual) Given an Action Button with a 3 s action, when it is tapped, then the label gives way to a small indicator after 150 ms, further taps and Return do nothing, and the label returns when the action ends; given an instant action, then no indicator appears.
+- AC-5 (manual) Given an Action Button with a 3 s action, when it is tapped, then the label gives way to a small indicator after 150 ms, further taps and Return do nothing, and the label returns when the action ends; given an instant action, then no indicator appears; with Reduce Motion on, the label and indicator swap without animation, still after 150 ms.
 - AC-6 (manual) Given an Action Button with state `.loading`, when it is shown, then the indicator shows at once and taps do nothing; with `.disabled`, then it has the native disabled look and taps do nothing.
 - AC-7 (manual) Given a primary and a cancel Action Button on the Mac, when Return and then Esc are pressed, then each runs its own action; on iPad with a hardware keyboard likewise.
-- AC-8 (manual) Given a primary Action Button in a Mac window that loses focus, when the window is inactive, then its label takes the system's inactive look; given a bordered button under a brand scene tint, then it stays neutral.
+- AC-8 (manual) Given a primary Action Button in a Mac window that loses focus, when the window is inactive, then its label takes the system's inactive look.
+- AC-23 (manual) Given a bordered Action Button under a brand scene tint, when it is shown, then it stays neutral.
+- AC-24 (manual) Given prominent and bordered Action Buttons in the loading look, including under style overrides, when shown, then each indicator has the color of the label it replaces (BR-4a).
+- AC-25 (manual) Given a Status Icon of size 20 at Mac text size 200 %, when shown, then it stays 20 pt; the owner's passing a scaled size is what grows it (BR-6).
+- AC-26 (manual) Given Reduce Motion on and an Action Button with a 3 s action, when tapped, then the indicator appears after 150 ms, as without Reduce Motion (BR-4b).
 - AC-9 (manual) Given VoiceOver on an Action Button titled "Try again", when it is loading, then VoiceOver still reads "Try again".
 - AC-10 (manual) Given the Status Icon page, when each status is shown, then it draws its symbol of the Status Icon section in Foreground.info, .success, .warning and .critical, light and dark; with the label off VoiceOver skips it, with it on VoiceOver reads it.
 - AC-17 (manual) Given each of the three pages, when Theme, Amendment, Appearance and Text size are changed, then the Playground follows them and the snippet shows the current data; Variants show light and dark.
