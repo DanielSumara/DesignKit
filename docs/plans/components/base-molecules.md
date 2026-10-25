@@ -1,7 +1,7 @@
 # Base molecules — implementation plan
 Spec: DesignKit/docs/specs/components/base-molecules.md
 Repo: DesignKit
-Status: In progress
+Status: Done
 Run base: fd11cfb92f33d19673ae03094eda7476358fd933
 
 ## Slices

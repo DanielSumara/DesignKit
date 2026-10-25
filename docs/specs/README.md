@@ -12,4 +12,4 @@ A spec covers one screen or one capability of one feature; behavior spanning two
 | foundations | [foundations-pages](foundations/foundations-pages.md) | Showcase Foundations pages and playground Theme, Amendment, Text size controls | Implemented |
 | foundations | [primitives-in-design-system](foundations/primitives-in-design-system.md) | Primitive tier moved from DesignKit to DesignSystem, `internal` | Implemented |
 | components | [base-atoms](components/base-atoms.md) | Activity Indicator, Action Button, Status Icon: `DK.Status`, component tokens, DS components, showcase pages | Implemented |
-| components | [base-molecules](components/base-molecules.md) | Inline Alert, Edge Case: `DK.InlineAlert`, component tokens, AccentTint mapping, String Catalog, DS components, showcase pages | Approved |
+| components | [base-molecules](components/base-molecules.md) | Inline Alert, Edge Case: `DK.InlineAlert`, component tokens, AccentTint mapping, String Catalog, DS components, showcase pages | Implemented |
