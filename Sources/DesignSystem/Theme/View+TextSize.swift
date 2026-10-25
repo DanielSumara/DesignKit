@@ -12,8 +12,12 @@ extension View {
     }
 
     public func chromeTextSize() -> some View {
+        #if os(macOS)
         font(.body)
             .controlSize(.regular)
+        #else
+        font(.body)
+        #endif
     }
 
     public func contentTextSize() -> some View {

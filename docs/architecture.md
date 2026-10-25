@@ -58,7 +58,7 @@ Following Figma's design-token architecture, three tiers, each referring only to
 - Access only through `mds`: view modifiers (`.font(mds:)`, `.foregroundStyle(mds:)`, `.background(mds:)`, `.border(mds:width:cornerRadius:)`, `.padding(mds:)`, …), `Color(mds:)`, `@MDS var mds`, `@MDS(\.{component})`; key paths are typed per group, so an unknown or misplaced token fails to compile.
 - `.themeRoot(_:)` at every scene root and `.theme(_:)` at any depth inject the theme, tint and font design; `.themeRoot(_:)` also sets the page background as the window container background on macOS only, iOS and iPadOS keep system backgrounds; views without either render `standard`; replacing the theme restyles views in place.
 - Typography: macOS uses the `fontSize` ramp scaled by text size; iOS and iPadOS use the system text styles with Dynamic Type, ignoring text size.
-- Text size (`DK.TextSize`, seven steps 85–200 %): `mds` fonts and text-bound component sizes scale with it; spacing, radii, border widths and durations don't.
+- Text size (`DK.TextSize`, seven steps 85–200 %; macOS only, iOS and iPadOS scale with Dynamic Type instead): `mds` fonts and text-bound component sizes scale with it; spacing, radii, border widths and durations don't.
 
 ## 6. Components
 - Atomic levels: Atoms → Molecules → Organisms → Templates, each composing only lower levels; Pages are app screens.

@@ -12,10 +12,10 @@ extension DS.Theme.Inventory {
         }
         return colors
             + entries(of: tokens.spacing, kind: .spacing, group: "spacing")
-            + entries(of: tokens.typography, kind: .typography, group: "typography")
             + entries(of: tokens.radius, kind: .radius, group: "radius")
             + entries(of: tokens.borderWidth, kind: .borderWidth, group: "borderWidth")
             + entries(of: tokens.motion, kind: .motion, group: "motion")
+            + entries(of: tokens.typography, kind: .typography, group: "typography")
     }
 
     private static func entries(of group: Any, kind: SemanticKind, group label: String?) -> [SemanticEntry] {

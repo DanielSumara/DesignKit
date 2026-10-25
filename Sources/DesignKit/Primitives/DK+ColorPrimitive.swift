@@ -1,5 +1,3 @@
-import Foundation
-
 extension DK {
     package struct ColorPrimitive: Primitive {
         package enum Value: Sendable, Hashable {
@@ -119,14 +117,5 @@ extension DK {
             .pink38,
             .accent,
         ]
-
-        package var family: String {
-            String(name.prefix { !$0.isNumber })
-        }
-
-        package var hexString: String? {
-            guard case .srgb(let hex) = value else { return nil }
-            return String(format: "%06X", hex)
-        }
     }
 }

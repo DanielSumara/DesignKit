@@ -1,7 +1,7 @@
 # Theme and tokens — implementation plan
 Spec: DesignKit/docs/specs/foundations/theme-and-tokens.md
 Repo: DesignKit
-Status: In progress
+Status: Done
 Run base: 4a3b70d3a19779a69dc2f3faf930b91e4ba05ffd
 
 ## Slices
@@ -92,7 +92,7 @@ Run base: 4a3b70d3a19779a69dc2f3faf930b91e4ba05ffd
 | S3 | Done | 899de7b | 40ed89e | 0 fixed / 0 rejected |
 | S4 | Done | 40ed89e | e1ccec0 | 0 fixed / 0 rejected |
 | S5 | Done | e1ccec0 | f3eb400 | 2 fixed / 1 rejected |
-| S6 | Pending | — | — | — |
+| S6 | Done | d519380 | 4767c53 | 0 fixed / 0 rejected |
 
 ## Open questions
 - None
