@@ -7,7 +7,7 @@ A spec covers one screen or one capability of one feature; behavior spanning two
 
 | Feature | Spec | Scope | Status |
 |---|---|---|---|
-| foundations | [package-and-showcase](foundations/package-and-showcase.md) | Package skeleton, ported fundamentals, showcase apps, gate script | Approved |
+| foundations | [package-and-showcase](foundations/package-and-showcase.md) | Package skeleton, ported fundamentals, showcase apps, gate script | Implemented |
 | foundations | tokens | Primitive, semantic and component token tiers | Not started |
 | foundations | theme-and-mds | Theme, amendments, text size, `mds` APIs, `@MDS` | Not started |
 | components | status-icon | Status icon component | Not started |

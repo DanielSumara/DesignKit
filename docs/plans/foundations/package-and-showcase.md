@@ -1,7 +1,7 @@
 # Package and showcase — implementation plan
 Spec: DesignKit/docs/specs/foundations/package-and-showcase.md
 Repo: DesignKit
-Status: In progress
+Status: Done
 Baseline: empty
 Run base: 8c1facc7ada531d80912b2b144f82760092c84f6
 
