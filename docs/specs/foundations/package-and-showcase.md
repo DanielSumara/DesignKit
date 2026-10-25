@@ -97,7 +97,7 @@ A buildable package skeleton with the fundamentals every later spec builds on, t
 - Catalog: the shared pages plus the app's own platform pages from `DemoApps/{Phone,Pad,Mac}/`.
 
 ## Rules
-- BR-1 `Package.swift`: swift-tools-version 6.2; platforms iOS 26 and macOS 26; `defaultLocalization: "pl"`; products and targets `DesignKit` (no dependencies) and `DesignSystem` (depends on `DesignKit`, no resources); no other targets, no test targets, no external dependencies.
+- BR-1 (no resources superseded by base-molecules BR-12) `Package.swift`: swift-tools-version 6.2; platforms iOS 26 and macOS 26; `defaultLocalization: "pl"`; products and targets `DesignKit` (no dependencies) and `DesignSystem` (depends on `DesignKit`, no resources); no other targets, no test targets, no external dependencies.
 - BR-2 Removed (Q-7).
 - BR-3 The ported types keep the FinanceTracker public API exactly as in Data, only moved: `DesignKitUI` → `DesignSystem`; the one change is `DK.EdgeCase.symbol: String` → `icon: DK.Icon` (Q-4). Each is ported by copying its FinanceTracker file; the copy differs only by Q-4 and SwiftLint formatting (Q-9). No component, gallery, theme, token or internal helper code is ported (Q-7).
 - BR-4 Platform design-system targets are not created by this spec (SwiftPM has no empty targets; architecture §3).

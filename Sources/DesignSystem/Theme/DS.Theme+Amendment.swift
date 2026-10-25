@@ -21,5 +21,6 @@ extension DS.Theme.Amendment {
         theme.semanticTokens.colors.foreground.brand = DS.Theme.AdaptiveColor(light: .pink38, dark: .pink71)
         theme.semanticTokens.typography.design = .serif
         theme.semanticTokens.spacing.large = DS.Theme.SemanticTokens.Spacing.Value(.space48)
+        theme.components.inlineAlert.radius = DS.Theme.Components.Radius(\.large)
     }
 }

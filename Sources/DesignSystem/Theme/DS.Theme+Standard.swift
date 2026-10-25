@@ -137,6 +137,31 @@ extension DS.Theme {
                 success: \.foreground.success,
                 warning: \.foreground.warning,
                 error: \.foreground.critical
+            ),
+            inlineAlert: Components.InlineAlert(
+                background: Components.StatusColors(
+                    info: \.background.infoSubtle,
+                    success: \.background.successSubtle,
+                    warning: \.background.warningSubtle,
+                    error: \.background.criticalSubtle
+                ),
+                border: Components.StatusColors(
+                    info: \.border.info,
+                    success: \.border.success,
+                    warning: \.border.warning,
+                    error: \.border.criticalSubtle
+                ),
+                borderWidth: Components.BorderWidth(\.thin),
+                radius: Components.Radius(\.medium),
+                padding: Components.Spacing(\.medium),
+                iconSize: Components.Size(.size16),
+                iconSpacing: Components.Spacing(\.small),
+                noticeSpacing: Components.Spacing(\.small),
+                titleSpacing: Components.Spacing(\.xxSmall)
+            ),
+            edgeCase: Components.EdgeCase(
+                iconSize: Components.Size(.size64),
+                imageRadius: Components.Radius(\.large)
             )
         )
     )

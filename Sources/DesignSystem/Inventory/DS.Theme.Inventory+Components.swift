@@ -6,6 +6,8 @@ extension DS.Theme.Inventory {
         return activityIndicatorEntries(of: components.activityIndicator)
             + actionButtonEntries(of: components.actionButton, semantic: semantic)
             + statusIconEntries(of: components.statusIcon, semantic: semantic)
+            + inlineAlertEntries(of: components.inlineAlert, semantic: semantic)
+            + edgeCaseEntries(of: components.edgeCase, semantic: semantic)
     }
 
     private static func activityIndicatorEntries(of configuration: DS.Theme.Components.ActivityIndicator) -> [ComponentEntry] {
@@ -52,6 +54,107 @@ extension DS.Theme.Inventory {
                 return path == token
             }
             return ComponentEntry(component: "statusIcon", name: "color(\(status))", aliasedName: chain(of: entry))
+        }
+    }
+
+    private static func inlineAlertEntries(
+        of configuration: DS.Theme.Components.InlineAlert,
+        semantic: [SemanticEntry]
+    ) -> [ComponentEntry] {
+        let background = DK.Status.allCases.map { status in
+            ComponentEntry(
+                component: "inlineAlert",
+                name: "background(\(status))",
+                aliasedName: chain(of: colorEntry(configuration.background.token(of: status), in: semantic))
+            )
+        }
+        let border = DK.Status.allCases.map { status in
+            ComponentEntry(
+                component: "inlineAlert",
+                name: "border(\(status))",
+                aliasedName: chain(of: colorEntry(configuration.border.token(of: status), in: semantic))
+            )
+        }
+        return background + border + [
+            ComponentEntry(
+                component: "inlineAlert",
+                name: "borderWidth",
+                aliasedName: chain(of: borderWidthEntry(configuration.borderWidth.token, in: semantic))
+            ),
+            ComponentEntry(
+                component: "inlineAlert",
+                name: "radius",
+                aliasedName: chain(of: radiusEntry(configuration.radius.token, in: semantic))
+            ),
+            ComponentEntry(
+                component: "inlineAlert",
+                name: "padding",
+                aliasedName: chain(of: spacingEntry(configuration.padding.token, in: semantic))
+            ),
+            ComponentEntry(component: "inlineAlert", name: "iconSize", aliasedName: configuration.iconSize.primitive.name),
+            ComponentEntry(
+                component: "inlineAlert",
+                name: "iconSpacing",
+                aliasedName: chain(of: spacingEntry(configuration.iconSpacing.token, in: semantic))
+            ),
+            ComponentEntry(
+                component: "inlineAlert",
+                name: "noticeSpacing",
+                aliasedName: chain(of: spacingEntry(configuration.noticeSpacing.token, in: semantic))
+            ),
+            ComponentEntry(
+                component: "inlineAlert",
+                name: "titleSpacing",
+                aliasedName: chain(of: spacingEntry(configuration.titleSpacing.token, in: semantic))
+            ),
+        ]
+    }
+
+    private static func edgeCaseEntries(
+        of configuration: DS.Theme.Components.EdgeCase,
+        semantic: [SemanticEntry]
+    ) -> [ComponentEntry] {
+        [
+            ComponentEntry(component: "edgeCase", name: "iconSize", aliasedName: configuration.iconSize.primitive.name),
+            ComponentEntry(
+                component: "edgeCase",
+                name: "imageRadius",
+                aliasedName: chain(of: radiusEntry(configuration.imageRadius.token, in: semantic))
+            ),
+        ]
+    }
+
+    private static func colorEntry(
+        _ token: DS.Theme.Components.StatusColors.ColorToken,
+        in semantic: [SemanticEntry]
+    ) -> SemanticEntry? {
+        semantic.first { entry in
+            guard entry.kind == .color, case .color(let path) = entry.path else { return false }
+            return path == token
+        }
+    }
+
+    private static func spacingEntry(_ token: DS.Theme.Components.Spacing.Token, in semantic: [SemanticEntry]) -> SemanticEntry? {
+        semantic.first { entry in
+            guard entry.kind == .spacing, case .spacing(let path) = entry.path else { return false }
+            return path == token
+        }
+    }
+
+    private static func radiusEntry(_ token: DS.Theme.Components.Radius.Token, in semantic: [SemanticEntry]) -> SemanticEntry? {
+        semantic.first { entry in
+            guard entry.kind == .radius, case .radius(let path) = entry.path else { return false }
+            return path == token
+        }
+    }
+
+    private static func borderWidthEntry(
+        _ token: DS.Theme.Components.BorderWidth.Token,
+        in semantic: [SemanticEntry]
+    ) -> SemanticEntry? {
+        semantic.first { entry in
+            guard entry.kind == .borderWidth, case .borderWidth(let path) = entry.path else { return false }
+            return path == token
         }
     }
 

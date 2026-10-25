@@ -1,0 +1,70 @@
+{
+  "sourceLanguage": "pl",
+  "strings": {
+    "designSystem.statusIcon.error": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Error"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Błąd"
+          }
+        }
+      }
+    },
+    "designSystem.statusIcon.info": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Information"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Informacja"
+          }
+        }
+      }
+    },
+    "designSystem.statusIcon.success": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Success"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sukces"
+          }
+        }
+      }
+    },
+    "designSystem.statusIcon.warning": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Warning"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ostrzeżenie"
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

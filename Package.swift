@@ -13,7 +13,8 @@ let package = Package(
         .target(name: "DesignKit"),
         .target(
             name: "DesignSystem",
-            dependencies: ["DesignKit"]
+            dependencies: ["DesignKit"],
+            resources: [.process("Resources")]
         ),
     ]
 )
