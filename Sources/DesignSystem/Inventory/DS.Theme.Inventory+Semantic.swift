@@ -8,12 +8,14 @@ extension DS.Theme.Inventory {
         let colors = Mirror(reflecting: tokens.colors).children.flatMap { group in
             entries(of: group.value, kind: .color, group: group.label)
         }
-        return colors
+        let allEntries = colors
             + entries(of: tokens.spacing, kind: .spacing, group: "spacing")
             + entries(of: tokens.radius, kind: .radius, group: "radius")
             + entries(of: tokens.borderWidth, kind: .borderWidth, group: "borderWidth")
             + entries(of: tokens.motion, kind: .motion, group: "motion")
             + entries(of: tokens.typography, kind: .typography, group: "typography")
+        allEntries.forEach { _ = $0.path }
+        return allEntries
     }
 
     private static func entries(of group: Any, kind: SemanticKind, group label: String?) -> [SemanticEntry] {
