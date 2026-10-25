@@ -1,7 +1,13 @@
 import SwiftUI
 
 internal struct Catalog<each Platform: Page> {
-    private let shared = PageCollection(PageAnatomyPage(), ComponentTokensPage(), PrimitivesPage(), SemanticTokensPage())
+    private let shared = PageCollection(
+        PageAnatomyPage(),
+        ActivityIndicatorPage(),
+        ComponentTokensPage(),
+        PrimitivesPage(),
+        SemanticTokensPage()
+    )
     private let platform: PageCollection<repeat each Platform>
 
     private var entries: [PageEntry] {
