@@ -94,7 +94,7 @@ Requires the base-atoms plan `Done` (Status Icon, Action Button, `DK.Status`).
 | S1 | Done | 6bf539f | fb1bfc2 | 1 fixed / 0 rejected |
 | S2 | Done | 2088584 | f4cec1c | 1 fixed / 0 rejected |
 | S3 | Done | 130a62d | 3c0cf79 | 2 fixed / 0 rejected |
-| S4 | Pending | — | — | — |
+| S4 | Done | a2bdd11 | 2060776 | 1 fixed / 0 rejected |
 | S5 | Pending | — | — | — |
 
 ## Open questions
