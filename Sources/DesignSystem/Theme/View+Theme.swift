@@ -12,7 +12,7 @@ extension View {
 
     public func theme(_ theme: DS.Theme) -> some View {
         font(mds: \.body)
-            .tint(theme.semanticTokens.colors.background.brand)
+            .resolvedTint(theme.semanticTokens.colors.background.brand.resolve(in:))
             .fontDesign(theme.semanticTokens.typography.design.fontDesign)
             .environment(\.theme, theme)
     }

@@ -19,7 +19,7 @@ internal struct ActionButtonLabel: View {
                 DS.ActivityIndicator(label: Text(title))
                     .controlSize(.small)
                     .modifier(ActionButtonColorOverride(color: indicatorColor))
-                    .tint(indicatorColor)
+                    .resolvedTint(indicatorColor.map { color in { color.resolve(in: $0) } })
             }
         }
     }

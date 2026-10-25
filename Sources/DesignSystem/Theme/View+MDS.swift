@@ -52,7 +52,7 @@ extension View {
     public func tint(
         mds token: KeyPath<DS.Theme.SemanticTokens.Colors.Background, DS.Theme.AdaptiveColor> & Sendable
     ) -> some View {
-        tint(DS.Theme.TokenColor(group: \.background, token: token))
+        resolvedTint(DS.Theme.TokenColor(group: \.background, token: token).resolve(in:))
     }
 
     public func padding(mds spacing: KeyPath<DS.Theme.SemanticTokens.Spacing, DS.Theme.SemanticTokens.Spacing.Value>) -> some View {
