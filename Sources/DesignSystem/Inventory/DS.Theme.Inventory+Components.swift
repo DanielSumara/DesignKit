@@ -48,12 +48,11 @@ extension DS.Theme.Inventory {
         semantic: [SemanticEntry]
     ) -> [ComponentEntry] {
         DK.Status.allCases.map { status in
-            let token = configuration.token(of: status)
-            let entry = semantic.first { entry in
-                guard entry.kind == .color, case .color(let path) = entry.path else { return false }
-                return path == token
-            }
-            return ComponentEntry(component: "statusIcon", name: "color(\(status))", aliasedName: chain(of: entry))
+            ComponentEntry(
+                component: "statusIcon",
+                name: "color(\(status))",
+                aliasedName: chain(of: colorEntry(configuration.token(of: status), in: semantic))
+            )
         }
     }
 

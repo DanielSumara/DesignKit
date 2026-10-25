@@ -1,4 +1,4 @@
-import CoreGraphics
+import Foundation
 
 extension DS.Theme.Components {
     public struct Spacing: Equatable, Sendable {

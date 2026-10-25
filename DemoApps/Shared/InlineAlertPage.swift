@@ -14,13 +14,6 @@ internal struct InlineAlertPage: Page {
 }
 
 private extension InlineAlertPage {
-    static let statuses: [(name: String, status: DK.Status)] = [
-        ("info", .info),
-        ("success", .success),
-        ("warning", .warning),
-        ("error", .error)
-    ]
-
     static let properties = [
         ComponentProperty(name: "notices", type: "[DK.InlineAlert.Notice]", defaultValue: "none, required"),
         ComponentProperty(name: "notice.status", type: "DK.Status", defaultValue: ".info"),
@@ -33,7 +26,7 @@ private extension InlineAlertPage {
     }
 
     static func status(named name: String) -> DK.Status {
-        statuses.first { $0.name == name }?.status ?? .info
+        StatusOption.all.first { $0.name == name }?.status ?? .info
     }
 
     static func alert(_ notices: [DK.InlineAlert.Notice]) -> DK.InlineAlert? {
@@ -57,7 +50,7 @@ private extension InlineAlertPage {
                     + "component tokens with their alias chains.",
                 playground: { Playground() },
                 variants: {
-                    ForEach(InlineAlertPage.statuses, id: \.name) { entry in
+                    ForEach(StatusOption.all, id: \.name) { entry in
                         ComponentVariant(name: "Status: \(entry.name)") {
                             AlertView(notices: [
                                 DK.InlineAlert.Notice(status: entry.status, title: "Title", message: "Message of the notice.")
@@ -145,7 +138,7 @@ private extension InlineAlertPage {
                 ForEach($drafts.prefix(count)) { $draft in
                     LabeledContent("Notice \(draft.id + 1)") {
                         Picker("Status", selection: $draft.statusName) {
-                            ForEach(InlineAlertPage.statuses, id: \.name) { Text($0.name).tag($0.name) }
+                            ForEach(StatusOption.all, id: \.name) { Text($0.name).tag($0.name) }
                         }
                         .labelsHidden()
                     }

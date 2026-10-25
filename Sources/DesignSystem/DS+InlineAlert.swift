@@ -45,17 +45,8 @@ extension DS {
                 .accessibilityHidden(true)
                 .frame(width: configuration.iconSize.points)
                 .overlay {
-                    DS.StatusIcon(data.status, size: configuration.iconSize.points, label: statusWord)
+                    DS.StatusIcon(data.status, size: configuration.iconSize.points, label: data.status.label)
                 }
-        }
-
-        private var statusWord: Text {
-            switch data.status {
-            case .info: Text("designSystem.statusIcon.info", bundle: .module)
-            case .success: Text("designSystem.statusIcon.success", bundle: .module)
-            case .warning: Text("designSystem.statusIcon.warning", bundle: .module)
-            case .error: Text("designSystem.statusIcon.error", bundle: .module)
-            }
         }
 
         private struct NoticeText: View {

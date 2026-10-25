@@ -36,10 +36,14 @@ internal struct EdgeCaseIcon: View {
                 .foregroundStyle(DS.Theme.TokenColor(group: \.onBackground, token: tint.foregroundToken))
                 .lineLimit(1)
                 .minimumScaleFactor(Self.minimumMonogramScale)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(DS.Theme.TokenColor(group: \.background, token: tint.backgroundToken), in: Circle())
+                .frame(width: inscribedSide, height: inscribedSide)
                 .frame(width: configuration.iconSize.points, height: configuration.iconSize.points)
+                .background(DS.Theme.TokenColor(group: \.background, token: tint.backgroundToken), in: Circle())
         }
+    }
+
+    private var inscribedSide: CGFloat {
+        configuration.iconSize.points / 2.0.squareRoot()
     }
 
     private static let minimumMonogramScale: CGFloat = 0.01

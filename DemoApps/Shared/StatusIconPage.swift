@@ -16,13 +16,6 @@ internal struct StatusIconPage: Page {
 private extension StatusIconPage {
     static let baseSize: CGFloat = 20
 
-    static let statuses: [(name: String, status: DK.Status)] = [
-        ("info", .info),
-        ("success", .success),
-        ("warning", .warning),
-        ("error", .error)
-    ]
-
     static let properties = [
         ComponentProperty(name: "status", type: "DK.Status", defaultValue: "none, required"),
         ComponentProperty(name: "size", type: "CGFloat", defaultValue: "none, required"),
@@ -86,7 +79,7 @@ private extension StatusIconPage {
 
         var body: some View {
             WrappingLayout(spacing: mds(spacing: \.large)) {
-                ForEach(StatusIconPage.statuses, id: \.name) { entry in
+                ForEach(StatusOption.all, id: \.name) { entry in
                     SizedIcon(status: entry.status, name: entry.name, scales: scales, showsLabel: showsLabel)
                 }
             }
@@ -144,7 +137,7 @@ private extension StatusIconPage {
             } controls: {
                 LabeledContent("Status") {
                     Picker("Status", selection: $statusName) {
-                        ForEach(StatusIconPage.statuses, id: \.name) { entry in
+                        ForEach(StatusOption.all, id: \.name) { entry in
                             Text(entry.name).tag(entry.name)
                         }
                     }
@@ -156,7 +149,7 @@ private extension StatusIconPage {
         }
 
         private var status: DK.Status {
-            StatusIconPage.statuses.first { $0.name == statusName }?.status ?? .info
+            StatusOption.all.first { $0.name == statusName }?.status ?? .info
         }
 
         private var snippet: String {
