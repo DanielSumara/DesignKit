@@ -1,5 +1,5 @@
 # Base atoms
-Status: Draft · Repo: DesignKit · Feature: components · Module or target: DesignKit, DesignSystem, DemoApps · Depends on: foundations/theme-and-tokens, foundations/foundations-pages, foundations/package-and-showcase
+Status: Approved · Repo: DesignKit · Feature: components · Module or target: DesignKit, DesignSystem, DemoApps · Depends on: foundations/theme-and-tokens, foundations/foundations-pages, foundations/package-and-showcase
 
 Split from base-components (Q-6); ids are kept from it, so gaps are the rules and criteria of components/base-molecules. Ids of another spec are cited with its name (`base-atoms BR-10`, `base-molecules BR-10`); a bare id is this spec's.
 
@@ -90,7 +90,7 @@ The first three DesignSystem atoms, all `Approved` on the Design System canvas, 
 - BR-6 Status Icon: color `statusIcon.color(status)`, size the owner's already scaled value (no token of its own, no scaling of its own), hidden from accessibility without a label, read with one.
 - BR-10 Configuration: `activityIndicatorDelay` aliases the `duration` of the semantic Motion.quick token (BR-4b); every token of Data is a property of its component configuration in `DS.Theme.Components`, read only through `@MDS(\.{component})`; every built-in theme defines it (a missing one fails to compile); the two tokens marked "scales" join the text-bound scaling list (theme-and-tokens BR-7); `size48` and `size64` join the `size` primitives in order.
 - BR-13 Previews: each component file has a light and a dark preview showing its variants; the Activity Indicator previews render without `.theme(_:)` (theme-and-tokens BR-9 default).
-- BR-14 Lifecycle: once a component's showcase page is done, its canvas page header shows Implemented and `components.md` (skill `design-system`) gets its entry; the canvas Foundations primitives board lists `size48` and `size64`.
+- BR-14 Lifecycle: once a component's showcase page is done, its canvas page header shows Implemented and `components.md` (skill `design-system`) gets its entry; the canvas Foundations primitives board lists `size48` and `size64`. Checked by AC-34.
 - BR-16 Component token scope (Q-7): a component token exists only for a value that varies by the component's variant (status, role, size) or belongs to the component alone (its own sizes, delays, spacing and radii); every other value, such as a label color or a font, is read from its semantic token through `mds`. Adding a component token later is an additive change.
 
 ## Copy
@@ -101,7 +101,7 @@ None: every label comes from the owner (`label`, `title`).
 - AC-2 (manual) Given the Mac showcase at text size 200 %, when the Activity Indicator shows large, then the symbol is 96 pt; on iPhone at the largest accessibility text size it is larger than 48 pt, growing with body (BR-10, theme-and-tokens BR-7).
 - AC-3 (manual) Given VoiceOver on an Activity Indicator labelled "Loading", when it is focused, then VoiceOver reads "Loading" in every size.
 - AC-4 (manual) Given the Action Button Variants, when each role × state and each override × role is shown, then every look matches BR-3 in light and dark, including primary under destructive as prominent critical and destructive under primary and success staying bordered critical.
-- AC-5 (manual) Given an Action Button with a 3 s action, when it is tapped, then the label gives way to a small indicator after 150 ms, further taps and Return do nothing, and the label returns when the action ends; given an instant action, then no indicator appears; with Reduce Motion on, the label and indicator swap without animation (BR-4b).
+- AC-5 (manual) Given an Action Button with a 3 s action, when it is tapped, then the label gives way to a small indicator after 150 ms, further taps and Return do nothing, and the label returns when the action ends; given an instant action, then no indicator appears; with Reduce Motion on, the label and indicator swap without animation (BR-4, theme-and-tokens BR-11).
 - AC-6 (manual) Given an Action Button with state `.loading`, when it is shown, then the indicator shows at once and taps do nothing; with `.disabled`, then it has the native disabled look and taps do nothing.
 - AC-7 (manual) Given a primary and a cancel Action Button on the Mac, when Return and then Esc are pressed, then each runs its own action; on iPad with a hardware keyboard likewise.
 - AC-8 (manual) Given a primary Action Button in a Mac window that loses focus, when the window is inactive, then its label takes the system's inactive look.
@@ -115,6 +115,7 @@ None: every label comes from the owner (`label`, `title`).
 - AC-18 (manual) Given Xcode previews of each component file, when they render, then a light and a dark preview show; the Activity Indicator previews render the standard theme without `.theme(_:)`.
 - AC-19 Given a theme missing any token of Data, when the package builds, then it fails to compile (BR-10); checked once in the slice that adds the configurations.
 - AC-20 (manual) Given the Component tokens page, when Theme standard and Amendment none are chosen, then every token of Data shows with its chain (foundations-pages BR-6).
+- AC-34 (manual) Given a finished showcase page, when checked, then its canvas header shows Implemented and `components.md` has its entry; the canvas Foundations primitives board lists `size48` and `size64` (BR-14).
 
 ## Open questions
 - None.
