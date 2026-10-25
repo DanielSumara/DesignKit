@@ -100,7 +100,7 @@ Run base: 42052493fd47c83a0d67c57cb9147e3871cac27b
 ## Progress
 | Slice | Status | Base | Head | Review |
 |---|---|---|---|---|
-| S1 | Pending | — | — | — |
+| S1 | Done | bdb328d | 396b7cd | 1 fixed / 0 rejected (iOS Dynamic Type scaling) |
 | S2 | Pending | — | — | — |
 | S3 | Pending | — | — | — |
 | S4 | Pending | — | — | — |
