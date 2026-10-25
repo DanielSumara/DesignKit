@@ -1,7 +1,9 @@
 import SwiftUI
 
 @MainActor
-internal enum PageAnatomyPage {
+internal struct PageAnatomyPage: View {
+    static let sampleTextDefault = "The quick brown fox jumps over the lazy dog"
+
     static var page: Page {
         Page(
             id: "page-anatomy",
@@ -19,7 +21,7 @@ internal enum PageAnatomyPage {
                     }
                 ],
                 properties: [
-                    ComponentProperty(name: "sampleText", type: "String", defaultValue: PageAnatomyPlayground.sampleTextDefault)
+                    ComponentProperty(name: "sampleText", type: "String", defaultValue: sampleTextDefault)
                 ],
                 tokens: [],
                 playgroundIntro: "Playground: the live subject, a control for each property and data field, "
@@ -27,8 +29,24 @@ internal enum PageAnatomyPage {
                 variantsIntro: "Variants: every variant, in light and dark.",
                 configurationIntro: "Configuration: properties with their defaults, "
                     + "component tokens with their alias chains.",
-                playground: { PageAnatomyPlayground() }
+                playground: { PageAnatomyPage() }
             )
         )
+    }
+
+    @State private var sampleText = sampleTextDefault
+
+    var body: some View {
+        PlaygroundLayout(snippet: "Text(\"\(escaped)\")") {
+            Text(sampleText)
+        } controls: {
+            TextField("Sample text", text: $sampleText)
+        }
+    }
+
+    private var escaped: String {
+        sampleText
+            .replacingOccurrences(of: "\\", with: "\\\\")
+            .replacingOccurrences(of: "\"", with: "\\\"")
     }
 }
