@@ -11,6 +11,7 @@ Public Swift package: the design system of the HomeBudget apps. Workspace rules:
 - Public API is the product: additive changes are minor versions, breaking changes major (SemVer tags; `CHANGELOG.md` per release)
 
 ## Commands
+- Gate: `scripts/gate.sh [logfile]`: tool check, lint, package build, iOS build, xcodegen, three Showcase builds; stops at the first failure; log in `$TMPDIR` by default
 - Lint: `swiftlint lint --strict --quiet`
 - Build: `xcrun swift build --build-system swiftbuild -Xswiftc -warnings-as-errors`; iOS: `xcodebuild -scheme DesignSystem -destination 'generic/platform=iOS' build SWIFT_TREAT_WARNINGS_AS_ERRORS=YES`
 - Showcase: `cd DemoApps && xcodegen generate`, then build `ShowcaseMac` (`platform=macOS`), `ShowcasePhone` and `ShowcasePad` (`generic/platform=iOS Simulator`; no development team), each with `SWIFT_TREAT_WARNINGS_AS_ERRORS=YES`
