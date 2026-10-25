@@ -66,10 +66,19 @@ extension DS.Theme.SemanticTokens.Typography {
     }
 
     public struct Weight: Sendable {
-        public var regular: Font.Weight { .regular }
-        public var medium: Font.Weight { .medium }
-        public var semibold: Font.Weight { .semibold }
-        public var bold: Font.Weight { .bold }
+        public let regular: Font.Weight = .regular
+        public let medium: Font.Weight = .medium
+        public let semibold: Font.Weight = .semibold
+        public let bold: Font.Weight = .bold
+
+        typealias Path = KeyPath<Weight, Font.Weight> & Sendable
+
+        static let all: [(name: String, path: Path)] = [
+            ("regular", \.regular),
+            ("medium", \.medium),
+            ("semibold", \.semibold),
+            ("bold", \.bold),
+        ]
     }
 }
 

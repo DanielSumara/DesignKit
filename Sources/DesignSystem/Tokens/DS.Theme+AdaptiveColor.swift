@@ -73,7 +73,7 @@ extension DS.Theme.AdaptiveColor {
     }
 }
 
-private extension Color {
+extension Color {
     init(_ primitive: DS.Theme.ColorPrimitive) {
         switch primitive.value {
         case .srgb(let hex):
