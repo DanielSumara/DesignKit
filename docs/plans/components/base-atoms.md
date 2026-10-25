@@ -103,9 +103,9 @@ Run base: 42052493fd47c83a0d67c57cb9147e3871cac27b
 | S1 | Done | bdb328d | 396b7cd | 1 fixed / 0 rejected (iOS Dynamic Type scaling) |
 | S2 | Done | 13dbd90 | d94f70d | 0 fixed / 0 rejected |
 | S3 | Done | fe6f028 | 22a9bbe | 1 fixed / 0 rejected |
-| S4 | Pending | — | — | — |
+| S4 | Done | 9f4e39c | 3160642 | 2 fixed / 0 rejected |
 | S5 | Pending | — | — | — |
 | S6 | Pending | — | — | — |
 
 ## Open questions
-- None
+- AC-23 (manual): the page has no scene-tint control; the Amendment picker (Sample) changes brand tokens only. Verify whether it suffices when checking AC-23 or add a tint control (spec decision)
