@@ -105,7 +105,7 @@ Run base: 42052493fd47c83a0d67c57cb9147e3871cac27b
 | S3 | Done | fe6f028 | 22a9bbe | 1 fixed / 0 rejected |
 | S4 | Done | 9f4e39c | 3160642 | 2 fixed / 0 rejected |
 | S5 | Done | e2db421 | b406b8e | 0 fixed / 0 rejected |
-| S6 | Pending | — | — | — |
+| S6 | Done | 6c21dc5 | 6c21dc5 | no repo code; components.md in HomeBudgetApps, canvas v12 |
 
 ## Open questions
 - AC-23 (manual): the page has no scene-tint control; the Amendment picker (Sample) changes brand tokens only. Verify whether it suffices when checking AC-23 or add a tint control (spec decision)
