@@ -88,7 +88,7 @@ Run base: 4a3b70d3a19779a69dc2f3faf930b91e4ba05ffd
 | Slice | Status | Base | Head | Review |
 |---|---|---|---|---|
 | S1 | Done | 4a3b70d | b242cbe | 1 fixed / 0 rejected |
-| S2 | Pending | — | — | — |
+| S2 | Done | b24a96a | 1a06a33 | 1 fixed / 0 rejected |
 | S3 | Pending | — | — | — |
 | S4 | Pending | — | — | — |
 | S5 | Pending | — | — | — |

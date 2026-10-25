@@ -51,7 +51,7 @@ Following Figma's design-token architecture, three tiers, each referring only to
 | Component | per-component configuration in `DS.Theme.Components`: aliases of semantic tokens, or `size` primitives for sizes | `InlineAlert.background(info) → Background.infoSubtle` | its component through `@MDS(\.{component})` |
 
 - A theme is a complete mapping: semantic → primitive and component → semantic. A missing value fails to compile; a literal where an alias belongs fails to compile.
-- Built-in theme `standard`; an amendment overrides any subset of semantic or component tokens of one base theme with other primitives or aliases; at most one applies.
+- Built-in theme `standard`; an amendment overrides any subset of semantic or component tokens of one base theme with other primitives or aliases; at most one applies: amending an amended theme applies the new amendment to the unamended base theme, replacing the previous one.
 - Colors resolve where they render (theme, color scheme, Increase Contrast pair when on); `mds` animations honor Reduce Motion.
 
 ## 5. Theme, scaling and access

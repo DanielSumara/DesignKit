@@ -5,9 +5,11 @@ extension DS.Theme {
     }
 
     public func amended(by amendment: Amendment) -> DS.Theme {
-        guard amendment.baseThemeID == id else { return self }
-        var theme = self
+        let unamended = base?.theme ?? self
+        guard amendment.baseThemeID == unamended.id else { return self }
+        var theme = unamended
         amendment.apply(&theme)
+        theme.base = Base(unamended)
         return theme
     }
 }
