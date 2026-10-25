@@ -1,4 +1,4 @@
-import DesignSystem
+@_spi(Showcase) import DesignSystem
 import SwiftUI
 
 @MainActor
@@ -41,6 +41,27 @@ private extension SemanticTokensPage {
                     .font(mds: \.body)
                     .foregroundStyle(mds: \.secondary)
                 SemanticColorsSection()
+                SemanticTokenSection(title: "Spacing", kind: .spacing) { entry in
+                    if case .spacing(let path) = entry.path {
+                        SemanticSpacingSample(name: entry.name, path: path)
+                    }
+                }
+                SemanticTokenSection(title: "Radius", kind: .radius) { entry in
+                    if case .radius(let path) = entry.path {
+                        SemanticRadiusSample(name: entry.name, path: path)
+                    }
+                }
+                SemanticTokenSection(title: "Border width", kind: .borderWidth) { entry in
+                    if case .borderWidth(let path) = entry.path {
+                        SemanticBorderWidthSample(name: entry.name, path: path)
+                    }
+                }
+                SemanticTokenSection(title: "Motion", kind: .motion) { entry in
+                    if case .motion(let path) = entry.path {
+                        SemanticMotionSample(name: entry.name, path: path)
+                    }
+                }
+                SemanticTypographySection()
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }
