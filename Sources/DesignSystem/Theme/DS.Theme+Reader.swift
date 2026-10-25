@@ -5,10 +5,19 @@ extension DS.Theme {
     public struct Reader {
         let theme: DS.Theme
         let textSize: DK.TextSize
+        let bodyScale: CGFloat
         let reducesMotion: Bool
 
         var components: Components {
-            theme.components.resolved(against: theme.semanticTokens).scaled(by: textSize.scale)
+            theme.components.resolved(against: theme.semanticTokens).scaled(by: textScale)
+        }
+
+        private var textScale: CGFloat {
+            #if os(macOS)
+            textSize.scale
+            #else
+            bodyScale
+            #endif
         }
 
         public func callAsFunction(color token: KeyPath<SemanticTokens.Colors, AdaptiveColor> & Sendable) -> Color {
