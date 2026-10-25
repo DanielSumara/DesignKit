@@ -1,7 +1,7 @@
 # Foundations pages — implementation plan
 Spec: DesignKit/docs/specs/foundations/foundations-pages.md
 Repo: DesignKit
-Status: In progress
+Status: Done
 Run base: c79b634
 
 ## Slices
