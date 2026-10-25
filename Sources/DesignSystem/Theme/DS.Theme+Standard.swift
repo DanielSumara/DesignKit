@@ -124,6 +124,20 @@ extension DS.Theme {
                 slow: SemanticTokens.Motion.Value(.duration400)
             )
         ),
-        components: Components()
+        components: Components(
+            activityIndicator: Components.ActivityIndicator(
+                largePlaceholderSize: Components.Size(.size48),
+                extraLargePlaceholderSize: Components.Size(.size64)
+            ),
+            actionButton: Components.ActionButton(
+                activityIndicatorDelay: Components.Delay(\.quick)
+            ),
+            statusIcon: Components.StatusIcon(
+                info: \.foreground.info,
+                success: \.foreground.success,
+                warning: \.foreground.warning,
+                error: \.foreground.critical
+            )
+        )
     )
 }

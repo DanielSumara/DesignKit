@@ -2,6 +2,17 @@ import Foundation
 
 extension DS.Theme.Components {
     func scaled(by scale: CGFloat) -> Self {
-        self
+        var components = self
+        components.activityIndicator.largePlaceholderSize.factor = scale
+        components.activityIndicator.extraLargePlaceholderSize.factor = scale
+        return components
+    }
+
+    func resolved(against semanticTokens: DS.Theme.SemanticTokens) -> Self {
+        var components = self
+        let motion = semanticTokens.motion
+        let token = components.actionButton.activityIndicatorDelay.token
+        components.actionButton.activityIndicatorDelay.resolvedDuration = .milliseconds(motion[keyPath: token].primitive.milliseconds)
+        return components
     }
 }

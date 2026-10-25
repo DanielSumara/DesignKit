@@ -9,7 +9,7 @@ extension DS.Theme {
         Inventory(
             primitives: Inventory.primitiveEntries(),
             semanticTokens: Inventory.semanticEntries(of: semanticTokens),
-            componentTokens: Inventory.componentEntries(of: components)
+            componentTokens: Inventory.componentEntries(of: components, semanticTokens: semanticTokens)
         )
     }
 }

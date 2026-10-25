@@ -8,7 +8,7 @@ extension DS.Theme {
         let reducesMotion: Bool
 
         var components: Components {
-            theme.components.scaled(by: textSize.scale)
+            theme.components.resolved(against: theme.semanticTokens).scaled(by: textSize.scale)
         }
 
         public func callAsFunction(color token: KeyPath<SemanticTokens.Colors, AdaptiveColor> & Sendable) -> Color {
