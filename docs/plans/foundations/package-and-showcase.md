@@ -98,7 +98,7 @@ Run base: 8c1facc7ada531d80912b2b144f82760092c84f6
 ## Progress
 | Slice | Status | Base | Head | Review |
 |---|---|---|---|---|
-| S1 | Pending | — | — | — |
+| S1 | Done | 8c1facc | 76e417d | 0 fixed / 0 rejected |
 | S2 | Pending | — | — | — |
 | S3 | Pending | — | — | — |
 | S4 | Pending | — | — | — |
