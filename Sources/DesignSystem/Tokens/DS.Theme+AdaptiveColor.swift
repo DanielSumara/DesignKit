@@ -19,10 +19,10 @@ extension DS.Theme {
             }
         }
 
-        private let light: Alias
-        private let dark: Alias
-        private let increasedLight: Alias?
-        private let increasedDark: Alias?
+        let light: Alias
+        let dark: Alias
+        let increasedLight: Alias?
+        let increasedDark: Alias?
 
         init(light: Alias, dark: Alias, increasedLight: Alias? = nil, increasedDark: Alias? = nil) {
             self.light = light
