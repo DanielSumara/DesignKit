@@ -1,6 +1,6 @@
 @MainActor
 internal struct Catalog {
-    static let sharedPages: [Page] = []
+    static let sharedPages: [Page] = [PageAnatomyPage.page]
 
     let pages: [Page]
 
