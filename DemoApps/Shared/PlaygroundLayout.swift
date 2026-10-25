@@ -13,7 +13,7 @@ internal struct PlaygroundLayout<Preview: View, Controls: View>: View {
             Text("Controls").font(.headline)
             controls()
             Text("Environment").font(.headline)
-            AppearancePicker()
+            EnvironmentControls()
             Text("Code").font(.headline)
             Text(snippet)
                 .font(.body.monospaced())

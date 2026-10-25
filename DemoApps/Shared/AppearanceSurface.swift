@@ -8,6 +8,7 @@ internal struct AppearanceSurface<Content: View>: View {
 
     var body: some View {
         content()
+            .showcaseEnvironment()
             .padding()
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(.background)
