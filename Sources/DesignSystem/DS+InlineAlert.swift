@@ -40,7 +40,7 @@ extension DS {
 
         private func icon(firstLineHasTitle: Bool) -> some View {
             Text(verbatim: " ")
-                .font(mds: firstLineHasTitle ? \.semibold : \.regular, \.subheadline)
+                .font(mds: firstLineHasTitle ? \.semibold : \.regular, \.body)
                 .hidden()
                 .accessibilityHidden(true)
                 .frame(width: configuration.iconSize.points)
@@ -66,12 +66,12 @@ extension DS {
                 VStack(alignment: .leading, spacing: configuration.titleSpacing.points) {
                     if !notice.title.isEmpty {
                         Text(notice.title)
-                            .font(mds: \.semibold, \.subheadline)
+                            .font(mds: \.semibold, \.body)
                             .foregroundStyle(mds: \.primary)
                     }
                     if !notice.message.isEmpty {
                         Text(notice.message)
-                            .font(mds: \.regular, \.subheadline)
+                            .font(mds: \.regular, \.body)
                             .foregroundStyle(mds: \.secondary)
                     }
                 }
