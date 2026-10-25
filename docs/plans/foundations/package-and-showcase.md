@@ -102,7 +102,7 @@ Run base: 8c1facc7ada531d80912b2b144f82760092c84f6
 | S2 | Done | 07f5606 | 21c9d80 | 0 fixed / 0 rejected |
 | S3 | Done | 2140771 | 31c928a | 1 fixed / 0 rejected |
 | S4 | Done | 92b6d98 | 8343fca | 0 fixed / 0 rejected |
-| S5 | Pending | — | — | — |
+| S5 | Done | dd749b6 | e71af86 | 1 fixed / 0 rejected |
 
 ## Open questions
 - None
