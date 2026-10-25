@@ -5,11 +5,14 @@ internal struct AppearancePicker: View {
 
     var body: some View {
         @Bindable var playgroundEnvironment = playgroundEnvironment
-        Picker("Appearance", selection: $playgroundEnvironment.appearance) {
-            ForEach(PlaygroundAppearance.allCases) { appearance in
-                Text(appearance.title).tag(appearance)
+        LabeledContent("Appearance") {
+            Picker("Appearance", selection: $playgroundEnvironment.appearance) {
+                ForEach(PlaygroundAppearance.allCases) { appearance in
+                    Text(appearance.title).tag(appearance)
+                }
             }
+            .pickerStyle(.segmented)
+            .labelsHidden()
         }
-        .pickerStyle(.segmented)
     }
 }
