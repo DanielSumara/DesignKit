@@ -47,9 +47,7 @@ private extension PageAnatomyPage {
         }
 
         private var escaped: String {
-            sampleText
-                .replacingOccurrences(of: "\\", with: "\\\\")
-                .replacingOccurrences(of: "\"", with: "\\\"")
+            sampleText.snippetLiteral
         }
     }
 }

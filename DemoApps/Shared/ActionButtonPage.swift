@@ -35,6 +35,11 @@ private extension ActionButtonPage {
         ("loading", .loading)
     ]
 
+    static let overrideStates: [(name: String, state: ButtonState)] = [
+        ("normal", .normal),
+        ("loading", .loading)
+    ]
+
     static let styles: [(name: String, style: Style?)] = [
         ("none", nil),
         ("primary", .primary),
@@ -130,10 +135,12 @@ private extension ActionButtonPage {
                 properties: ActionButtonPage.properties,
                 tokens: tokens,
                 playgroundIntro: "Playground: title, role, state, style override and action duration, "
-                    + "with the shared environment and the code.",
+                    + "with the shared environment and the code. Return and Esc answer only here, "
+                    + "on the keyboard demo below the preview: keep the playground role at none.",
                 variantsIntro: "Variants: every role and state with a tap counter (loading and disabled stay at 0), "
-                    + "Return and Esc on a primary and a cancel button, and every style override and role, "
-                    + "in light and dark. The loading look shows its indicator in the label's color.",
+                    + "and every style override with every role, normal and loading, in light and dark. "
+                    + "The loading look shows its indicator in the label's color. "
+                    + "Return and Esc are answered only on the Playground tab.",
                 configurationIntro: "Configuration: properties with their defaults, "
                     + "component tokens with their alias chains.",
                 playground: { Playground() },
@@ -147,17 +154,20 @@ private extension ActionButtonPage {
                             }
                         }
                     }
-                    ComponentVariant(name: "Keyboard") {
-                        KeyboardDemo()
-                    }
                     ForEach(ActionButtonPage.styles, id: \.name) { style in
                         ComponentVariant(name: "Override: \(style.name)") {
                             StyleScope(style: style.style) {
-                                ButtonRow {
-                                    ForEach(ActionButtonPage.roles, id: \.name) { role in
-                                        DS.ActionButton(
-                                            data: ActionButtonPage.button(title: role.name, role: role.role, state: .normal)
-                                        )
+                                ForEach(ActionButtonPage.overrideStates, id: \.name) { state in
+                                    ButtonRow {
+                                        ForEach(ActionButtonPage.roles, id: \.name) { role in
+                                            DS.ActionButton(
+                                                data: ActionButtonPage.button(
+                                                    title: role.name,
+                                                    role: role.role,
+                                                    state: state.state
+                                                )
+                                            )
+                                        }
                                     }
                                 }
                             }
@@ -168,13 +178,12 @@ private extension ActionButtonPage {
         }
 
         private var tokens: [ComponentToken] {
-            playgroundEnvironment.resolvedTheme.inventory.componentTokens
-                .filter { $0.component == "actionButton" }
-                .map { ComponentToken(token: $0.name, aliasChain: [$0.aliasedName]) }
+            playgroundEnvironment.componentTokens(of: "actionButton")
         }
     }
 
     struct Playground: View {
+        @MDS private var mds
         @State private var title = ActionButtonPage.titleDefault
         @State private var roleName = "none"
         @State private var stateName = "normal"
@@ -183,8 +192,12 @@ private extension ActionButtonPage {
 
         var body: some View {
             PlaygroundLayout(snippet: snippet) {
-                StyleScope(style: style) {
-                    DS.ActionButton(data: ActionButtonPage.button(title: title, role: role, state: state, seconds: seconds))
+                VStack(alignment: .leading, spacing: mds(spacing: \.medium)) {
+                    StyleScope(style: style) {
+                        DS.ActionButton(data: ActionButtonPage.button(title: title, role: role, state: state, seconds: seconds))
+                    }
+                    Divider()
+                    KeyboardDemo()
                 }
             } controls: {
                 TextField("Title", text: $title)
@@ -223,11 +236,8 @@ private extension ActionButtonPage {
         }
 
         private var snippet: String {
-            let escaped = title
-                .replacingOccurrences(of: "\\", with: "\\\\")
-                .replacingOccurrences(of: "\"", with: "\\\"")
             let roleArgument = role == nil ? "" : "role: .\(roleName), "
-            let button = "DS.ActionButton(data: DK.ActionButton(title: \"\(escaped)\", "
+            let button = "DS.ActionButton(data: DK.ActionButton(title: \"\(title.snippetLiteral)\", "
                 + "\(roleArgument)state: .\(stateName)) { await work(\(durationName)) })"
             return styleName == "none" ? button : "\(button)\n    .actionButtonStyle(.\(styleName))"
         }

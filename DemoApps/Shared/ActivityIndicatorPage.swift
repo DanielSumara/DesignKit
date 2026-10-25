@@ -55,9 +55,7 @@ private extension ActivityIndicatorPage {
         }
 
         private var tokens: [ComponentToken] {
-            playgroundEnvironment.resolvedTheme.inventory.componentTokens
-                .filter { $0.component == "activityIndicator" }
-                .map { ComponentToken(token: $0.name, aliasChain: [$0.aliasedName]) }
+            playgroundEnvironment.componentTokens(of: "activityIndicator")
         }
     }
 
@@ -87,10 +85,7 @@ private extension ActivityIndicatorPage {
         }
 
         private var snippet: String {
-            let escaped = label
-                .replacingOccurrences(of: "\\", with: "\\\\")
-                .replacingOccurrences(of: "\"", with: "\\\"")
-            return "DS.ActivityIndicator(label: Text(\"\(escaped)\"))\n    .controlSize(.\(sizeName))"
+            "DS.ActivityIndicator(label: Text(\"\(label.snippetLiteral)\"))\n    .controlSize(.\(sizeName))"
         }
     }
 }

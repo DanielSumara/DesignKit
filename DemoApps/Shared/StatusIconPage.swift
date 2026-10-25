@@ -129,9 +129,7 @@ private extension StatusIconPage {
         }
 
         private var tokens: [ComponentToken] {
-            playgroundEnvironment.resolvedTheme.inventory.componentTokens
-                .filter { $0.component == "statusIcon" }
-                .map { ComponentToken(token: $0.name, aliasChain: [$0.aliasedName]) }
+            playgroundEnvironment.componentTokens(of: "statusIcon")
         }
     }
 
