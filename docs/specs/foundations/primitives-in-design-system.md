@@ -7,7 +7,8 @@ Keep all three token tiers in one target: the primitive tier moves from DesignKi
 ## Scope
 - In:
   - The primitive types (`Primitive` protocol and the scales `color`, `space`, `size`, `radius`, `stroke`, `duration`, `opacity`, `fontSize`) move from `Sources/DesignKit/Primitives/` to `Sources/DesignSystem/Tokens/Primitives/`, renamed from `DK.` to `DS.Theme.` and narrowed from `package` to `internal` (Q-1, Q-2)
-  - Every DesignSystem reference updated: semantic tokens, adaptive color, typography, motion, the token inventory
+  - Every DesignSystem file naming a `DK.` primitive type updated (semantic tokens, adaptive color, the token inventory); themes and amendments name primitives by leading-dot members and stay unchanged
+  - `.swiftlint.yml` › `no_literal_styling` excludes `Sources/DesignSystem/Tokens/Primitives/` (Q-4)
   - Owner documents state the new placement, updated with this spec (Q-3): workspace `CLAUDE.md` › Structure; `DesignKit/CLAUDE.md` › Targets; `docs/architecture.md` §2 tree, §3 target table and placement note, §4 Primitive row; skill `design-system` › Primitive; theme-and-tokens BR-1 superseded by BR-1 here
 - Out:
   - Any change to primitive names, values or scales, semantic or component tokens, themes, amendments, `mds` APIs, the inventory's SPI types or the showcase
@@ -30,20 +31,23 @@ None; no visible change.
 - `DS.Theme.ColorPrimitive`, `SpacePrimitive`, `SizePrimitive`, `RadiusPrimitive`, `StrokePrimitive`, `DurationPrimitive`, `OpacityPrimitive`, `FontSizePrimitive` (`internal`): the members and values of their `DK.` counterparts, unchanged (theme-and-tokens Data)
 
 ## Rules
-- BR-1 Supersedes theme-and-tokens BR-1's placement clause: primitive values exist only in DesignSystem, `internal` access, as `DS.Theme.{Scale}Primitive`, one per file `DS.Theme+{Scale}Primitive.swift` in `Sources/DesignSystem/Tokens/Primitives/`. The rest of theme-and-tokens BR-1 (aliasing, compile-time completeness) is unchanged (Q-1, Q-2).
+- BR-1 Supersedes theme-and-tokens BR-1's placement clause: primitive values exist only in DesignSystem, `internal` access, as `DS.Theme.{Scale}Primitive`, one per file `DS.Theme+{Scale}Primitive.swift`, the protocol in `DS.Theme+Primitive.swift`, all in `Sources/DesignSystem/Tokens/Primitives/`. The rest of theme-and-tokens BR-1 (aliasing, compile-time completeness) is unchanged (Q-1, Q-2).
 - BR-2 DesignKit holds no token types or values; `Sources/DesignKit/Primitives/` is removed.
 - BR-3 No primitive name, value, scale, order, semantic alias or component alias changes; the inventory lists the same entries in the same order (theme-and-tokens BR-2, BR-14).
 - BR-4 theme-and-tokens BR-3 holds: no public API exposes a primitive; the `@_spi(Showcase)` inventory keeps its own `PrimitiveValue` and `PrimitiveEntry` types.
 - BR-5 The owner documents of Scope › In state this placement from this spec's commit on (Q-3); until the increment lands, the code lags them.
+- BR-6 `no_literal_styling` excludes `Sources/DesignSystem/Tokens/Primitives/`: primitives are the one place literal values live (Q-4).
 
 ## Copy
 None.
 
 ## Acceptance criteria
 - AC-1 Given the package, when searched for `DK.` followed by a primitive type name or for `Sources/DesignKit/Primitives`, then nothing is found, and `Sources/DesignSystem/Tokens/Primitives/` holds the protocol and the eight scale types.
-- AC-2 Given a Swift file in `DemoApps/` or another target of the package, when it names `DS.Theme.SpacePrimitive.space16`, with or without the SPI import, then it fails to compile; checked once in the moving slice.
-- AC-3 Given the package, when built for iOS and macOS and its tests run, then all pass with no source change outside DesignKit and DesignSystem.
+- AC-2 Given a Swift file in `DemoApps/`, when it names `DS.Theme.SpacePrimitive.space16`, with or without the SPI import, then it fails to compile; checked once in the moving slice.
+- AC-3 Given the increment, when `scripts/gate.sh` runs (lint, package and iOS builds, three Showcase builds), then it passes with no change under `DemoApps/`.
 - AC-4 Given each showcase app, when the Primitives, Semantic tokens and Component tokens pages are opened, then they show the same entries, values and chains as before the move. (manual)
+- AC-5 Given `Sources/DesignSystem/Tokens/Primitives/`, when searched for `package` or `public`, then nothing is found.
+- AC-6 Given `.swiftlint.yml`, when `no_literal_styling` is read, then its `excluded` holds `Sources/DesignSystem/Tokens/Primitives/`.
 
 ## Open questions
 None.
