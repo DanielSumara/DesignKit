@@ -76,7 +76,7 @@ custom_rules:
     severity: error
   no_literal_styling:
     name: No literal styling
-    included: 'Sources/(\w*DesignSystem)/.*\.swift'
+    included: '(Sources/(\w*DesignSystem)|DemoApps)/.*\.swift'
     regex: '(Color\((red|white|hue|hex):|Color\.(red|orange|yellow|green|mint|teal|cyan|blue|indigo|purple|pink|brown|gray|black|white)\b|\.font\(\.system\(size:|\.(padding|cornerRadius)\(\s*\d|(spacing|cornerRadius|lineWidth|radius):\s*\d|\.frame\((width|height|minWidth|maxWidth|minHeight|maxHeight):\s*\d|\.(milliseconds|seconds)\(\d|\.opacity\(\s*0?\.\d)'
     message: "Styling only through mds APIs (tokens); literal values belong to primitives."
     severity: error
