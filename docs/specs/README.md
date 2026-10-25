@@ -8,7 +8,8 @@ A spec covers one screen or one capability of one feature; behavior spanning two
 | Feature | Spec | Scope | Status |
 |---|---|---|---|
 | foundations | [package-and-showcase](foundations/package-and-showcase.md) | Package skeleton, ported fundamentals, showcase apps, gate script | Implemented |
-| foundations | [theme-and-tokens](foundations/theme-and-tokens.md) | Token tiers, standard theme, amendment, text size, `@MDS` and `mds` APIs, Foundations showcase pages | Draft |
+| foundations | [theme-and-tokens](foundations/theme-and-tokens.md) | Token tiers, standard theme, amendment, text size, `@MDS` and `mds` APIs, token inventory | Draft |
+| foundations | [foundations-pages](foundations/foundations-pages.md) | Showcase Foundations pages and playground Theme, Amendment, Text size controls | Draft |
 | components | activity-indicator | Activity indicator atom | Not started |
 | components | action-button | Action button atom over `DK.ActionButton` | Not started |
 | components | status-icon | Status icon component | Not started |
