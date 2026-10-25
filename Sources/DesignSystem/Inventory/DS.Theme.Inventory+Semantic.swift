@@ -1,5 +1,3 @@
-import DesignKit
-
 extension DS.Theme.Inventory {
     typealias Tokens = DS.Theme.SemanticTokens
 

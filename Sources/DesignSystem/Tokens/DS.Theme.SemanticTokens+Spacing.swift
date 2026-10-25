@@ -1,5 +1,3 @@
-import DesignKit
-
 extension DS.Theme.SemanticTokens {
     public struct Spacing: Equatable, Sendable {
         public internal(set) var xxSmall: Value

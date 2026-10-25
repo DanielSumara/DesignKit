@@ -1,5 +1,3 @@
-import DesignKit
-
 extension DS.Theme.SemanticTokens {
     public struct BorderWidth: Equatable, Sendable {
         public internal(set) var thin: Value

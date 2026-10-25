@@ -1,5 +1,3 @@
-import DesignKit
-
 extension DS.Theme.SemanticTokens {
     public struct Radius: Equatable, Sendable {
         public internal(set) var small: Value

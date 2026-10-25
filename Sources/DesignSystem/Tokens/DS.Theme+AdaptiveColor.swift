@@ -1,4 +1,3 @@
-import DesignKit
 import SwiftUI
 
 extension DS.Theme {

@@ -1,5 +1,3 @@
-import DesignKit
-
 extension DS.Theme.Inventory {
     static func primitiveEntries() -> [PrimitiveEntry] {
         entries(DS.Theme.ColorPrimitive.self) { primitive in
