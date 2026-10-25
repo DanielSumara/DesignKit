@@ -2,7 +2,7 @@
 Status: Draft · Repo: DesignKit · Feature: components · Module or target: DesignKit, DesignSystem, DemoApps · Depends on: components/base-atoms, foundations/theme-and-tokens, foundations/foundations-pages, foundations/package-and-showcase
 
 Split from base-components (Q-6); ids are kept from it, so gaps are the rules and criteria of components/base-atoms.
-Ids are cited with the spec name: `base-atoms BR-10`, `base-molecules BR-10`; AC-1 to AC-26 are taken across both specs, new ones start at AC-27.
+Ids are cited with the spec name: `base-atoms BR-10`, `base-molecules BR-10`; new ids continue after the highest id used in either spec (currently AC-33).
 
 ## Goal
 The first two DesignSystem molecules, both `Approved` on the Design System canvas, ported from FinanceTracker (`Kits/DesignKit/Sources/DesignKitUI/Molecules`) and brought to their canvas look: Inline Alert and Edge Case, composed of the base atoms. Each gets its component tokens, light and dark previews and a showcase page. They bring DesignSystem its String Catalog and the first component override of the sample amendment.
@@ -86,7 +86,7 @@ The first two DesignSystem molecules, both `Approved` on the Design System canva
 - BR-11 The sample amendment overrides `inlineAlert.radius` with Radius.large (theme-and-tokens BR-10).
 - BR-12 Copy: DesignSystem gets a String Catalog (`Sources/DesignSystem/Resources/Localizable.xcstrings`, resources declared in `Package.swift`); package-and-showcase BR-1 ("no resources") is marked superseded by this rule in the same slice. Keys `designSystem.{component}.{element}`, pl and en; the status words are named for the Status Icon, so every owner of a labelled Status Icon reuses them. Showcase copy stays English literals (package-and-showcase BR-6).
 - BR-13 Previews: each component file has a light and a dark preview showing its variants.
-- BR-14 Lifecycle: before this spec is `Approved`, the Edge Case canvas Configuration shows `edgeCase.iconSize` and `imageRadius` (Q-2) and the monogram draws the OnBackground colors of Data (Q-9), with a changelog entry. Once a component's showcase page is done, its canvas page header shows Implemented and `components.md` (skill `design-system`) gets its entry; the Inline Alert canvas snippet and Configuration show `Notice.status: DK.Status` (Q-4). Checked by AC-31.
+- BR-14 Lifecycle: before this spec is `Approved`, the Edge Case canvas Configuration shows `edgeCase.iconSize` and `imageRadius` (Q-2) and the monogram draws the OnBackground colors of Data (Q-9), with a changelog entry. Once a component's showcase page is done, its canvas page header shows Implemented and `components.md` (skill `design-system`) gets its entry; the Inline Alert canvas snippet and Configuration show `Notice.status: DK.Status` (Q-4). Checked by AC-31 and AC-33.
 - BR-15 DesignSystem may import ImageIO, for decoding image data only (Q-5); the slice adding it updates the workspace `CLAUDE.md` › Allowed imports (DesignSystem: DesignKit, SwiftUI, ImageIO) and `docs/architecture.md` §3 in the same change (AC-32).
 
 ## Copy
@@ -113,8 +113,9 @@ The first two DesignSystem molecules, both `Approved` on the Design System canva
 - AC-28 (manual) Given the Inline Alert and Edge Case pages on iPhone at the largest accessibility text size, when they render, then the Inline Alert icon scales and stays centered on the first line, the Edge Case icon, image and monogram scale from 64 pt (`edgeCase.iconSize`) without clipping, the monogram initials never wrap, and nothing scrolls horizontally.
 - AC-29 (manual) Given an error Inline Alert, when it is shown in light and dark, then its border is Border.criticalSubtle while the other statuses use Border.info, .success, .warning (Data table).
 - AC-30 (manual) Given each page on Mac, iPad and iPhone, when it is shown, then the same layout adapts to the space given and no platform-specific variant exists.
-- AC-31 (manual) Given the Design System canvas, when this spec is `Approved`, then the Edge Case Configuration shows `edgeCase.iconSize`, `imageRadius` and the OnBackground monogram colors with a changelog entry; once a showcase page is done, then its canvas header shows Implemented, `components.md` has its entry, and the Inline Alert snippet and Configuration show `Notice.status: DK.Status` (BR-14).
+- AC-31 (manual) Given the Design System canvas, before this spec is `Approved`, then the Edge Case Configuration shows `edgeCase.iconSize`, `imageRadius` and the OnBackground monogram colors with a changelog entry (BR-14).
 - AC-32 Given the slice adding ImageIO, when it is committed, then the workspace `CLAUDE.md` › Allowed imports lists ImageIO for DesignSystem and `docs/architecture.md` §3 matches (BR-15).
+- AC-33 (manual) Given a finished showcase page, when checked, then its canvas header shows Implemented, `components.md` has its entry, and the Inline Alert snippet and Configuration show `Notice.status: DK.Status` (BR-14).
 
 ## Open questions
 - None.
