@@ -132,7 +132,7 @@ extension DS.Theme {
             actionButton: Components.ActionButton(
                 activityIndicatorDelay: Components.Delay(\.quick)
             ),
-            statusIcon: Components.StatusIcon(
+            statusIcon: Components.StatusColors(
                 info: \.foreground.info,
                 success: \.foreground.success,
                 warning: \.foreground.warning,

@@ -44,7 +44,7 @@ extension DS.Theme.Inventory {
     }
 
     private static func statusIconEntries(
-        of configuration: DS.Theme.Components.StatusIcon,
+        of configuration: DS.Theme.Components.StatusColors,
         semantic: [SemanticEntry]
     ) -> [ComponentEntry] {
         DK.Status.allCases.map { status in
