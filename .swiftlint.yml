@@ -4,6 +4,7 @@ excluded:
   - .swiftpm
   - DerivedData
   - DemoApps/Showcase.xcodeproj
+  - Package.swift
 opt_in_rules:
   - file_name
   - one_declaration_per_file

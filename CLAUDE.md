@@ -12,5 +12,5 @@ Public Swift package: the design system of the HomeBudget apps. Workspace rules:
 
 ## Commands
 - Lint: `swiftlint lint --strict --quiet`
-- Build: `xcrun swift build --build-system swiftbuild`; iOS: `xcodebuild -scheme DesignSystem -destination 'generic/platform=iOS' build`
-- Showcase: `cd DemoApps && xcodegen generate`, then build `ShowcaseMac` (`platform=macOS`), `ShowcasePhone` and `ShowcasePad` (`generic/platform=iOS Simulator`; no development team)
+- Build: `xcrun swift build --build-system swiftbuild -Xswiftc -warnings-as-errors`; iOS: `xcodebuild -scheme DesignSystem -destination 'generic/platform=iOS' build SWIFT_TREAT_WARNINGS_AS_ERRORS=YES`
+- Showcase: `cd DemoApps && xcodegen generate`, then build `ShowcaseMac` (`platform=macOS`), `ShowcasePhone` and `ShowcasePad` (`generic/platform=iOS Simulator`; no development team), each with `SWIFT_TREAT_WARNINGS_AS_ERRORS=YES`

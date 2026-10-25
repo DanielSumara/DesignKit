@@ -1,9 +1,9 @@
 # Package and showcase — implementation plan
 Spec: DesignKit/docs/specs/foundations/package-and-showcase.md
 Repo: DesignKit
-Status: Ready
+Status: In progress
 Baseline: empty
-Run base: —
+Run base: 8c1facc7ada531d80912b2b144f82760092c84f6
 
 ## Slices
 ### S1 — Package: skeleton, DK/DS port, build commands
