@@ -52,4 +52,19 @@ private extension ComponentTokensPage {
             playgroundEnvironment.resolvedTheme.inventory.componentTokens.orderedGroups(by: \.component)
         }
     }
+
+    struct ComponentTokenTable: View {
+        @MDS private var mds
+        let name: String
+        let entries: [DS.Theme.Inventory.ComponentEntry]
+
+        var body: some View {
+            VStack(alignment: .leading, spacing: mds(spacing: \.medium)) {
+                Text(name)
+                    .font(mds: \.title2)
+                    .accessibilityAddTraits(.isHeader)
+                TokenRows(detailTitle: "Alias chain", elements: entries, name: \.name, detail: \.aliasedName)
+            }
+        }
+    }
 }
