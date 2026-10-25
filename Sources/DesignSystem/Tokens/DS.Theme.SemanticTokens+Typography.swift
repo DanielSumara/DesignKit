@@ -4,19 +4,19 @@ import SwiftUI
 extension DS.Theme.SemanticTokens {
     public struct Typography: Equatable, Sendable {
         var design: Design
-        var largeTitle: DK.FontSizePrimitive
-        var title: DK.FontSizePrimitive
-        var title2: DK.FontSizePrimitive
-        var title3: DK.FontSizePrimitive
-        var headline: DK.FontSizePrimitive
-        var subheadline: DK.FontSizePrimitive
-        var body: DK.FontSizePrimitive
-        var callout: DK.FontSizePrimitive
-        var footnote: DK.FontSizePrimitive
-        var caption: DK.FontSizePrimitive
-        var caption2: DK.FontSizePrimitive
+        var largeTitle: DS.Theme.FontSizePrimitive
+        var title: DS.Theme.FontSizePrimitive
+        var title2: DS.Theme.FontSizePrimitive
+        var title3: DS.Theme.FontSizePrimitive
+        var headline: DS.Theme.FontSizePrimitive
+        var subheadline: DS.Theme.FontSizePrimitive
+        var body: DS.Theme.FontSizePrimitive
+        var callout: DS.Theme.FontSizePrimitive
+        var footnote: DS.Theme.FontSizePrimitive
+        var caption: DS.Theme.FontSizePrimitive
+        var caption2: DS.Theme.FontSizePrimitive
 
-        private static let sizePaths: [Font.TextStyle: KeyPath<Typography, DK.FontSizePrimitive> & Sendable] = [
+        private static let sizePaths: [Font.TextStyle: KeyPath<Typography, DS.Theme.FontSizePrimitive> & Sendable] = [
             .largeTitle: \.largeTitle,
             .title: \.title,
             .title2: \.title2,
@@ -29,7 +29,7 @@ extension DS.Theme.SemanticTokens {
             .caption2: \.caption2,
         ]
 
-        func fontSize(of style: Font.TextStyle) -> DK.FontSizePrimitive {
+        func fontSize(of style: Font.TextStyle) -> DS.Theme.FontSizePrimitive {
             self[keyPath: Self.sizePaths[style] ?? \.body]
         }
     }

@@ -10,9 +10,9 @@ extension DS.Theme.SemanticTokens {
 
 extension DS.Theme.SemanticTokens.BorderWidth {
     public struct Value: Equatable, Sendable {
-        let primitive: DK.StrokePrimitive
+        let primitive: DS.Theme.StrokePrimitive
 
-        init(_ primitive: DK.StrokePrimitive) {
+        init(_ primitive: DS.Theme.StrokePrimitive) {
             self.primitive = primitive
         }
     }

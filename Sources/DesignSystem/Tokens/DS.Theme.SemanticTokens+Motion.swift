@@ -10,9 +10,9 @@ extension DS.Theme.SemanticTokens {
 
 extension DS.Theme.SemanticTokens.Motion {
     public struct Value: Equatable, Sendable {
-        let primitive: DK.DurationPrimitive
+        let primitive: DS.Theme.DurationPrimitive
 
-        init(_ primitive: DK.DurationPrimitive) {
+        init(_ primitive: DS.Theme.DurationPrimitive) {
             self.primitive = primitive
         }
     }

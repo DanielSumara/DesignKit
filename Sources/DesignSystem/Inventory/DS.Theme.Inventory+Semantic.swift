@@ -32,15 +32,15 @@ extension DS.Theme.Inventory {
         case let color as DS.Theme.AdaptiveColor:
             .color(color.inventoryAlias)
         case let value as Tokens.Spacing.Value:
-            .primitive(scale: DK.SpacePrimitive.scale, name: value.primitive.name)
+            .primitive(scale: DS.Theme.SpacePrimitive.scale, name: value.primitive.name)
         case let value as Tokens.Radius.Value:
-            .primitive(scale: DK.RadiusPrimitive.scale, name: value.primitive.name)
+            .primitive(scale: DS.Theme.RadiusPrimitive.scale, name: value.primitive.name)
         case let value as Tokens.BorderWidth.Value:
-            .primitive(scale: DK.StrokePrimitive.scale, name: value.primitive.name)
+            .primitive(scale: DS.Theme.StrokePrimitive.scale, name: value.primitive.name)
         case let value as Tokens.Motion.Value:
-            .primitive(scale: DK.DurationPrimitive.scale, name: value.primitive.name)
-        case let primitive as DK.FontSizePrimitive:
-            .primitive(scale: DK.FontSizePrimitive.scale, name: primitive.name)
+            .primitive(scale: DS.Theme.DurationPrimitive.scale, name: value.primitive.name)
+        case let primitive as DS.Theme.FontSizePrimitive:
+            .primitive(scale: DS.Theme.FontSizePrimitive.scale, name: primitive.name)
         case let design as Tokens.Typography.Design:
             .design(String(describing: design))
         default:

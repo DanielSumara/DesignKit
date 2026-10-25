@@ -14,9 +14,9 @@ extension DS.Theme.SemanticTokens {
 
 extension DS.Theme.SemanticTokens.Spacing {
     public struct Value: Equatable, Sendable {
-        let primitive: DK.SpacePrimitive
+        let primitive: DS.Theme.SpacePrimitive
 
-        init(_ primitive: DK.SpacePrimitive) {
+        init(_ primitive: DS.Theme.SpacePrimitive) {
             self.primitive = primitive
         }
     }

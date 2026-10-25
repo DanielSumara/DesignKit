@@ -1,8 +1,8 @@
 # Primitives in DesignSystem — implementation plan
 Spec: DesignKit/docs/specs/foundations/primitives-in-design-system.md
 Repo: DesignKit
-Status: Ready
-Run base: —
+Status: In progress
+Run base: a24d291eb7901aac11c7b94a84df6b8951e75fcf
 
 ## Slices
 ### S1 — DesignSystem: move and narrow the primitive tier

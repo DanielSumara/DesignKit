@@ -4,10 +4,10 @@ import SwiftUI
 extension DS.Theme {
     public struct AdaptiveColor: Hashable, Sendable, ShapeStyle {
         struct Alias: Hashable, Sendable {
-            let color: DK.ColorPrimitive
-            let opacity: DK.OpacityPrimitive?
+            let color: DS.Theme.ColorPrimitive
+            let opacity: DS.Theme.OpacityPrimitive?
 
-            init(_ color: DK.ColorPrimitive, opacity: DK.OpacityPrimitive? = nil) {
+            init(_ color: DS.Theme.ColorPrimitive, opacity: DS.Theme.OpacityPrimitive? = nil) {
                 self.color = color
                 self.opacity = opacity
             }
@@ -36,10 +36,10 @@ extension DS.Theme {
         }
 
         init(
-            light: DK.ColorPrimitive,
-            dark: DK.ColorPrimitive,
-            increasedLight: DK.ColorPrimitive? = nil,
-            increasedDark: DK.ColorPrimitive? = nil
+            light: DS.Theme.ColorPrimitive,
+            dark: DS.Theme.ColorPrimitive,
+            increasedLight: DS.Theme.ColorPrimitive? = nil,
+            increasedDark: DS.Theme.ColorPrimitive? = nil
         ) {
             self.init(
                 light: Alias(light),
@@ -49,7 +49,7 @@ extension DS.Theme {
             )
         }
 
-        init(_ both: DK.ColorPrimitive, increased: DK.ColorPrimitive? = nil) {
+        init(_ both: DS.Theme.ColorPrimitive, increased: DS.Theme.ColorPrimitive? = nil) {
             self.init(Alias(both), increased: increased.map { Alias($0) })
         }
 
@@ -75,7 +75,7 @@ extension DS.Theme.AdaptiveColor {
 }
 
 private extension Color {
-    init(_ primitive: DK.ColorPrimitive) {
+    init(_ primitive: DS.Theme.ColorPrimitive) {
         switch primitive.value {
         case .srgb(let hex):
             self.init(

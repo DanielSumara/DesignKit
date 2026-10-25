@@ -11,9 +11,9 @@ extension DS.Theme.SemanticTokens {
 
 extension DS.Theme.SemanticTokens.Radius {
     public struct Value: Equatable, Sendable {
-        let primitive: DK.RadiusPrimitive
+        let primitive: DS.Theme.RadiusPrimitive
 
-        init(_ primitive: DK.RadiusPrimitive) {
+        init(_ primitive: DS.Theme.RadiusPrimitive) {
             self.primitive = primitive
         }
     }
