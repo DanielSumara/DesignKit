@@ -11,8 +11,4 @@ A spec covers one screen or one capability of one feature; behavior spanning two
 | foundations | [theme-and-tokens](foundations/theme-and-tokens.md) | Token tiers, standard theme, amendment, text size, `@MDS` and `mds` APIs, token inventory | Implemented |
 | foundations | [foundations-pages](foundations/foundations-pages.md) | Showcase Foundations pages and playground Theme, Amendment, Text size controls | Implemented |
 | foundations | [primitives-in-design-system](foundations/primitives-in-design-system.md) | Primitive tier moved from DesignKit to DesignSystem, `internal` | Implemented |
-| components | activity-indicator | Activity indicator atom | Not started |
-| components | action-button | Action button atom over `DK.ActionButton` | Not started |
-| components | status-icon | Status icon component | Not started |
-| components | inline-alert | Inline alert component | Not started |
-| components | edge-case | Edge case molecule over `DK.EdgeCase`, wrapping `ContentUnavailableView` | Not started |
+| components | [base-components](components/base-components.md) | Activity Indicator, Action Button, Status Icon, Inline Alert, Edge Case: DK data, component tokens, DS components, showcase pages | Draft |
