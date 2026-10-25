@@ -4,6 +4,7 @@ internal struct ShowcaseRoot: View {
     let catalog: Catalog
 
     @State private var selection: Page.ID?
+    @State private var playgroundEnvironment = PlaygroundEnvironment()
 
     var body: some View {
         NavigationSplitView {
@@ -11,6 +12,7 @@ internal struct ShowcaseRoot: View {
         } detail: {
             detail
         }
+        .environment(playgroundEnvironment)
     }
 
     private var sidebar: some View {
@@ -34,7 +36,7 @@ internal struct ShowcaseRoot: View {
     @ViewBuilder
     private var detail: some View {
         if let selection, let page = catalog.page(withID: selection) {
-            page.body()
+            page.body().id(page.id)
         } else {
             ContentUnavailableView {
                 Text("Select a page")

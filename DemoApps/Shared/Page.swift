@@ -17,4 +17,11 @@ internal struct Page: Identifiable {
         self.section = section
         self.body = { AnyView(body()) }
     }
+
+    init(id: String, title: String, section: Section, component: ComponentPage) {
+        self.id = id
+        self.title = title
+        self.section = section
+        self.body = { AnyView(ComponentPageView(title: title, content: component)) }
+    }
 }
