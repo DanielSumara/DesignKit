@@ -76,6 +76,39 @@ private extension ActionButtonPage {
         }
     }
 
+    struct CountedButton: View {
+        @MDS private var mds
+        let title: String
+        let role: Role?
+        let state: ButtonState
+        @State private var taps = 0
+
+        var body: some View {
+            VStack(alignment: .leading, spacing: mds(spacing: \.small)) {
+                DS.ActionButton(data: DK.ActionButton(title: title, role: role, state: state) { taps += 1 })
+                Text("Taps: \(taps)").font(.caption).foregroundStyle(.secondary)
+            }
+        }
+    }
+
+    struct KeyboardDemo: View {
+        @MDS private var mds
+        @State private var last = "none"
+
+        var body: some View {
+            VStack(alignment: .leading, spacing: mds(spacing: \.medium)) {
+                ButtonRow {
+                    DS.ActionButton(data: DK.ActionButton(title: "Save", role: .primary) { last = "primary" })
+                    DS.ActionButton(data: DK.ActionButton(title: "Cancel", role: .cancel) { last = "cancel" })
+                }
+                Text("Last: \(last)").font(.caption).foregroundStyle(.secondary)
+                Text("Press Return for primary and Esc for cancel; hardware keyboard on iPad.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+        }
+    }
+
     struct ButtonRow<Content: View>: View {
         @MDS private var mds
         @ViewBuilder let content: () -> Content
@@ -98,7 +131,8 @@ private extension ActionButtonPage {
                 tokens: tokens,
                 playgroundIntro: "Playground: title, role, state, style override and action duration, "
                     + "with the shared environment and the code.",
-                variantsIntro: "Variants: every role and state, and every style override and role, "
+                variantsIntro: "Variants: every role and state with a tap counter (loading and disabled stay at 0), "
+                    + "Return and Esc on a primary and a cancel button, and every style override and role, "
                     + "in light and dark. The loading look shows its indicator in the label's color.",
                 configurationIntro: "Configuration: properties with their defaults, "
                     + "component tokens with their alias chains.",
@@ -108,12 +142,13 @@ private extension ActionButtonPage {
                         ComponentVariant(name: "Role: \(role.name)") {
                             ButtonRow {
                                 ForEach(ActionButtonPage.states, id: \.name) { state in
-                                    DS.ActionButton(
-                                        data: ActionButtonPage.button(title: state.name, role: role.role, state: state.state)
-                                    )
+                                    CountedButton(title: state.name, role: role.role, state: state.state)
                                 }
                             }
                         }
+                    }
+                    ComponentVariant(name: "Keyboard") {
+                        KeyboardDemo()
                     }
                     ForEach(ActionButtonPage.styles, id: \.name) { style in
                         ComponentVariant(name: "Override: \(style.name)") {
