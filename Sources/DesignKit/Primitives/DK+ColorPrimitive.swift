@@ -1,3 +1,5 @@
+import Foundation
+
 extension DK {
     package struct ColorPrimitive: Primitive {
         package enum Value: Sendable, Hashable {
