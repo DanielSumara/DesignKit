@@ -109,7 +109,7 @@ Run base: c79b634
 | S3 | Done | 663fc82 | 0123114 | 0 fixed / 0 rejected |
 | S4 | Done | 88ed490 | db78e1c | 2 fixed / 0 rejected |
 | S5 | Done | e8cc599 | a0ff674 | 0 fixed / 0 rejected |
-| S6 | Pending | — | — | — |
+| S6 | Done | 7e54be2 | 72d6865 | 0 fixed / 0 rejected |
 
 ## Open questions
 - None
