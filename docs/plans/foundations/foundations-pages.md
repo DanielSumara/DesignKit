@@ -1,8 +1,8 @@
 # Foundations pages — implementation plan
 Spec: DesignKit/docs/specs/foundations/foundations-pages.md
 Repo: DesignKit
-Status: Ready
-Run base: —
+Status: In progress
+Run base: c79b634
 
 ## Slices
 ### S1 — DesignSystem: inventory resolution
