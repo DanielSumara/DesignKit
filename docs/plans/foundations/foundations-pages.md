@@ -104,7 +104,7 @@ Run base: c79b634
 ## Progress
 | Slice | Status | Base | Head | Review |
 |---|---|---|---|---|
-| S1 | Pending | — | — | — |
+| S1 | Done | ea21282 | a190e0f | 2 fixed / 0 rejected |
 | S2 | Pending | — | — | — |
 | S3 | Pending | — | — | — |
 | S4 | Pending | — | — | — |
