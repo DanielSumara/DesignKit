@@ -102,7 +102,7 @@ Run base: 42052493fd47c83a0d67c57cb9147e3871cac27b
 |---|---|---|---|---|
 | S1 | Done | bdb328d | 396b7cd | 1 fixed / 0 rejected (iOS Dynamic Type scaling) |
 | S2 | Done | 13dbd90 | d94f70d | 0 fixed / 0 rejected |
-| S3 | Pending | — | — | — |
+| S3 | Done | fe6f028 | 22a9bbe | 1 fixed / 0 rejected |
 | S4 | Pending | — | — | — |
 | S5 | Pending | — | — | — |
 | S6 | Pending | — | — | — |
