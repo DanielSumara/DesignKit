@@ -1,7 +1,7 @@
 # Base atoms — implementation plan
 Spec: DesignKit/docs/specs/components/base-atoms.md
 Repo: DesignKit
-Status: In progress
+Status: Done
 Run base: 42052493fd47c83a0d67c57cb9147e3871cac27b
 
 ## Slices
@@ -109,3 +109,9 @@ Run base: 42052493fd47c83a0d67c57cb9147e3871cac27b
 
 ## Open questions
 - AC-23 (manual): the page has no scene-tint control; the Amendment picker (Sample) changes brand tokens only. Verify whether it suffices when checking AC-23 or add a tint control (spec decision)
+- Final review F-1 (rejected, verify on device): on iPhone and iPad a `.bordered` button with `.tint(Color?.none)` may draw the accent color, not a neutral label, and the loading indicator (`.primary`) would then differ from the label (BR-3, BR-4a, AC-23, AC-24). If confirmed, give bordered looks one explicit neutral color used for both label and indicator (a spec decision: native vs token)
+
+## Final review
+| Range | Result |
+|---|---|
+| 42052493..acaa491 | 4 fixed (F-2 to F-5) / 1 rejected (F-1, open question) |
