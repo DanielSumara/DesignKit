@@ -1,8 +1,8 @@
 # Base molecules — implementation plan
 Spec: DesignKit/docs/specs/components/base-molecules.md
 Repo: DesignKit
-Status: Ready
-Run base: —
+Status: In progress
+Run base: fd11cfb92f33d19673ae03094eda7476358fd933
 
 ## Slices
 Requires the base-atoms plan `Done` (Status Icon, Action Button, `DK.Status`).
