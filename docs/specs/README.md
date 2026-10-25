@@ -10,6 +10,7 @@ A spec covers one screen or one capability of one feature; behavior spanning two
 | foundations | [package-and-showcase](foundations/package-and-showcase.md) | Package skeleton, ported fundamentals, showcase apps, gate script | Implemented |
 | foundations | [theme-and-tokens](foundations/theme-and-tokens.md) | Token tiers, standard theme, amendment, text size, `@MDS` and `mds` APIs, token inventory | Implemented |
 | foundations | [foundations-pages](foundations/foundations-pages.md) | Showcase Foundations pages and playground Theme, Amendment, Text size controls | Draft |
+| foundations | [primitives-in-design-system](foundations/primitives-in-design-system.md) | Primitive tier moved from DesignKit to DesignSystem, `internal` | Draft |
 | components | activity-indicator | Activity indicator atom | Not started |
 | components | action-button | Action button atom over `DK.ActionButton` | Not started |
 | components | status-icon | Status icon component | Not started |

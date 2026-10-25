@@ -6,7 +6,7 @@ The styling mechanics every component and screen builds on: the three token tier
 
 ## Scope
 - In:
-  - Primitive tier in DesignKit (`package`): color ramps, the system `accent`, scales `space`, `size`, `radius`, `stroke`, `duration`, `opacity`, `fontSize` (Q-11)
+  - Primitive tier in DesignKit (`package`; moved to DesignSystem, `internal`, by foundations/primitives-in-design-system): color ramps, the system `accent`, scales `space`, `size`, `radius`, `stroke`, `duration`, `opacity`, `fontSize` (Q-11)
   - Semantic tier: Colors (Background, OnBackground, Foreground, Border, Focus) with an Increase Contrast pair each (Q-6), Spacing, Typography, Radius, BorderWidth, Motion
   - Component tier `DS.Theme.Components` and its text-bound scaling list, both empty until the first component spec
   - `DS.Theme` with `standard`; `DS.Theme.Amendment` with `sample`; `amended(by:)`
@@ -52,7 +52,7 @@ No screens; the showcase pages are foundations-pages (Q-9).
 - Brand tint follows the system accent color: the user's accent on macOS, the app's AccentColor (system blue without one) on iOS (Q-4).
 
 ## Data
-### Primitives (DesignKit, `package`)
+### Primitives (DesignKit, `package`; placement superseded by primitives-in-design-system BR-1)
 Colors (step ≈ CIE L*), sRGB hex:
 | Family | Steps |
 |---|---|
@@ -114,7 +114,7 @@ macOS type ramp (`fontSize` primitive, default weight regular unless noted; Q-11
 - For a theme (amended or not): every primitive (name, scale, value; `accent` as system), every semantic token (group, name, alias: light and dark primitive with optional opacity and the Increase Contrast pair, or one primitive; Typography design as its case, macOS styles as their `fontSize` primitive), every component token (component, name, chain to a primitive). Order as in Data.
 
 ## Rules
-- BR-1 Tiers: primitive values exist only in DesignKit, `package` access. A semantic value is an alias: a color a light and a dark color primitive, each optionally with an opacity primitive, plus an optional Increase Contrast pair of the same form; Spacing, Radius, BorderWidth and Motion one primitive of their scale (`space`, `radius`, `stroke`, `duration`); a macOS Typography style one `fontSize` primitive; Typography design a `Design` case, the one non-primitive token value; weights are the typed `Weight` default of each style or argument, not tokens (Q-11, Q-14). A component value aliases a semantic token or a `size` primitive (Q-10). A literal or a primitive of another scale in a theme or amendment, or a theme missing a token, fails to compile. Semantic and component definitions are DesignSystem types (`DS.Theme.SemanticTokens.*`, `DS.Theme.Components`), since colors resolve as SwiftUI shape styles.
+- BR-1 Tiers: primitive values exist only in DesignKit, `package` access (placement superseded by primitives-in-design-system BR-1). A semantic value is an alias: a color a light and a dark color primitive, each optionally with an opacity primitive, plus an optional Increase Contrast pair of the same form; Spacing, Radius, BorderWidth and Motion one primitive of their scale (`space`, `radius`, `stroke`, `duration`); a macOS Typography style one `fontSize` primitive; Typography design a `Design` case, the one non-primitive token value; weights are the typed `Weight` default of each style or argument, not tokens (Q-11, Q-14). A component value aliases a semantic token or a `size` primitive (Q-10). A literal or a primitive of another scale in a theme or amendment, or a theme missing a token, fails to compile. Semantic and component definitions are DesignSystem types (`DS.Theme.SemanticTokens.*`, `DS.Theme.Components`), since colors resolve as SwiftUI shape styles.
 - BR-2 Primitive and semantic names and values are exactly those of Data, which match the canvas Foundations pages; a change starts on the canvas.
 - BR-3 Apps and Cores name tokens only by typed key path; semantic and component values are opaque, readable only through `mds`, never through a theme's storage (Q-15); no public API returns a primitive or the primitive behind a token (the SPI of BR-14 aside). An unknown or misplaced key path fails to compile (`.foregroundStyle(mds: \.page)` doesn't compile; `.background(mds: \.page)` does).
 - BR-4 Port: the mechanics are FinanceTracker `Kits/DesignKit/Sources/DesignKitUI/Theme/`, `Tokens/` and `Support/DK.TextSize+Scale.swift`, public names and signatures kept, with these deviations only: `Palette` becomes DesignKit primitives (BR-1); macOS system colors become slate primitives (BR-2); `Border.success`, `Border.criticalSubtle` and the Increase Contrast pairs added; the macOS ramp as `fontSize` primitives and design as a `Design` case (BR-1); iOS typography and scaling (BR-6, BR-7); window background on macOS only (BR-9); the sample amendment as in Data (BR-10); `Components` empty; `sceneContentSize` not ported; SwiftLint formatting.

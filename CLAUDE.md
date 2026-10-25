@@ -3,7 +3,7 @@
 Public Swift package: the design system of the HomeBudget apps. Workspace rules: `../CLAUDE.md`; structure and reasons: `docs/architecture.md`; recipes and the Design System canvas: skill `design-system`.
 
 ## Rules
-- Targets: `DesignKit` (Foundation; `DK` data, primitive values with `package` access), `DesignSystem` (SwiftUI; `DS`, `mds`, semantic and component token definitions), `MacDesignSystem` (AppKit), `PadDesignSystem` and `PhoneDesignSystem` (UIKit); platform targets extend `DS` and exist only once they hold code
+- Targets: `DesignKit` (Foundation; `DK` data, no tokens), `DesignSystem` (SwiftUI; `DS`, `mds`, every token tier: `internal` primitives, semantic and component definitions), `MacDesignSystem` (AppKit), `PadDesignSystem` and `PhoneDesignSystem` (UIKit); platform targets extend `DS` and exist only once they hold code
 - Token tiers: primitive → semantic → component; each tier aliases only the one below; primitives only in themes and amendments; no public token values, semantic and component values are opaque
 - Components: one per file `DS+{Component}.swift`, one `DK` data object each, atomic levels composing only lower levels, native controls wrapped, light and dark previews; no gallery or catalog types in the package, except the `@_spi(Showcase)` token inventory, the one catalog type
 - A component is built only from an `Approved` spec in `docs/specs/components/`, after its canvas page is `Approved`; the same task adds its showcase page

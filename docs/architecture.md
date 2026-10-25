@@ -12,8 +12,8 @@ Structure of the DesignKit repo and the reasons for it. Rules digest: `CLAUDE.md
 ```
 Package.swift
 Sources/
-  DesignKit/            Foundation only: DK data objects, token values
-  DesignSystem/         SwiftUI, every platform: theme, mds APIs, components
+  DesignKit/            Foundation only: DK data objects
+  DesignSystem/         SwiftUI, every platform: tokens, theme, mds APIs, components
   MacDesignSystem/      AppKit-backed wrappers and macOS-only components
   PadDesignSystem/      UIKit-backed wrappers and iPad-only components
   PhoneDesignSystem/    UIKit-backed wrappers and iPhone-only components
@@ -30,8 +30,8 @@ docs/
 ## 3. Targets
 | Target | Imports | Namespace | Holds |
 |---|---|---|---|
-| DesignKit | Foundation | `DK` | display-ready data objects Cores fill (`DK.ViewState`, `DK.ActionButton`, `DK.InlineAlert`, …); primitive values only, `package` access |
-| DesignSystem | DesignKit, SwiftUI | `DS` (+ `MDS`) | semantic and component token definitions (`DS.Theme.SemanticTokens`, `DS.Theme.Components`), theme resolution to SwiftUI values, `mds` APIs, `@MDS`, scene setup, text size, components shared by every platform |
+| DesignKit | Foundation | `DK` | display-ready data objects Cores fill (`DK.ViewState`, `DK.ActionButton`, `DK.InlineAlert`, …); no tokens |
+| DesignSystem | DesignKit, SwiftUI | `DS` (+ `MDS`) | every token tier: primitives (`DS.Theme.{Scale}Primitive`, `internal`), semantic and component definitions (`DS.Theme.SemanticTokens`, `DS.Theme.Components`), theme resolution to SwiftUI values, `mds` APIs, `@MDS`, scene setup, text size, components shared by every platform |
 | MacDesignSystem | DesignSystem, AppKit | `DS` | what only macOS needs (e.g. AppKit tables, save panel) |
 | PadDesignSystem | DesignSystem, UIKit | `DS` | what only iPad needs |
 | PhoneDesignSystem | DesignSystem, UIKit | `DS` | what only iPhone needs |
@@ -39,14 +39,14 @@ docs/
 - The platform targets extend `DS`, so a screen reads the same name on every platform; they exist only once they hold code.
 - iPhone and iPad share the iOS SDK, so the compiler can't keep their targets apart: an iOS app depends on PadDesignSystem, PhoneDesignSystem or both, and a universal screen picks by size class.
 - DesignKit is platform-independent so Cores (Foundation only) build the data components render.
-- Primitive values live in DesignKit with `package` access: DesignSystem resolves them, apps and Cores can't read raw values. Semantic and component definitions are DesignSystem types, since colors resolve as SwiftUI shape styles; their values are opaque, readable only through `mds`.
+- All three tiers live in DesignSystem, so a theme's whole mapping is defined in one target. Primitives are `internal`: themes, semantic tokens and the token inventory read them; apps, Cores and the platform targets can't. Semantic and component definitions are DesignSystem types, since colors resolve as SwiftUI shape styles; their values are opaque, readable only through `mds`.
 
 ## 4. Token tiers
 Following Figma's design-token architecture, three tiers, each referring only to the tier below:
 
 | Tier | What | Example | Who uses it |
 |---|---|---|---|
-| Primitive | raw values: color ramps `{family}{step}` (step ≈ CIE L*) and the scales `space`, `size`, `radius`, `stroke`, `duration`, `opacity`, `fontSize` | `blue94`, `space16` | themes and amendments only |
+| Primitive | raw values: color ramps `{family}{step}` (step ≈ CIE L*) and the scales `space`, `size`, `radius`, `stroke`, `duration`, `opacity`, `fontSize` | `blue94`, `space16` | themes and amendments only, inside DesignSystem |
 | Semantic | purpose: Colors (Background, OnBackground, Foreground, Border, Focus), Spacing, Typography, Radius, BorderWidth, Motion; each value an alias of a primitive: a color a light and a dark color primitive, each with an optional opacity primitive, plus an optional Increase Contrast pair of the same form; a macOS Typography style a `fontSize` primitive; Typography design a `Design` case, the one non-primitive token value | `Background.infoSubtle → blue94 / blue16` | components and screens through `mds` |
 | Component | per-component configuration in `DS.Theme.Components`: aliases of semantic tokens, or `size` primitives for sizes | `InlineAlert.background(info) → Background.infoSubtle` | its component through `@MDS(\.{component})` |
 
