@@ -8,7 +8,8 @@ internal struct Catalog<each Platform: Page> {
         ComponentTokensPage(),
         PrimitivesPage(),
         SemanticTokensPage(),
-        StatusIconPage()
+        StatusIconPage(),
+        InlineAlertPage()
     )
     private let platform: PageCollection<repeat each Platform>
 
