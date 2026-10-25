@@ -41,7 +41,7 @@ internal struct SemanticColorSwatch: View {
             .frame(width: mds(spacing: \.xLarge), height: mds(spacing: \.xLarge))
             .clipShape(mds: \.small)
             .border(mds: \.subtle, width: \.thin, cornerRadius: \.small)
-            .accessibilityLabel(kind.title)
+            .accessibilityLabel("\(token.name) \(kind.title)")
     }
 
     @ViewBuilder

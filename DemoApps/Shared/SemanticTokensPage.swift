@@ -22,10 +22,11 @@ private extension SemanticTokensPage {
             ScrollView {
                 VStack(alignment: .leading) {
                     EnvironmentControls(showsAppearance: false)
+                        .padding()
                     SectionsView()
+                        .padding(mds: \.large)
                         .showcaseEnvironment()
                 }
-                .padding()
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
