@@ -31,13 +31,14 @@ docs/
 | Target | Imports | Namespace | Holds |
 |---|---|---|---|
 | DesignKit | Foundation | `DK` | display-ready data objects Cores fill (`DK.ViewState`, `DK.ActionButton`, `DK.InlineAlert`, …); no tokens |
-| DesignSystem | DesignKit, SwiftUI | `DS` (+ `MDS`) | every token tier: primitives (`DS.Theme.{Scale}Primitive`, `internal`), semantic and component definitions (`DS.Theme.SemanticTokens`, `DS.Theme.Components`), theme resolution to SwiftUI values, `mds` APIs, `@MDS`, scene setup, text size, components shared by every platform |
+| DesignSystem | DesignKit, SwiftUI, ImageIO | `DS` (+ `MDS`) | every token tier: primitives (`DS.Theme.{Scale}Primitive`, `internal`), semantic and component definitions (`DS.Theme.SemanticTokens`, `DS.Theme.Components`), theme resolution to SwiftUI values, `mds` APIs, `@MDS`, scene setup, text size, components shared by every platform |
 | MacDesignSystem | DesignSystem, AppKit | `DS` | what only macOS needs (e.g. AppKit tables, save panel) |
 | PadDesignSystem | DesignSystem, UIKit | `DS` | what only iPad needs |
 | PhoneDesignSystem | DesignSystem, UIKit | `DS` | what only iPhone needs |
 
 - The platform targets extend `DS`, so a screen reads the same name on every platform; they exist only once they hold code.
 - iPhone and iPad share the iOS SDK, so the compiler can't keep their targets apart: an iOS app depends on PadDesignSystem, PhoneDesignSystem or both, and a universal screen picks by size class.
+- ImageIO is imported by DesignSystem only to decode image data (`DK.Icon.image`).
 - DesignKit is platform-independent so Cores (Foundation only) build the data components render.
 - All three tiers live in DesignSystem, so a theme's whole mapping is defined in one target. Primitives are `internal`: themes, semantic tokens and the token inventory read them; apps, Cores and the platform targets can't. Semantic and component definitions are DesignSystem types, since colors resolve as SwiftUI shape styles; their values are opaque, readable only through `mds`.
 
