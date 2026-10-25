@@ -67,6 +67,7 @@ extension DS {
             Task {
                 let indicator = Task {
                     try await Task.sleep(for: delay)
+                    guard !Task.isCancelled else { return }
                     withAnimation(animation) { showsActivityIndicator = true }
                 }
 
