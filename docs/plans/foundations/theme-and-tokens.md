@@ -89,7 +89,7 @@ Run base: 4a3b70d3a19779a69dc2f3faf930b91e4ba05ffd
 |---|---|---|---|---|
 | S1 | Done | 4a3b70d | b242cbe | 1 fixed / 0 rejected |
 | S2 | Done | b24a96a | 1a06a33 | 1 fixed / 0 rejected |
-| S3 | Pending | — | — | — |
+| S3 | Done | 899de7b | 40ed89e | 0 fixed / 0 rejected |
 | S4 | Pending | — | — | — |
 | S5 | Pending | — | — | — |
 | S6 | Pending | — | — | — |
