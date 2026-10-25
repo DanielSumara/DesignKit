@@ -1,9 +1,9 @@
 import SwiftUI
 
-internal struct ShowcaseRoot: View {
-    let catalog: Catalog
+internal struct ShowcaseRoot<each Platform: Page>: View {
+    let catalog: Catalog<repeat each Platform>
 
-    @State private var selection: Page.ID?
+    @State private var selection: String?
     @State private var playgroundEnvironment = PlaygroundEnvironment()
 
     var body: some View {
@@ -35,8 +35,8 @@ internal struct ShowcaseRoot: View {
 
     @ViewBuilder
     private var detail: some View {
-        if let selection, let page = catalog.page(withID: selection) {
-            page.body().id(page.id)
+        if let selection, catalog.contains(selection) {
+            catalog.detail(selection: selection)
         } else {
             ContentUnavailableView {
                 Text("Select a page")
@@ -48,5 +48,5 @@ internal struct ShowcaseRoot: View {
 }
 
 #Preview {
-    ShowcaseRoot(catalog: Catalog(platformPages: []))
+    ShowcaseRoot(catalog: Catalog())
 }

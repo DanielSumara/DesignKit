@@ -22,7 +22,7 @@ Run base: 8c1facc7ada531d80912b2b144f82760092c84f6
 - Depends on: S1
 - Skills: design-system
 - Review: diff-only
-- Builds: `DemoApps/Shared/Section.swift` (five sections with titles), `Page.swift` (`id`, `title`, `section`, single-view body), `Catalog.swift` (shared pages plus the app's platform pages; no entries yet), `ShowcaseRoot.swift` (`NavigationSplitView`: sidebar with "No pages yet" rows, "Select a page" empty detail); app entries `Phone/ShowcasePhoneApp.swift`, `Pad/ShowcasePadApp.swift`, `Mac/ShowcaseMacApp.swift` (single `Window`, no New Window); schemes ShowcasePhone, ShowcasePad, ShowcaseMac; `no_literal_styling` including `DemoApps/`; `Showcase.xcodeproj` untracked
+- Builds: `DemoApps/Shared/Section.swift` (five sections with titles), `Page.swift` (protocol: `id`, `title`, `section`, `@ViewBuilder content`; no type erasure), `Catalog.swift` (shared pages plus the app's platform pages; no entries yet), `ShowcaseRoot.swift` (`NavigationSplitView`: sidebar with "No pages yet" rows, "Select a page" empty detail); app entries `Phone/ShowcasePhoneApp.swift`, `Pad/ShowcasePadApp.swift`, `Mac/ShowcaseMacApp.swift` (single `Window`, no New Window); schemes ShowcasePhone, ShowcasePad, ShowcaseMac; `no_literal_styling` including `DemoApps/`; `Showcase.xcodeproj` untracked
 - Done when: `xcodegen generate` succeeds and the three builds of BR-11 step 5 pass with warnings as errors; AC-3 fault injection (a `.padding(8)` in a `DemoApps/` file is reported, then removed) and lint clean; `git status` shows no tracked project
 - Manual ACs: AC-9, AC-10, AC-11 (checked with the Page anatomy page, after S4)
 
@@ -32,7 +32,7 @@ Run base: 8c1facc7ada531d80912b2b144f82760092c84f6
 - Depends on: S2
 - Skills: design-system
 - Review: full
-- Builds: `Page` body extended with the component case (`ComponentPage` content: Playground preview, controls and snippet; Variants `[name, view]`; Configuration properties and tokens); `ComponentPageView.swift` (toolbar segmented picker, Playground / Variants / Configuration, Playground default, "None" for empty sections); `PlaygroundEnvironment.swift` (`appearance`: system, light, dark; shared for the app session, outside page state); `AppearancePicker`; Variants light/dark renderings on their own appearance backgrounds
+- Builds: component page content in `ComponentPageView` (generic over its Playground and Variants views; `ComponentVariant` views; Playground preview, controls and snippet; Variants named views; Configuration properties and tokens); `ComponentPageView.swift` (toolbar segmented picker, Playground / Variants / Configuration, Playground default, "None" for empty sections); `PlaygroundEnvironment.swift` (`appearance`: system, light, dark; shared for the app session, outside page state); `AppearancePicker`; Variants light/dark renderings on their own appearance backgrounds
 - Done when: lint clean; the three showcase apps build with warnings as errors; a `#Preview` of a component page with sample content renders
 - Manual ACs: AC-12, AC-14 (checked on Page anatomy, after S4)
 

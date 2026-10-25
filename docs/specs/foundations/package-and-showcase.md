@@ -91,8 +91,8 @@ A buildable package skeleton with the fundamentals every later spec builds on, t
 
 ### Showcase (`DemoApps/Shared/`)
 - Section: `foundations`, `atoms`, `molecules`, `organisms`, `templates`, with titles.
-- Page: `id` (stable, unique), `title`, `section`, and a body that is either a single view or the component page's three tabs.
-- Component page content: Playground (preview, page controls with defaults, snippet), Variants (`[name, view]`), Configuration (properties `[name, type, default]`, tokens `[token, alias chain]`).
+- Page: `id` (stable, unique), `title`, `section`, and a content view that is either a single view or the component page's three tabs.
+- Component page content: Playground (preview, page controls with defaults, snippet), Variants (named views), Configuration (properties `[name, type, default]`, tokens `[token, alias chain]`).
 - Playground environment: `appearance` (`system`, `light`, `dark`), shared by every page for the app's session.
 - Catalog: the shared pages plus the app's own platform pages from `DemoApps/{Phone,Pad,Mac}/`.
 

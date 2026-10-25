@@ -4,7 +4,7 @@ import SwiftUI
 internal struct ShowcasePadApp: App {
     var body: some Scene {
         WindowGroup {
-            ShowcaseRoot(catalog: Catalog(platformPages: []))
+            ShowcaseRoot(catalog: Catalog())
         }
     }
 }

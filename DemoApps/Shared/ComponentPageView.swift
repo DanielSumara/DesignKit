@@ -1,8 +1,14 @@
 import SwiftUI
 
-internal struct ComponentPageView: View {
+internal struct ComponentPageView<Playground: View, Variants: View>: View {
     let title: String
-    let content: ComponentPage
+    let properties: [ComponentProperty]
+    let tokens: [ComponentToken]
+    let playgroundIntro: String?
+    let variantsIntro: String?
+    let configurationIntro: String?
+    let playground: Playground
+    let variants: Variants
 
     @State private var tab: ComponentTab = .playground
 
@@ -11,14 +17,14 @@ internal struct ComponentPageView: View {
             VStack(alignment: .leading) {
                 switch tab {
                 case .playground:
-                    intro(content.playgroundIntro)
-                    content.playground()
+                    intro(playgroundIntro)
+                    playground
                 case .variants:
-                    intro(content.variantsIntro)
-                    ComponentVariantsView(variants: content.variants)
+                    intro(variantsIntro)
+                    variants
                 case .configuration:
-                    intro(content.configurationIntro)
-                    ComponentConfigurationView(properties: content.properties, tokens: content.tokens)
+                    intro(configurationIntro)
+                    ComponentConfigurationView(properties: properties, tokens: tokens)
                 }
             }
             .padding()
@@ -45,23 +51,68 @@ internal struct ComponentPageView: View {
     }
 }
 
+extension ComponentPageView {
+    init(
+        title: String,
+        properties: [ComponentProperty] = [],
+        tokens: [ComponentToken] = [],
+        playgroundIntro: String? = nil,
+        variantsIntro: String? = nil,
+        configurationIntro: String? = nil,
+        @ViewBuilder playground: () -> Playground,
+        @ViewBuilder variants: () -> Variants
+    ) {
+        self.title = title
+        self.properties = properties
+        self.tokens = tokens
+        self.playgroundIntro = playgroundIntro
+        self.variantsIntro = variantsIntro
+        self.configurationIntro = configurationIntro
+        self.playground = playground()
+        self.variants = variants()
+    }
+}
+
+extension ComponentPageView where Variants == NoVariants {
+    init(
+        title: String,
+        properties: [ComponentProperty] = [],
+        tokens: [ComponentToken] = [],
+        playgroundIntro: String? = nil,
+        variantsIntro: String? = nil,
+        configurationIntro: String? = nil,
+        @ViewBuilder playground: () -> Playground
+    ) {
+        self.init(
+            title: title,
+            properties: properties,
+            tokens: tokens,
+            playgroundIntro: playgroundIntro,
+            variantsIntro: variantsIntro,
+            configurationIntro: configurationIntro,
+            playground: playground,
+            variants: { NoVariants() }
+        )
+    }
+}
+
 #Preview {
     @Previewable @State var text = "Sample"
     NavigationStack {
         ComponentPageView(
             title: "Sample",
-            content: ComponentPage(
-                variants: [ComponentVariant(name: "Short") { Text("Label") }],
-                properties: [ComponentProperty(name: "sampleText", type: "String", defaultValue: "Sample")],
-                playgroundIntro: "Playground intro.",
-                playground: {
-                    PlaygroundLayout(snippet: "Text(\"\(text)\")") {
-                        Text(text)
-                    } controls: {
-                        TextField("Sample text", text: $text)
-                    }
+            properties: [ComponentProperty(name: "sampleText", type: "String", defaultValue: "Sample")],
+            playgroundIntro: "Playground intro.",
+            playground: {
+                PlaygroundLayout(snippet: "Text(\"\(text)\")") {
+                    Text(text)
+                } controls: {
+                    TextField("Sample text", text: $text)
                 }
-            )
+            },
+            variants: {
+                ComponentVariant(name: "Short") { Text("Label") }
+            }
         )
     }
     .environment(PlaygroundEnvironment())

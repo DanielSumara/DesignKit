@@ -1,27 +1,11 @@
 import SwiftUI
 
-internal struct Page: Identifiable {
-    let id: String
-    let title: String
-    let section: Section
-    let body: @MainActor () -> AnyView
+internal protocol Page {
+    associatedtype Content: View
 
-    init<Content: View>(
-        id: String,
-        title: String,
-        section: Section,
-        @ViewBuilder body: @escaping @MainActor () -> Content
-    ) {
-        self.id = id
-        self.title = title
-        self.section = section
-        self.body = { AnyView(body()) }
-    }
+    var id: String { get }
+    var title: String { get }
+    var section: Section { get }
 
-    init(id: String, title: String, section: Section, component: ComponentPage) {
-        self.id = id
-        self.title = title
-        self.section = section
-        self.body = { AnyView(ComponentPageView(title: title, content: component)) }
-    }
+    @ViewBuilder @MainActor var content: Content { get }
 }

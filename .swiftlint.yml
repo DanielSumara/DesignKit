@@ -34,6 +34,12 @@ file_name:
   nested_type_separator: "."
 
 custom_rules:
+  no_any_view:
+    name: No AnyView
+    regex: '\bAnyView\b'
+    match_kinds: [identifier, typeidentifier]
+    message: "No AnyView; use generics, @ViewBuilder or an enum so the view type stays static."
+    severity: error
   no_comments:
     name: No comments
     regex: '(?://|/\*)(?!\s*(?:Workaround:|swiftlint:))'
