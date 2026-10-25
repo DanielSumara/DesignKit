@@ -3,6 +3,7 @@ import SwiftUI
 internal struct Catalog<each Platform: Page> {
     private let shared = PageCollection(
         PageAnatomyPage(),
+        ActionButtonPage(),
         ActivityIndicatorPage(),
         ComponentTokensPage(),
         PrimitivesPage(),
