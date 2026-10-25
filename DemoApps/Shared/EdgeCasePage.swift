@@ -71,6 +71,10 @@ private extension EdgeCasePage {
         }
     }
 
+    static func sampleIcon(_ kind: IconKind) -> DK.Icon {
+        icon(kind: kind, symbol: "wifi.slash", initials: "JK", tintName: "brand")
+    }
+
     static func button(_ title: String, role: DK.ActionButton.Role?) -> DK.ActionButton {
         DK.ActionButton(title: title, role: role) {}
     }
@@ -130,19 +134,21 @@ private extension EdgeCasePage {
                             message: "The initials never wrap."
                         ))
                     }
-                    ComponentVariant(name: "Empty message") {
-                        DS.EdgeCaseView(DK.EdgeCase(icon: .symbol("tray"), title: "Nothing here", message: ""))
-                    }
-                    ComponentVariant(name: "Actions: primary and plain") {
-                        DS.EdgeCaseView(DK.EdgeCase(
-                            icon: .symbol("wifi.slash"),
-                            title: "No connection",
-                            message: "Check the network and try again.",
-                            actions: [
-                                EdgeCasePage.button("Try again", role: .primary),
-                                EdgeCasePage.button("Quit", role: nil)
-                            ]
-                        ))
+                    ForEach(IconKind.allCases, id: \.self) { kind in
+                        ComponentVariant(name: "\(kind.rawValue.capitalized): no message") {
+                            DS.EdgeCaseView(DK.EdgeCase(icon: EdgeCasePage.sampleIcon(kind), title: "Nothing here", message: ""))
+                        }
+                        ComponentVariant(name: "\(kind.rawValue.capitalized): with actions") {
+                            DS.EdgeCaseView(DK.EdgeCase(
+                                icon: EdgeCasePage.sampleIcon(kind),
+                                title: "No connection",
+                                message: "Check the network and try again.",
+                                actions: [
+                                    EdgeCasePage.button("Try again", role: .primary),
+                                    EdgeCasePage.button("Quit", role: nil)
+                                ]
+                            ))
+                        }
                     }
                     ComponentVariant(name: "Actions: three with roles") {
                         DS.EdgeCaseView(DK.EdgeCase(
