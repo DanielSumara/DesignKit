@@ -68,7 +68,7 @@ Following Figma's design-token architecture, three tiers, each referring only to
 
 ## 7. Showcase apps
 - `ShowcasePhone`, `ShowcasePad`, `ShowcaseMac`, generated from `DemoApps/project.yml`, sharing `DemoApps/Shared/`.
-- A `NavigationSplitView`: sidebar sections Foundations (primitives, semantic tokens) and the atomic levels with their components; the detail shows the selected page.
+- A `NavigationSplitView`: sidebar sections Foundations (Page anatomy, Primitives, Semantic tokens, Component tokens; each one file plus one catalog entry, content styled only through `mds`) and the atomic levels with their components; the detail shows the selected page.
 - A component page: Playground (a control for each configuration property and the data it renders, plus theme, amendment, appearance and text size, with the live `DK.{Name}(…)` snippet), Variants (every variant, light and dark), Configuration (properties, component tokens and their aliases).
 - The showcase apps are the manual verification surface of DesignKit specs.
 
