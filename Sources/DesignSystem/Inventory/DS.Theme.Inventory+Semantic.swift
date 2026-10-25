@@ -4,6 +4,9 @@ extension DS.Theme.Inventory {
     typealias Tokens = DS.Theme.SemanticTokens
 
     static func semanticEntries(of tokens: Tokens) -> [SemanticEntry] {
+        let stored = Set(Mirror(reflecting: tokens).children.compactMap(\.label))
+        let known: Set<String> = ["colors", "spacing", "typography", "radius", "borderWidth", "motion"]
+        precondition(stored == known, "Unmapped token groups \(stored.symmetricDifference(known))")
         let colors = Mirror(reflecting: tokens.colors).children.flatMap { group in
             entries(of: group.value, kind: .color, group: group.label)
         }
@@ -16,18 +19,18 @@ extension DS.Theme.Inventory {
     }
 
     private static func entries(of group: Any, kind: SemanticKind, group label: String?) -> [SemanticEntry] {
-        guard let label else { return [] }
+        guard let label else { preconditionFailure("Unlabeled token group") }
         let title = label.prefix(1).uppercased() + label.dropFirst()
-        return Mirror(reflecting: group).children.compactMap { child in
-            guard let name = child.label, let value = semanticValue(of: child.value) else { return nil }
-            return SemanticEntry(kind: kind, group: title, name: name, value: value)
+        return Mirror(reflecting: group).children.map { child in
+            guard let name = child.label else { preconditionFailure("Unlabeled token in \(title)") }
+            return SemanticEntry(kind: kind, group: title, name: name, value: semanticValue(of: child.value))
         }
     }
 
-    private static func semanticValue(of value: Any) -> SemanticValue? {
+    private static func semanticValue(of value: Any) -> SemanticValue {
         switch value {
         case let color as DS.Theme.AdaptiveColor:
-            .color(ColorAlias(color))
+            .color(color.inventoryAlias)
         case let value as Tokens.Spacing.Value:
             .primitive(scale: DK.SpacePrimitive.scale, name: value.primitive.name)
         case let value as Tokens.Radius.Value:
@@ -41,19 +44,8 @@ extension DS.Theme.Inventory {
         case let design as Tokens.Typography.Design:
             .design(String(describing: design))
         default:
-            nil
+            preconditionFailure("Unmapped token type \(type(of: value))")
         }
-    }
-}
-
-extension DS.Theme.Inventory.ColorAlias {
-    init(_ color: DS.Theme.AdaptiveColor) {
-        self.init(
-            light: DS.Theme.Inventory.ColorReference(color.light),
-            dark: DS.Theme.Inventory.ColorReference(color.dark),
-            increasedLight: color.increasedLight.map { DS.Theme.Inventory.ColorReference($0) },
-            increasedDark: color.increasedDark.map { DS.Theme.Inventory.ColorReference($0) }
-        )
     }
 }
 

@@ -19,10 +19,10 @@ extension DS.Theme {
             }
         }
 
-        let light: Alias
-        let dark: Alias
-        let increasedLight: Alias?
-        let increasedDark: Alias?
+        private let light: Alias
+        private let dark: Alias
+        private let increasedLight: Alias?
+        private let increasedDark: Alias?
 
         init(light: Alias, dark: Alias, increasedLight: Alias? = nil, increasedDark: Alias? = nil) {
             self.light = light
@@ -60,6 +60,17 @@ extension DS.Theme {
             let increased = isDark ? increasedDark : increasedLight
             return (isIncreased ? increased ?? normal : normal).value.resolve(in: environment)
         }
+    }
+}
+
+extension DS.Theme.AdaptiveColor {
+    var inventoryAlias: DS.Theme.Inventory.ColorAlias {
+        DS.Theme.Inventory.ColorAlias(
+            light: DS.Theme.Inventory.ColorReference(light),
+            dark: DS.Theme.Inventory.ColorReference(dark),
+            increasedLight: increasedLight.map { DS.Theme.Inventory.ColorReference($0) },
+            increasedDark: increasedDark.map { DS.Theme.Inventory.ColorReference($0) }
+        )
     }
 }
 
