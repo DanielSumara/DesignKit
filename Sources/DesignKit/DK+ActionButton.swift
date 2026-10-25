@@ -1,5 +1,5 @@
 extension DK {
-    public struct CallToAction: Equatable, Sendable, Identifiable {
+    public struct ActionButton: Equatable, Sendable, Identifiable {
         public let id: String
         public let title: String
         public let role: Role?
@@ -20,13 +20,13 @@ extension DK {
             self.action = action
         }
 
-        public static func == (lhs: CallToAction, rhs: CallToAction) -> Bool {
+        public static func == (lhs: ActionButton, rhs: ActionButton) -> Bool {
             (lhs.id, lhs.title, lhs.role, lhs.state) == (rhs.id, rhs.title, rhs.role, rhs.state)
         }
     }
 }
 
-extension DK.CallToAction {
+extension DK.ActionButton {
     public enum Role: Equatable, Sendable {
         case primary
         case destructive

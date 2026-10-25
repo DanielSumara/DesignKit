@@ -3,9 +3,9 @@ extension DK {
         public let icon: DK.Icon
         public let title: String
         public let message: String
-        public let actions: [DK.CallToAction]
+        public let actions: [DK.ActionButton]
 
-        public init(icon: DK.Icon, title: String, message: String, actions: [DK.CallToAction] = []) {
+        public init(icon: DK.Icon, title: String, message: String, actions: [DK.ActionButton] = []) {
             self.icon = icon
             self.title = title
             self.message = message

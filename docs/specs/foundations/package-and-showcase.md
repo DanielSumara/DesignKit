@@ -7,7 +7,7 @@ A buildable package skeleton with the fundamentals every later spec builds on, t
 ## Scope
 - In:
   - `Package.swift` with the targets DesignKit and DesignSystem
-  - fundamentals ported from FinanceTracker `Kits/DesignKit`: `DK` namespace, `DK.ViewState`, `DK.EdgeCase`, `DK.CallToAction`, `DK.Alert`, `DK.Tone`, `DK.Option`, `DK.Icon`, `DK.AccentTint`, `DK.TextSize`; `DS` namespace, `DS.BindableViewModel`
+  - fundamentals ported from FinanceTracker `Kits/DesignKit`: `DK` namespace, `DK.ViewState`, `DK.EdgeCase`, `DK.ActionButton`, `DK.Alert`, `DK.Tone`, `DK.Option`, `DK.Icon`, `DK.AccentTint`, `DK.TextSize`; `DS` namespace
   - `DemoApps/project.yml` generating ShowcasePhone, ShowcasePad and ShowcaseMac over `DemoApps/Shared/`
   - the showcase shell: sidebar, empty-state detail, page model, Appearance control, the Page anatomy page
   - `scripts/gate.sh`
@@ -76,10 +76,10 @@ A buildable package skeleton with the fundamentals every later spec builds on, t
 ### DesignKit (Foundation only, public)
 - `DK`: namespace enum.
 - `DK.ViewState<Content>`: `idle`, `loading`, `loaded(Content)`, `edgeCase(DK.EdgeCase)`; `Equatable` and `Sendable` when `Content` is.
-- `DK.EdgeCase`: `icon: DK.Icon` (Q-4), `title: String`, `message: String`, `actions: [DK.CallToAction]` (default `[]`); `Equatable`, `Sendable`.
-- `DK.CallToAction`: `id: String` (init parameter `id: String? = nil`, stored as `id ?? title`), `title: String`, `role: Role?` (default `nil`), `state: State` (default `.normal`), `action: @MainActor () async -> Void`; `Equatable` (ignores `action`), `Sendable`, `Identifiable`.
+- `DK.EdgeCase`: `icon: DK.Icon` (Q-4), `title: String`, `message: String`, `actions: [DK.ActionButton]` (default `[]`); `Equatable`, `Sendable`.
+- `DK.ActionButton`: `id: String` (init parameter `id: String? = nil`, stored as `id ?? title`), `title: String`, `role: Role?` (default `nil`), `state: State` (default `.normal`), `action: @MainActor () async -> Void`; `Equatable` (ignores `action`), `Sendable`, `Identifiable`.
   - `Role`: `primary`, `destructive`, `cancel`. `State`: `disabled`, `loading`, `normal`.
-- `DK.Alert`: `title: String`, `message: String`, `actions: [DK.CallToAction]`; `Equatable`, `Sendable`.
+- `DK.Alert`: `title: String`, `message: String`, `actions: [DK.ActionButton]`; `Equatable`, `Sendable`.
 - `DK.Tone`: `neutral`, `info`, `success`, `warning`, `critical`; `CaseIterable`, `Equatable`, `Sendable`.
 - `DK.Option<Value: Hashable & Sendable>`: `value: Value`, `title: String`, `id` = `value`; `Equatable`, `Sendable`, `Identifiable`.
 - `DK.Icon`: `symbol(String)`, `image(Data)`, `monogram(String, DK.AccentTint)`; `Equatable`, `Sendable`.
@@ -88,7 +88,6 @@ A buildable package skeleton with the fundamentals every later spec builds on, t
 
 ### DesignSystem (SwiftUI)
 - `DS`: public namespace enum.
-- `DS.BindableViewModel<ViewModel>`: public, `@MainActor` property wrapper; `wrappedValue: ViewModel`; `projectedValue` returns itself; dynamic member lookup turns a `ReferenceWritableKeyPath<ViewModel, Value>` into `Binding<Value>`.
 
 ### Showcase (`DemoApps/Shared/`)
 - Section: `foundations`, `atoms`, `molecules`, `organisms`, `templates`, with titles.
@@ -170,7 +169,7 @@ Showcase only, English (BR-6). Keys identify the element; they aren't catalog ke
 - AC-2 Given the package, when gate step 3 runs, then DesignSystem builds for `generic/platform=iOS` with no warnings; its macOS build is covered by AC-1 and AC-4.
 - AC-3 Given the repo, when `swiftlint lint --strict --quiet` runs, then it reports no violations, `DemoApps/` included; a literal styling value (e.g. `.padding(8)`) in a `DemoApps/` Swift file is reported by `no_literal_styling`.
 - AC-4 Given `DemoApps/` and no development team configured, when `xcodegen generate` runs, then `Showcase.xcodeproj` has the schemes ShowcasePhone, ShowcasePad and ShowcaseMac, each builds for its destination in gate step 5 with no warnings, and the project isn't tracked by git.
-- AC-5 Given the package, then `Sources/DesignKit` holds exactly the files `DK.swift` and `DK+{ViewState,EdgeCase,CallToAction,Alert,Tone,Option,Icon,AccentTint,TextSize}.swift`, and `Sources/DesignSystem` exactly `DS.swift` and `DS+BindableViewModel.swift`, no subfolders and no resources.
+- AC-5 Given the package, then `Sources/DesignKit` holds exactly the files `DK.swift` and `DK+{ViewState,EdgeCase,ActionButton,Alert,Tone,Option,Icon,AccentTint,TextSize}.swift`, and `Sources/DesignSystem` exactly `DS.swift`, no subfolders and no resources.
 - AC-6 Given a clean repo, when `scripts/gate.sh` runs, then every step prints pass and it exits 0.
 - AC-7 Given a lint violation, a compile error or a Swift warning, when `scripts/gate.sh` runs, then it stops at that step, prints fail with the step name, at most 20 `error:` lines and the log path, runs no later step and exits non-zero.
 - AC-8 Given `xcodegen` isn't installed, when `scripts/gate.sh` runs, then it fails before step 1, naming the missing tool.
@@ -182,7 +181,7 @@ Showcase only, English (BR-6). Keys identify the element; they aren't catalog ke
 - AC-14 Given the Playground with the system in dark mode, when Appearance is Light, then the preview renders light on a light background while the chrome stays dark; Dark renders it dark; System follows the system; after leaving and reopening the page within the session, Appearance is kept while the tab is Playground and Sample text is its default. (manual)
 - AC-15 Given the Variants tab of Page anatomy, then Short and Long each show a light and a dark rendering, each on its own appearance's background, and Long wraps onto at least three lines in each column at the app's launch window size. (manual)
 - AC-16 Given the Configuration tab of Page anatomy, then Properties lists, under Name, Type and Default, `sampleText`, `String` and its default, and Component tokens shows "None". (manual)
-- AC-17 Given each file of AC-5 and its FinanceTracker `Kits/DesignKit` source (`Sources/DesignKit/`, `Sources/DesignKitUI/`, `Sources/DesignKitUI/Support/` for `DS+BindableViewModel.swift`), when compared with `git diff --no-index -w`, then the only differences are Q-4 (`symbol: String` → `icon: DK.Icon`) and SwiftLint formatting; checked once in the slice that ports them, since the sources aren't in this repo.
+- AC-17 Given each file of AC-5 and its FinanceTracker `Kits/DesignKit` source (`Sources/DesignKit/`, `Sources/DesignKitUI/` for `DS.swift`), when compared with `git diff --no-index -w`, then the only differences are Q-4 (`symbol: String` → `icon: DK.Icon`) and SwiftLint formatting; checked once in the slice that ports them, since the sources aren't in this repo.
 - AC-18 Given the showcase sources, when `DemoApps/` is searched for the Page anatomy page's type name, then exactly two files match: its own file in `DemoApps/Shared/` and the catalog.
 
 ## Open questions

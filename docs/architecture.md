@@ -30,7 +30,7 @@ docs/
 ## 3. Targets
 | Target | Imports | Namespace | Holds |
 |---|---|---|---|
-| DesignKit | Foundation | `DK` | display-ready data objects Cores fill (`DK.ViewState`, `DK.CallToAction`, `DK.InlineAlert`, …); primitive values and the semantic and component token definitions, `package` access |
+| DesignKit | Foundation | `DK` | display-ready data objects Cores fill (`DK.ViewState`, `DK.ActionButton`, `DK.InlineAlert`, …); primitive values and the semantic and component token definitions, `package` access |
 | DesignSystem | DesignKit, SwiftUI | `DS` (+ `MDS`) | theme resolution to SwiftUI values, `mds` APIs, `@MDS`, scene setup, text size, components shared by every platform |
 | MacDesignSystem | DesignSystem, AppKit | `DS` | what only macOS needs (e.g. AppKit tables, save panel) |
 | PadDesignSystem | DesignSystem, UIKit | `DS` | what only iPad needs |

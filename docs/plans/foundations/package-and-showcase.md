@@ -12,7 +12,7 @@ Run base: 8c1facc7ada531d80912b2b144f82760092c84f6
 - Depends on: —
 - Skills: design-system
 - Review: full
-- Builds: products and targets `DesignKit` and `DesignSystem`; `DK` (`DK.swift`, `DK+{ViewState,EdgeCase,CallToAction,Alert,Tone,Option,Icon,AccentTint,TextSize}.swift`); `DS` (`DS.swift`, `DS+BindableViewModel.swift`); the Commands build lines with warning flags (forms of BR-11 steps 2, 3, 5)
+- Builds: products and targets `DesignKit` and `DesignSystem`; `DK` (`DK.swift`, `DK+{ViewState,EdgeCase,ActionButton,Alert,Tone,Option,Icon,AccentTint,TextSize}.swift`); `DS` (`DS.swift`); the Commands build lines with warning flags (forms of BR-11 steps 2, 3, 5)
 - Done when: AC-1 command and AC-2 command pass; AC-5 file list and AC-17 diff checked once; lint clean; DesignKit builds for macOS and iOS
 - Manual ACs: —
 
