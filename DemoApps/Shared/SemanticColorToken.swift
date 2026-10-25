@@ -26,17 +26,14 @@ internal struct SemanticColorToken: Identifiable {
     }
 
     static func groups(of entries: [DS.Theme.Inventory.SemanticEntry]) -> [(name: String, tokens: [Self])] {
-        var groups: [(name: String, tokens: [Self])] = []
-        for entry in entries where entry.kind == .color {
-            guard case .color(let path) = entry.path, case .color(let alias) = entry.value else { continue }
-            let token = Self(name: "\(entry.group).\(entry.name)", path: path, alias: alias)
-            if let index = groups.firstIndex(where: { $0.name == entry.group }) {
-                groups[index].tokens.append(token)
-            } else {
-                groups.append((entry.group, [token]))
+        entries.filter { $0.kind == .color }
+            .orderedGroups(by: \.group)
+            .map { group in
+                (group.key, group.elements.compactMap { entry in
+                    guard case .color(let path) = entry.path, case .color(let alias) = entry.value else { return nil }
+                    return Self(name: "\(entry.group).\(entry.name)", path: path, alias: alias)
+                })
             }
-        }
-        return groups
     }
 
     private static func text(of reference: DS.Theme.Inventory.ColorReference) -> String {

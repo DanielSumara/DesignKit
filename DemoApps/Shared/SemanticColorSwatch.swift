@@ -20,27 +20,11 @@ internal struct SemanticColorSwatch: View {
         }
     }
 
-    @MDS private var mds
     let token: SemanticColorToken
     let kind: Kind
-    var showsTitle = false
 
     var body: some View {
-        VStack(alignment: .leading, spacing: mds(spacing: \.xxSmall)) {
-            swatch
-            if showsTitle {
-                Text(kind.title)
-                    .font(mds: \.caption)
-                    .foregroundStyle(mds: \.secondary)
-            }
-        }
-    }
-
-    private var swatch: some View {
-        fill
-            .frame(width: mds(spacing: \.xLarge), height: mds(spacing: \.xLarge))
-            .clipShape(mds: \.small)
-            .border(mds: \.subtle, width: \.thin, cornerRadius: \.small)
+        SwatchSquare { fill }
             .accessibilityLabel("\(token.name) \(kind.title)")
     }
 

@@ -2,7 +2,7 @@ import SwiftUI
 
 extension Color {
     @_spi(Showcase) public init(inventory entry: DS.Theme.Inventory.PrimitiveEntry) {
-        guard entry.scale == DS.Theme.ColorPrimitive.scale else {
+        guard entry.isColor else {
             preconditionFailure("Not a color primitive \(entry.scale).\(entry.name)")
         }
         guard let primitive = DS.Theme.ColorPrimitive.all.first(where: { $0.name == entry.name }) else {
@@ -24,6 +24,4 @@ extension Color {
         }
         self = DS.Theme.AdaptiveColor.Alias(primitive, opacity: opacity).value
     }
-
-    @_spi(Showcase) public static var accent: Color { .accentColor }
 }

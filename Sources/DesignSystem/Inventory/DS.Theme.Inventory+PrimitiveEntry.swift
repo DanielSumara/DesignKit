@@ -3,5 +3,7 @@ extension DS.Theme.Inventory {
         public let scale: String
         public let name: String
         public let value: PrimitiveValue
+
+        public var isColor: Bool { scale == DS.Theme.ColorPrimitive.scale }
     }
 }

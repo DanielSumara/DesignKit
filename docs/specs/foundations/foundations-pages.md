@@ -89,6 +89,7 @@ Showcase only, English (package-and-showcase BR-6). Reused: `showcase.configurat
 | showcase.semantic.motion | — | Motion |
 | showcase.semantic.typography | — | Typography |
 | showcase.semantic.design | — | Design |
+| showcase.semantic.bodyWeights | — | Body weights |
 | showcase.semantic.token | — | Token |
 | showcase.semantic.alias | — | Alias |
 | showcase.semantic.primitive | — | Primitive |

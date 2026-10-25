@@ -2,8 +2,6 @@
 import SwiftUI
 
 internal struct SemanticMotionSample: View {
-    private static let trackSteps: CGFloat = 5
-
     @MDS private var mds
     @State private var played = false
     let name: String
@@ -21,19 +19,16 @@ internal struct SemanticMotionSample: View {
         }
     }
 
-    private var trackWidth: CGFloat {
-        mds(spacing: \.xxLarge) * Self.trackSteps
-    }
-
     private var track: some View {
-        ZStack(alignment: .leading) {
+        ZStack {
             Color.clear
-                .frame(width: trackWidth, height: mds(spacing: \.xSmall))
+                .frame(minWidth: mds(spacing: \.xxLarge), maxWidth: .infinity)
+                .frame(height: mds(spacing: \.xSmall))
                 .background(mds: \.neutral, cornerRadius: \.small)
             Color.clear
                 .frame(width: mds(spacing: \.medium), height: mds(spacing: \.medium))
                 .background(mds: \.brand, cornerRadius: \.large)
-                .offset(x: played ? trackWidth - mds(spacing: \.medium) : 0)
+                .frame(maxWidth: .infinity, alignment: played ? .trailing : .leading)
         }
         .animation(mds: path, value: played)
         .accessibilityHidden(true)

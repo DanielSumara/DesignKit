@@ -9,7 +9,6 @@ internal struct PrimitivesPage: Page {
 
     var content: some View {
         PrimitivesView()
-            .showcaseEnvironment()
             .navigationTitle(title)
     }
 }
@@ -41,28 +40,15 @@ private extension PrimitivesPage {
         }
 
         private var colorFamilies: [Family] {
-            var families: [Family] = []
-            for entry in primitives where entry.scale == "color" {
-                let name = String(entry.name.prefix { $0.isLetter })
-                if let index = families.firstIndex(where: { $0.name == name }) {
-                    families[index].entries.append(entry)
-                } else {
-                    families.append(Family(name: name, entries: [entry]))
-                }
-            }
-            return families
+            primitives.filter(\.isColor)
+                .orderedGroups { String($0.name.prefix { $0.isLetter }) }
+                .map { Family(name: $0.key, entries: $0.elements) }
         }
 
         private var scales: [Scale] {
-            var scales: [Scale] = []
-            for entry in primitives where entry.scale != "color" {
-                if let index = scales.firstIndex(where: { $0.name == entry.scale }) {
-                    scales[index].entries.append(entry)
-                } else {
-                    scales.append(Scale(name: entry.scale, entries: [entry]))
-                }
-            }
-            return scales
+            primitives.filter { !$0.isColor }
+                .orderedGroups(by: \.scale)
+                .map { Scale(name: $0.key, entries: $0.elements) }
         }
     }
 
@@ -109,10 +95,7 @@ private extension PrimitivesPage {
         }
 
         private var swatch: some View {
-            Color(inventory: entry)
-                .frame(width: mds(spacing: \.xLarge), height: mds(spacing: \.xLarge))
-                .clipShape(mds: \.small)
-                .border(mds: \.subtle, width: \.thin, cornerRadius: \.small)
+            SwatchSquare { Color(inventory: entry) }
         }
 
         private var caption: String {
@@ -136,7 +119,7 @@ private extension PrimitivesPage {
                     ForEach(scale.entries, id: \.name) { entry in
                         GridRow {
                             Text(entry.name)
-                            Text(value(of: entry))
+                            Text(PrimitiveValueText.text(of: entry.value))
                                 .foregroundStyle(mds: \.secondary)
                         }
                         .font(mds: \.body)
@@ -150,15 +133,6 @@ private extension PrimitivesPage {
             case .milliseconds: "ms"
             case .percent: "%"
             default: "pt"
-            }
-        }
-
-        private func value(of entry: DS.Theme.Inventory.PrimitiveEntry) -> String {
-            switch entry.value {
-            case .points(let points): "\(points.formatted(.number.locale(Locale(identifier: "en")))) pt"
-            case .milliseconds(let milliseconds): "\(milliseconds) ms"
-            case .percent(let percent): "\(percent) %"
-            case .srgb, .system: ""
             }
         }
     }

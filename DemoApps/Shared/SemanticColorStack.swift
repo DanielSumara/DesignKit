@@ -17,13 +17,21 @@ internal struct SemanticColorStack: View {
                     Text("Increase Contrast: \(token.increaseContrastText ?? "same")")
                         .font(mds: \.caption)
                         .foregroundStyle(mds: \.secondary)
-                    WrappingLayout(spacing: mds(spacing: \.medium)) {
+                    HStack(spacing: mds(spacing: \.small)) {
                         ForEach(SemanticColorSwatch.Kind.allCases, id: \.self) { kind in
-                            SemanticColorSwatch(token: token, kind: kind, showsTitle: true)
+                            SemanticColorSwatch(token: token, kind: kind)
                         }
                     }
+                    Text(titles)
+                        .font(mds: \.caption)
+                        .foregroundStyle(mds: \.secondary)
+                        .accessibilityHidden(true)
                 }
             }
         }
+    }
+
+    private var titles: String {
+        SemanticColorSwatch.Kind.allCases.map(\.title).joined(separator: " · ")
     }
 }

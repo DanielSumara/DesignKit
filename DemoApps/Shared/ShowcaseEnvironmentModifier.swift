@@ -2,27 +2,29 @@ import DesignSystem
 import SwiftUI
 
 internal struct ShowcaseEnvironmentModifier: ViewModifier {
+    let includesTextSize: Bool
     @Environment(PlaygroundEnvironment.self) private var playgroundEnvironment
-    #if !os(macOS)
-    @Environment(\.dynamicTypeSize) private var systemDynamicTypeSize
-    #endif
 
     func body(content: Content) -> some View {
         #if os(macOS)
         content
             .contentTextSize()
             .theme(playgroundEnvironment.resolvedTheme)
-            .textSize(playgroundEnvironment.textSize.textSize)
+            .textSize(includesTextSize ? playgroundEnvironment.textSize.textSize : ShowcaseTextSize.default.textSize)
         #else
         content
             .theme(playgroundEnvironment.resolvedTheme)
-            .dynamicTypeSize(playgroundEnvironment.textSize.dynamicTypeSize ?? systemDynamicTypeSize)
+            .transformEnvironment(\.dynamicTypeSize) { dynamicTypeSize in
+                if includesTextSize, let explicit = playgroundEnvironment.textSize.dynamicTypeSize {
+                    dynamicTypeSize = explicit
+                }
+            }
         #endif
     }
 }
 
 extension View {
-    func showcaseEnvironment() -> some View {
-        modifier(ShowcaseEnvironmentModifier())
+    func showcaseEnvironment(includesTextSize: Bool = true) -> some View {
+        modifier(ShowcaseEnvironmentModifier(includesTextSize: includesTextSize))
     }
 }

@@ -8,29 +8,16 @@ internal struct SemanticTokensPage: Page {
     let section = Section.foundations
 
     var content: some View {
-        SemanticTokensView()
-            .navigationTitle(title)
+        FoundationsPageShell(showsTextSize: true) {
+            SectionsView()
+        }
+        .navigationTitle(title)
     }
 }
 
 private extension SemanticTokensPage {
     static let intro = "Each value aliases a primitive: colors as a light and dark pair with an optional "
         + "Increase Contrast pair, the rest one primitive."
-
-    struct SemanticTokensView: View {
-        var body: some View {
-            ScrollView {
-                VStack(alignment: .leading) {
-                    EnvironmentControls(showsAppearance: false)
-                        .padding()
-                    SectionsView()
-                        .padding(mds: \.large)
-                        .showcaseEnvironment()
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-            }
-        }
-    }
 
     struct SectionsView: View {
         @MDS private var mds
