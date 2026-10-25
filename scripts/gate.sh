@@ -3,6 +3,7 @@ set -u
 
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 log="${1:-${TMPDIR:-/tmp}/designkit-gate.log}"
+case "$log" in /*) ;; *) log="$PWD/$log" ;; esac
 step_log="$(mktemp)"
 trap 'rm -f "$step_log"' EXIT
 : > "$log"
