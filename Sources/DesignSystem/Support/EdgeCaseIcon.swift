@@ -7,7 +7,6 @@ internal struct EdgeCaseIcon: View {
 
     var body: some View {
         content
-            .frame(width: configuration.iconSize.points, height: configuration.iconSize.points)
             .accessibilityHidden(true)
     }
 
@@ -16,19 +15,20 @@ internal struct EdgeCaseIcon: View {
         switch icon {
         case .symbol(let name):
             Image(systemName: name)
-                .resizable()
-                .scaledToFit()
+                .foregroundStyle(mds: \.secondary)
         case .image(let data):
             if let image = EdgeCaseImage.decode(data) {
                 Image(decorative: image, scale: 1)
                     .resizable()
                     .scaledToFill()
+                    .frame(width: configuration.iconSize.points, height: configuration.iconSize.points)
                     .clipShape(RoundedRectangle(cornerRadius: configuration.imageRadius.points, style: .continuous))
             } else {
                 Image(systemName: "photo")
                     .resizable()
                     .scaledToFit()
                     .foregroundStyle(mds: \.secondary)
+                    .frame(width: configuration.iconSize.points, height: configuration.iconSize.points)
             }
         case .monogram(let initials, let tint):
             Text(verbatim: initials)
@@ -38,6 +38,7 @@ internal struct EdgeCaseIcon: View {
                 .minimumScaleFactor(Self.minimumMonogramScale)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(DS.Theme.TokenColor(group: \.background, token: tint.backgroundToken), in: Circle())
+                .frame(width: configuration.iconSize.points, height: configuration.iconSize.points)
         }
     }
 
