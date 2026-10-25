@@ -1,5 +1,5 @@
 # Foundations pages
-Status: Draft · Repo: DesignKit · Feature: foundations · Module or target: `DemoApps/` · Depends on: foundations/package-and-showcase, foundations/theme-and-tokens, foundations/primitives-in-design-system (Q-4)
+Status: Approved · Repo: DesignKit · Feature: foundations · Module or target: `DemoApps/` · Depends on: foundations/package-and-showcase, foundations/theme-and-tokens, foundations/primitives-in-design-system (Q-4)
 
 ## Goal
 The showcase Foundations pages Primitives, Semantic tokens and Component tokens, and the playground controls Theme, Amendment and Text size, so every token can be checked without reading code and every component page can be previewed under any theme, amendment and text size. They are the manual verification surface of theme-and-tokens (its BR-18; theme-and-tokens Q-9).
@@ -29,7 +29,7 @@ The showcase Foundations pages Primitives, Semantic tokens and Component tokens,
 
 ### Primitives (Foundations page, single view)
 - Purpose: every primitive with its value. Content, top to bottom: intro line; color families in the order of theme-and-tokens Data, each a wrapping grid of swatches with name and hex; the `accent` swatch labeled as the system accent color; one block per scale (name, unit, every token name with its value); units pt, ms and % (Copy).
-- Values come from the inventory (BR-1). Swatches render the primitive itself through `Color(inventory:)` (BR-9), independent of Appearance.
+- Values come from `standard`'s inventory (BR-1), since themes and amendments share the primitives; the page has no environment controls. Swatches render the primitive itself through `Color(inventory:)` (BR-9), independent of Appearance.
 
 ### Semantic tokens (Foundations page, single view)
 - Purpose: every semantic token of the selected theme with its alias chain, rendered.
@@ -120,7 +120,7 @@ Showcase only, English (package-and-showcase BR-6). Reused: `showcase.configurat
 ## Acceptance criteria
 - AC-1 Given the repo, when `scripts/gate.sh` runs, then every step passes, `no_literal_styling` included on the new pages.
 - AC-2 Given the Primitives page on any app, then every family, step and hex and every scale with its tokens, `fontSize` included, equals theme-and-tokens Data, and `accent` is labeled "System accent color". (manual)
-- AC-3 Given the Semantic tokens page with Standard, no amendment and Increase Contrast off, then every color token's alias and its Light and Dark swatches equal theme-and-tokens Data, and Spacing, Radius, BorderWidth, Motion and Typography (design, and the macOS `fontSize` per style) list its aliases. (manual)
+- AC-3 Given the Semantic tokens page with Standard, no amendment and Increase Contrast off, then every color token's alias and its Light and Dark swatches equal theme-and-tokens Data, and Spacing, Radius, BorderWidth, Motion and Typography (design, and the macOS `fontSize` per style) list its aliases, and the body style shows in regular, medium, semibold and bold, each labeled by its name. (manual)
 - AC-4 Given the Semantic tokens page, when Amendment is Sample, then Background.page, Background.brand, Foreground.brand, Spacing.large and the typography design change to the values of theme-and-tokens Data (sample text in serif, Play buttons tinted pink38), and every other token stays unchanged; None restores them. (manual)
 - AC-5 Given the Component tokens page, then it shows the Theme and Amendment controls, the three intro lines and "None". (manual)
 - AC-6 Given ShowcaseMac, when Text size goes from 100 % to 200 %, then each typography sample doubles from its `fontSize` primitive, the Play buttons switch to extraLarge controls, spacing bars keep their length, and the sidebar and toolbar keep their size. (manual)
