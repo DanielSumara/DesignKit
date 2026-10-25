@@ -95,7 +95,7 @@ Requires the base-atoms plan `Done` (Status Icon, Action Button, `DK.Status`).
 | S2 | Done | 2088584 | f4cec1c | 1 fixed / 0 rejected |
 | S3 | Done | 130a62d | 3c0cf79 | 2 fixed / 0 rejected |
 | S4 | Done | a2bdd11 | 2060776 | 1 fixed / 0 rejected |
-| S5 | Pending | — | — | — |
+| S5 | Done | 6cd5c0a | HomeBudgetApps c13591c | 1 fixed / 0 rejected; canvas v14 |
 
 ## Open questions
 - None
