@@ -1,5 +1,5 @@
 # Foundations pages
-Status: Approved · Repo: DesignKit · Feature: foundations · Module or target: `DemoApps/` · Depends on: foundations/package-and-showcase, foundations/theme-and-tokens, foundations/primitives-in-design-system (Q-4)
+Status: Implemented · Repo: DesignKit · Feature: foundations · Module or target: `DemoApps/` · Depends on: foundations/package-and-showcase, foundations/theme-and-tokens, foundations/primitives-in-design-system (Q-4)
 
 ## Goal
 The showcase Foundations pages Primitives, Semantic tokens and Component tokens, and the playground controls Theme, Amendment and Text size, so every token can be checked without reading code and every component page can be previewed under any theme, amendment and text size. They are the manual verification surface of theme-and-tokens (its BR-18; theme-and-tokens Q-9).

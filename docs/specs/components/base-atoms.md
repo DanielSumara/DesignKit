@@ -1,5 +1,5 @@
 # Base atoms
-Status: Approved · Repo: DesignKit · Feature: components · Module or target: DesignKit, DesignSystem, DemoApps · Depends on: foundations/theme-and-tokens, foundations/foundations-pages, foundations/package-and-showcase
+Status: Implemented · Repo: DesignKit · Feature: components · Module or target: DesignKit, DesignSystem, DemoApps · Depends on: foundations/theme-and-tokens, foundations/foundations-pages, foundations/package-and-showcase
 
 Split from base-components (Q-6); ids are kept from it, so gaps are the rules and criteria of components/base-molecules. Ids of another spec are cited with its name (`base-atoms BR-10`, `base-molecules BR-10`); a bare id is this spec's.
 

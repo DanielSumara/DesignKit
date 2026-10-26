@@ -1,5 +1,5 @@
 # Base molecules
-Status: Approved · Repo: DesignKit · Feature: components · Module or target: DesignKit, DesignSystem, DemoApps · Depends on: components/base-atoms, foundations/theme-and-tokens, foundations/foundations-pages, foundations/package-and-showcase
+Status: Implemented · Repo: DesignKit · Feature: components · Module or target: DesignKit, DesignSystem, DemoApps · Depends on: components/base-atoms, foundations/theme-and-tokens, foundations/foundations-pages, foundations/package-and-showcase
 
 Split from base-components (Q-6); ids are kept from it, so gaps are the rules and criteria of components/base-atoms.
 Ids of another spec are cited with its name: `base-atoms BR-10`, `base-molecules BR-10`; a bare id is this spec's (BR-10, BR-13, BR-14, AC-17, AC-18 and AC-19 exist in both specs, one per side); new ids continue after the highest id used in either spec (currently AC-35, in base-molecules).

@@ -1,5 +1,5 @@
 # Primitives in DesignSystem
-Status: Approved · Repo: DesignKit · Feature: foundations · Module or target: DesignKit, DesignSystem · Depends on: foundations/theme-and-tokens
+Status: Implemented · Repo: DesignKit · Feature: foundations · Module or target: DesignKit, DesignSystem · Depends on: foundations/theme-and-tokens
 
 ## Goal
 Keep all three token tiers in one target: the primitive tier moves from DesignKit to DesignSystem, next to the semantic and component definitions, so a theme's whole mapping is defined and read in one place and DesignKit holds only `DK` data objects. Names, values, themes, amendments and rendering stay as they are.

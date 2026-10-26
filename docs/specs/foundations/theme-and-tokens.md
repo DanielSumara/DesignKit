@@ -1,5 +1,5 @@
 # Theme and tokens
-Status: Approved · Repo: DesignKit · Feature: foundations · Module or target: DesignKit, DesignSystem, `DemoApps/` scene roots · Depends on: foundations/package-and-showcase
+Status: Implemented · Repo: DesignKit · Feature: foundations · Module or target: DesignKit, DesignSystem, `DemoApps/` scene roots · Depends on: foundations/package-and-showcase
 
 ## Goal
 The styling mechanics every component and screen builds on: the three token tiers, the `standard` theme and its sample amendment, text size, and the `mds` access APIs (`@MDS`, the reader, `Color(mds:)`, view modifiers), ported from FinanceTracker and made cross-platform, plus the read-only token inventory the showcase reads. The Foundations showcase pages and the playground Theme, Amendment and Text size controls are foundations/foundations-pages, which verifies this spec's rendered behavior (Q-1, Q-9).

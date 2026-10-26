@@ -1,5 +1,5 @@
 # Package and showcase
-Status: Approved · Repo: DesignKit · Feature: foundations · Module or target: `Package.swift`, DesignKit, DesignSystem, `DemoApps/`, `scripts/gate.sh`, `.swiftlint.yml` · Depends on: —
+Status: Implemented · Repo: DesignKit · Feature: foundations · Module or target: `Package.swift`, DesignKit, DesignSystem, `DemoApps/`, `scripts/gate.sh`, `.swiftlint.yml` · Depends on: —
 
 ## Goal
 A buildable package skeleton with the fundamentals every later spec builds on, the three showcase apps to verify it in, and a single command (the gate) that checks the repo. After this spec, a token, theme or component spec adds only its own code and its showcase page.
