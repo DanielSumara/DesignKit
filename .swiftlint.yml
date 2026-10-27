@@ -86,3 +86,10 @@ custom_rules:
     regex: '(Color\((red|white|hue|hex):|Color\.(red|orange|yellow|green|mint|teal|cyan|blue|indigo|purple|pink|brown|gray|black|white)\b|\.font\(\.system\(size:|\.(padding|cornerRadius)\(\s*\d|(spacing|cornerRadius|lineWidth|radius):\s*\d|\.frame\((width|height|minWidth|maxWidth|minHeight|maxHeight):\s*\d|\.(milliseconds|seconds)\(\d|\.opacity\(\s*0?\.\d)'
     message: "Styling only through mds APIs (tokens); literal values belong to primitives."
     severity: error
+  no_singletons:
+    name: No singletons
+    regex: '\b(?:FileManager\.default|UserDefaults\.standard|NotificationCenter\.default|DistributedNotificationCenter\.default|Bundle\.main|ProcessInfo\.processInfo|URLSession\.shared|NSApplication\.shared|NSWorkspace\.shared|NSScreen\.main|UIApplication\.shared|UIScreen\.main|UIDevice\.current|NSPasteboard\.general|UIPasteboard\.general|(?:Locale|Calendar|TimeZone)\.(?:current|autoupdatingCurrent))\b(?=\s*[?!]?\.)'
+    excluded: '^$' # allowed files: extend as '^$|path/File\.swift|path/Other\.swift'; empty on purpose
+    match_kinds: [identifier, typeidentifier]
+    message: "Do not use a singleton in a method; inject the instance (private let assigned in init). Passing the singleton as an init argument is fine."
+    severity: error

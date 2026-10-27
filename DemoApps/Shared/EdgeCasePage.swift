@@ -39,7 +39,7 @@ private extension EdgeCasePage {
     static let undecodableBytes = Data([0x00, 0x01, 0x02, 0x03, 0x04])
 
     static let sampleImage: Data = {
-        guard let url = Bundle.main.url(forResource: "EdgeCaseSample", withExtension: "png"),
+        guard let url = Bundle(for: ShowcaseBundleLocator.self).url(forResource: "EdgeCaseSample", withExtension: "png"),
               let data = try? Data(contentsOf: url) else {
             return Data()
         }

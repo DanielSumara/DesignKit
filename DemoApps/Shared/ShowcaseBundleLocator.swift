@@ -1,0 +1,1 @@
+internal final class ShowcaseBundleLocator {}
