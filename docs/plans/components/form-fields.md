@@ -94,7 +94,7 @@ Per the spec: form-inputs components, validation binding, focus to errors, sheet
 | S2 | Done | d8305b9 | c0fbe37 | 1 fixed / 0 rejected; R-1 resolved by spec edit (BR-6 size class) |
 | S3 | Done | 9054443 | 678f27d | 4 fixed / 0 rejected (fix commit 9c90d49) |
 | S4 | Done | 9d03b9e | 73088c0 | 1 fixed / 0 rejected (plan text, level Atoms) |
-| S5 | Pending | — | — | — |
+| S5 | Done | 4c544ac | HomeBudgetApps d10267f | 2 fixed / 1 rejected (R-3 footer line out of scope); canvas headers Implemented |
 
 ## Open questions
 - None
