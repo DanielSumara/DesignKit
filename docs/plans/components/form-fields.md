@@ -29,14 +29,14 @@ Requires the base-atoms plan `Done` (Action Button for the form showcase) and th
 - Manual ACs: AC-2, AC-3, AC-9, AC-10, AC-11, AC-15
 
 ### S3 — DesignSystem: Form Section and Form with focus order
-- ACs: AC-1, AC-4, AC-5, AC-7, AC-8, AC-12
+- ACs: AC-1, AC-4, AC-5, AC-7, AC-8, AC-12, AC-17
 - Area: `Sources/DesignSystem/Forms`
 - Depends on: S2
 - Skills: design-system
 - Review: full
-- Builds: `DS.FormSection` (BR-9), `DS.Form` (BR-3, BR-4, BR-5): `@FocusState` ownership, field registration in order, `onFocusChange` calls, Next and Done return keys, Return advance on macOS, left-out fields losing the focus, focused field kept in view; support files under `Forms/` (focus support type, preference or environment keys); light and dark previews, form preview with two sections, optional field, footnote, message and error (BR-12)
+- Builds: `DS.FormSection` (BR-9), `DS.Form` (BR-3, BR-4, BR-5): `@FocusState` ownership, field registration in order, `onFocusChange` calls, Next and Done return keys, Return advance on macOS, left-out fields losing the focus, focused field kept in view; support files under `Forms/` (focus support type, preference or environment keys); light and dark previews, form preview with two sections, optional field, footnote, message and error (BR-12); `DS.FieldRow` keeps its control's identity across a size-class switch so the focus, keyboard and text stay and no `onFocusChange` is called (BR-4, BR-6, Q-12), in `DS+FieldRow.swift`
 - Done when: lint clean; DesignSystem builds for iOS and macOS
-- Manual ACs: AC-1, AC-4, AC-5, AC-7, AC-8, AC-12
+- Manual ACs: AC-1, AC-4, AC-5, AC-7, AC-8, AC-12, AC-17
 
 ### S4 — DemoApps: Form showcase pages
 - ACs: AC-13, AC-16
@@ -76,9 +76,10 @@ Requires the base-atoms plan `Done` (Action Button for the form showcase) and th
 | AC-14 | S5 | manual, canvas and docs |
 | AC-15 | S2 | manual, VoiceOver pl and en |
 | AC-16 | S4 | manual, Xcode previews |
+| AC-17 | S3 | manual, Form page on Mac, iPad full screen and Split View, iPhone Max portrait and landscape |
 
 ## Manual verification
-- AC-1, AC-4, AC-5, AC-7, AC-8, AC-12 — Form showcase page on Mac, iPad and iPhone
+- AC-1, AC-4, AC-5, AC-7, AC-8, AC-12, AC-17 — Form showcase page on Mac, iPad (full screen and Split View) and iPhone (Max rotated)
 - AC-2, AC-3, AC-9, AC-10, AC-11, AC-15 — Field Row, Form Text Field and Form pages, VoiceOver pl and en
 - AC-13, AC-16 — all four showcase pages, Xcode previews
 - AC-14 — canvas pages, `components.md`, architecture §2
@@ -96,4 +97,4 @@ Per the spec: form-inputs components, validation binding, focus to errors, sheet
 | S5 | Pending | — | — | — |
 
 ## Open questions
-- Spec back to Draft (BR-6 layout by size class): re-approve with review-spec, then resume at S3
+- None
