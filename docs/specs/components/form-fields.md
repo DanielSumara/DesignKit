@@ -2,7 +2,7 @@
 Status: Draft · Repo: DesignKit · Feature: components · Module or target: DesignKit, DesignSystem, DemoApps · Depends on: components/base-atoms, foundations/theme-and-tokens, foundations/package-and-showcase
 
 ## Goal
-The first form components of DesignSystem, enough for a form of text fields such as HomeBudgetApps reminders/configure-reminders/reminder-form: the field data object a ViewModel fills, a text field, the field row around any control (label, optional qualifier, help or error text), a section and the form holding the focus order. They live in a `Forms/` folder of DesignKit and DesignSystem, not in packages of their own (Q-1).
+The first form components of DesignSystem, enough for a form of text fields such as HomeBudgetApps reminders/configure-reminders/reminder-form: the field data object a ViewModel fills, a text field, the field row around any control (label, optional qualifier, footnote, message or error text), a section and the form holding the focus order. They live in a `Forms/` folder of DesignKit and DesignSystem, not in packages of their own (Q-1).
 
 ## Scope
 - In:
@@ -21,7 +21,7 @@ The first form components of DesignSystem, enough for a form of text fields such
 | PL | EN | Meaning |
 |---|---|---|
 | Pole formularza | Form field | One edited value with its label, help or error text and focus, filled by a ViewModel |
-| Tekst pomocniczy | Support text | The line below a field's control: a help message or an error |
+| Tekst pomocniczy | Support text | The line below a field's control: a footnote, a message or an error |
 | Kwalifikator | Qualifier | The word after a field's label marking it optional |
 
 ## User stories
@@ -37,9 +37,9 @@ The first form components of DesignSystem, enough for a form of text fields such
   - hasFocus: `Bool` — two-way with the focus (BR-4); default false
   - supportText: `DK.SupportText?` — default nil
   - isHidden: `Bool` — not drawn, not in the focus order; default false
-- `DK.SupportText` (`Equatable`, `Sendable`): `message(String)` help, `error(String)`
+- `DK.SupportText` (`Equatable`, `Sendable`): `footnote(String)` describes the item, `message(String)` describes an effect, `error(String)` names what to fix
 - `DS.FormTextField(text: Binding<String>, prompt: String?)`; `DS.FieldRow(_ field: Binding<DK.FormField<Value>>, @ViewBuilder control: (Binding<Value>) -> Control)`; `DS.FormSection(_ title: String?, footer: String? = nil, @ViewBuilder content:)`; `DS.Form(@ViewBuilder content:)`
-- Component tokens `fieldRow`: `supportTextColor(kind)` message → Foreground.secondary, error → Foreground.critical; `supportSpacing` → Spacing.xxSmall; support text Typography.footnote, section footer Typography.footnote (semantic, no tokens of their own)
+- Component tokens `fieldRow`: `supportTextColor(kind)` footnote and message → Foreground.secondary, error → Foreground.critical; `errorBorderColor` → Foreground.critical; `supportSpacing` → Spacing.xxSmall; support text Typography.footnote, section footer Typography.footnote (semantic, no tokens of their own)
 
 ## Rules
 - BR-1 Port: each component starts from its FinanceTracker file (`Kits/DesignKit/Sources/DesignKit/DK+FormField.swift`, `DK+SupportText.swift`, `DesignKitUI/Molecules/DS+FieldRow.swift`, `DesignKitUI/Organisms/DS+FormSection.swift`, `DesignKitUI/Support/FormFocus.swift`), public names and signatures kept, with these deviations only: `qualifier: String?` becomes `isOptional` with DesignSystem's copy; no `changeCue`, `toggleButton` or read-only presentation initializer (components/form-inputs); `SupportText.footer` dropped, the section owns its footer; the focus order moves from `DS.FormSheet` into `DS.Form`.
@@ -47,13 +47,13 @@ The first form components of DesignSystem, enough for a form of text fields such
 - BR-3 Form: the native grouped form style on every platform, its sections in order; it scrolls on its own (components/modal-sheet BR-8) and keeps the focused field in view.
 - BR-4 Focus: setting a field's `hasFocus` true moves the focus to its control and scrolls it into view; when the user moves the focus, the field gaining it gets `hasFocus` true and every other field of the form false; at most one field has it. When the form appears, the field with `hasFocus` true gets the focus, none when no field has it.
 - BR-5 Return: in a text field, Return moves the focus to the next visible field of the form in order; in the last one it leaves the focus where it is and reaches the default action (base-atoms BR-5). Tab follows the same order natively.
-- BR-6 Field row: the platform's labelled form row (label leading, control trailing on macOS; as the canvas page decides on iOS and iPadOS) with the title and, when `isOptional`, the qualifier; the support text below the control, `supportSpacing` apart, in `supportTextColor` of its kind; a hidden field draws nothing.
-- BR-7 Accessibility: the control's label is the title (with the qualifier when optional); an error is read after the label as the control's hint; a message as its hint when there is no error.
+- BR-6 Field row: the platform's labelled form row (label leading, control trailing on macOS and iPadOS; on iOS stacked: title with the qualifier, the control, the support text) with the title and, when `isOptional`, the qualifier; the support text below the control, `supportSpacing` apart, in `supportTextColor` of its kind, a footnote aligned leading, a message and an error trailing; a field with an error tells its control, which draws its border (and focus ring) in `errorBorderColor`; a hidden field draws nothing.
+- BR-7 Accessibility: the control's label is the title (with the qualifier when optional); an error is read after the label as the control's hint; a footnote or message as its hint when there is no error.
 - BR-8 Text field: the native single-line text field with an optional prompt; it edits the text as typed, no formatting or parsing (each Core's); disabled by the environment like any native control.
 - BR-9 Section: the native form section with an optional title as header and an optional footer below it; nil or empty draws nothing.
 - BR-10 Configuration: every token of Data is a property of `fieldRow` in `DS.Theme.Components`, read only through `@MDS(\.fieldRow)`.
 - BR-11 Copy: key `designSystem.fieldRow.optional` in DesignSystem's String Catalog, pl and en (Copy).
-- BR-12 Previews: each component file has light and dark previews; the form preview shows two sections, an optional field, a help message and an error.
+- BR-12 Previews: each component file has light and dark previews; the form preview shows two sections, an optional field, a footnote, a message and an error.
 - BR-13 Lifecycle: the spec is approved only once its four canvas pages are `Approved` (Q-2); once the showcase pages are done, the canvas headers show Implemented and `components.md` gets the entries; the slice adding the folders updates `docs/architecture.md` §2.
 - BR-14 Showcase pages, under their atomic levels: Form Text Field (prompt, text), Field Row (title, isOptional, support text kind and text, hidden), Form Section (title, footer, rows), Form (two sections of three fields, a button setting `hasFocus` on the third, a field-with-focus readout); each with theme, amendment, appearance and text size, the live `DK.FormField(…)` snippet where the page shows one, Variants light and dark, Configuration with the `fieldRow` token chains.
 
@@ -65,7 +65,7 @@ The first form components of DesignSystem, enough for a form of text fields such
 ## Acceptance criteria
 - AC-1 (manual) Given a form of two sections on macOS, iPadOS and iOS, when shown, then it uses the grouped form style, sections in order with their titles and footers, and scrolls when taller than its space (BR-3, BR-9).
 - AC-2 (manual) Given a field row with `isOptional` true, when shown, then its title is followed by the qualifier in Polish and English (BR-6, BR-11).
-- AC-3 (manual) Given a field with a message, then with an error, when shown, then the text is below the control in Foreground.secondary, then Foreground.critical, `supportSpacing` apart (BR-6, BR-10).
+- AC-3 (manual) Given a field with a footnote, a message, then an error, when shown, then the text is below the control `supportSpacing` apart: the footnote leading and the message trailing in Foreground.secondary, the error trailing in Foreground.critical with the control's border in Foreground.critical (BR-6, BR-10).
 - AC-4 (manual) Given a hidden field, when the form is shown and Return pressed in the field before it, then the field isn't drawn and the focus skips it (BR-5, BR-6).
 - AC-5 (manual) Given a form whose second field has `hasFocus` true, when it appears, then that field has the focus; with none, no field has it (BR-4).
 - AC-6 (manual) Given a form with the focus in the first field, when the ViewModel sets `hasFocus` on a field out of view, then that field gets the focus, is scrolled into view and the first field's `hasFocus` turns false (BR-3, BR-4).
@@ -79,8 +79,9 @@ The first form components of DesignSystem, enough for a form of text fields such
 - AC-14 (manual) Given the finished showcase pages, when checked, then the four canvas pages show Implemented, `components.md` has the entries and architecture §2 lists the `Forms/` folders (BR-13).
 
 ## Open questions
-- Q-3 iOS and iPadOS row layout: label leading with the text field trailing, or the prompt standing in for the label with the title read by VoiceOver only? Proposed: decided on the Field Row canvas page; BR-6 follows it.
+- Q-3 Closed: iOS stacks the row (title with qualifier, control, support text); iPadOS follows macOS (canvas page Field Row, BR-6)
 - Q-4 Should the form move the focus to the first field with an error by itself when the confirm action finds errors? Proposed: no; the ViewModel sets `hasFocus` on it (HomeBudgetApps forms/validated-fields), BR-4 does the rest.
 
 ## Changelog
 - 2026-10-31 Drafted from the reminder-form design discussion (create-spec)
+- 2026-10-31 Support text kinds footnote, message, error; an error draws the control's border critical; iOS row stacked, iPadOS like macOS; Q-3 closed (canvas pages Approved)
