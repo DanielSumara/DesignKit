@@ -1,4 +1,9 @@
 # Modal sheet: decisions
 
 - Q-1 A reusable modal container in DesignSystem, named `ModalWindow`? Answer: yes, a Template named `ModalSheet`, the HIG term on every platform; it takes a title, an optional subtitle, Cancel and confirm `DK.ActionButton`s and a `@ViewBuilder` content, renders inside the owner's sheet and never presents itself; a discard confirmation driven by the owner's ViewModel (`confirmsDiscard`).
+- Q-2 Destructive or role-less actions (Delete in an edit sheet) have no placement. Answer: a later spec adds them once a screen needs one; until then `DK.ModalSheet` has only `cancel` and `confirm`.
+- Q-3 Fitting a macOS sheet to a grouped form's height needed measurement and window probes in FinanceTracker (`SheetSizeLayout`, `SheetWindowSizing`). Answer: try `presentationSizing(.fitted)` with the width tokens first; the plan keeps the FinanceTracker approach as fallback and records the outcome in `docs/pitfalls/`.
 - Q-4 The design-system lifecycle wants an `Approved` canvas page before a component spec. Answer: draft the spec now; the canvas page "Template · Modal Sheet" is made next and must be `Approved` before `review-spec` approves the spec.
+- Q-5 Should an owner override the discard confirmation's copy (e.g. "Discard this reminder?")? Answer: no; the domain-agnostic copy of BR-5 for every sheet.
+- Q-6 Swipe down on iOS and iPadOS: SwiftUI reports no attempted swipe on a sheet with interactive dismissal disabled, and the UIKit hook is not allowed in DesignSystem. Answer: SwiftUI only; while `confirmsDiscard` is true or the cancel path is ignored the swipe springs back with no dialog, otherwise the system closes the sheet through the owner's presentation and the cancel action doesn't run.
+- Q-7 iPad sizing. Answer: system sizing, `standard` the form size and `wide` the page size, full height in compact width; the width tokens and `maxHeight` apply on macOS only.
