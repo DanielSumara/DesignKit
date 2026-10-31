@@ -5,5 +5,6 @@ extension DS.Theme {
         public internal(set) var statusIcon: StatusColors
         public internal(set) var inlineAlert: InlineAlert
         public internal(set) var edgeCase: EdgeCase
+        public internal(set) var fieldRow: FieldRow
     }
 }

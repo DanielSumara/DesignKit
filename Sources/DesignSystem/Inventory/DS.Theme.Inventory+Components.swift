@@ -8,6 +8,7 @@ extension DS.Theme.Inventory {
             + statusIconEntries(of: components.statusIcon, semantic: semantic)
             + inlineAlertEntries(of: components.inlineAlert, semantic: semantic)
             + edgeCaseEntries(of: components.edgeCase, semantic: semantic)
+            + fieldRowEntries(of: components.fieldRow, semantic: semantic)
     }
 
     private static func activityIndicatorEntries(of configuration: DS.Theme.Components.ActivityIndicator) -> [ComponentEntry] {
@@ -119,6 +120,51 @@ extension DS.Theme.Inventory {
                 component: "edgeCase",
                 name: "imageRadius",
                 aliasedName: chain(of: radiusEntry(configuration.imageRadius.token, in: semantic))
+            ),
+        ]
+    }
+
+    private static func fieldRowEntries(
+        of configuration: DS.Theme.Components.FieldRow,
+        semantic: [SemanticEntry]
+    ) -> [ComponentEntry] {
+        let supportText: [(String, DK.SupportText)] = [
+            ("footnote", .footnote("")),
+            ("message", .message("")),
+            ("error", .error("")),
+        ]
+        let colors = supportText.map { kind, text in
+            ComponentEntry(
+                component: "fieldRow",
+                name: "supportTextColor(\(kind))",
+                aliasedName: chain(of: colorEntry(configuration.supportTextColor.token(of: text), in: semantic))
+            )
+        }
+        return colors + [
+            ComponentEntry(
+                component: "fieldRow",
+                name: "errorBorderColor",
+                aliasedName: chain(of: colorEntry(configuration.errorBorderColor.token, in: semantic))
+            ),
+            ComponentEntry(
+                component: "fieldRow",
+                name: "errorBorderWidth",
+                aliasedName: chain(of: borderWidthEntry(configuration.errorBorderWidth.token, in: semantic))
+            ),
+            ComponentEntry(
+                component: "fieldRow",
+                name: "errorBorderRadius",
+                aliasedName: chain(of: radiusEntry(configuration.errorBorderRadius.token, in: semantic))
+            ),
+            ComponentEntry(
+                component: "fieldRow",
+                name: "errorFocusRingWidth",
+                aliasedName: chain(of: borderWidthEntry(configuration.errorFocusRingWidth.token, in: semantic))
+            ),
+            ComponentEntry(
+                component: "fieldRow",
+                name: "supportSpacing",
+                aliasedName: chain(of: spacingEntry(configuration.supportSpacing.token, in: semantic))
             ),
         ]
     }

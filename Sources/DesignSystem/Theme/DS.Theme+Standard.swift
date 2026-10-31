@@ -162,6 +162,18 @@ extension DS.Theme {
             edgeCase: Components.EdgeCase(
                 iconSize: Components.Size(.size64),
                 imageRadius: Components.Radius(\.large)
+            ),
+            fieldRow: Components.FieldRow(
+                supportTextColor: Components.SupportTextColors(
+                    footnote: \.foreground.secondary,
+                    message: \.foreground.secondary,
+                    error: \.foreground.critical
+                ),
+                errorBorderColor: Components.ColorToken(\.border.critical),
+                errorBorderWidth: Components.BorderWidth(\.thin),
+                errorBorderRadius: Components.Radius(\.small),
+                errorFocusRingWidth: Components.BorderWidth(\.thick),
+                supportSpacing: Components.Spacing(\.xxSmall)
             )
         )
     )

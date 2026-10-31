@@ -13,7 +13,9 @@ Structure of the DesignKit repo and the reasons for it. Rules digest: `CLAUDE.md
 Package.swift
 Sources/
   DesignKit/            Foundation only: DK data objects
+    Forms/              form data objects (DK.FormField, DK.SupportText)
   DesignSystem/         SwiftUI, every platform: tokens, theme, mds APIs, components
+    Forms/              form components (DS.FormTextField, FieldRow, FormSection, Form)
   MacDesignSystem/      AppKit-backed wrappers and macOS-only components
   PadDesignSystem/      UIKit-backed wrappers and iPad-only components
   PhoneDesignSystem/    UIKit-backed wrappers and iPhone-only components

@@ -17,6 +17,7 @@ extension DS.Theme.Components {
         components.actionButton.activityIndicatorDelay.resolvedDuration = .milliseconds(motion[keyPath: token].primitive.milliseconds)
         components.inlineAlert.resolve(against: semanticTokens)
         components.edgeCase.resolve(against: semanticTokens)
+        components.fieldRow.resolve(against: semanticTokens)
         return components
     }
 }

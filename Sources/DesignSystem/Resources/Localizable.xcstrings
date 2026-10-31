@@ -1,6 +1,38 @@
 {
   "sourceLanguage": "pl",
   "strings": {
+    "designSystem.fieldRow.error": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Error: %1$@, %2$@"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Błąd: %1$@, %2$@"
+          }
+        }
+      }
+    },
+    "designSystem.fieldRow.optional": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Optional"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opcjonalne"
+          }
+        }
+      }
+    },
     "designSystem.statusIcon.error": {
       "localizations": {
         "en": {

@@ -1,8 +1,8 @@
 # Form fields — implementation plan
 Spec: DesignKit/docs/specs/components/form-fields.md
 Repo: DesignKit
-Status: Ready
-Run base: —
+Status: In progress
+Run base: 0803b861f37069120db924b889f8790eabff1d61
 Depends on: —
 
 ## Slices
@@ -89,7 +89,7 @@ Per the spec: form-inputs components, validation binding, focus to errors, sheet
 ## Progress
 | Slice | Status | Base | Head | Review |
 |---|---|---|---|---|
-| S1 | Pending | — | — | — |
+| S1 | In progress | 0803b86 | — | — |
 | S2 | Pending | — | — | — |
 | S3 | Pending | — | — | — |
 | S4 | Pending | — | — | — |
