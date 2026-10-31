@@ -1,8 +1,8 @@
 # View state — implementation plan
 Spec: DesignKit/docs/specs/components/view-state.md
 Repo: DesignKit
-Status: Ready
-Run base: —
+Status: In progress
+Run base: 22f6c3779c46f07b5fe44c714a35630b0b9a9a51
 Depends on: —
 
 ## Slices
@@ -74,7 +74,7 @@ Depends on: —
 ## Progress
 | Slice | Status | Base | Head | Review |
 |---|---|---|---|---|
-| S1 | Pending | — | — | — |
+| S1 | Done | 22f6c37 | 6d591d3 | 0 fixed / 0 rejected |
 | S2 | Pending | — | — | — |
 | S3 | Pending | — | — | — |
 | S4 | Pending | — | — | — |
