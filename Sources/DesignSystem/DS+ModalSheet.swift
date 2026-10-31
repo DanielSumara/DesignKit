@@ -9,6 +9,7 @@ extension DS {
         private let width: Width
         private let content: Content
 
+        @MDS private var mds
         @MDS(\.modalSheet) private var configuration
         @State private var isConfirming = false
         @State private var showsDiscardConfirmation = false
@@ -27,7 +28,7 @@ extension DS {
                     .padding(.bottom, configuration.contentSpacing.points)
                 content
                     .disabled(isBusy)
-                HStack(spacing: configuration.contentSpacing.points) {
+                HStack(spacing: mds(spacing: \.small)) {
                     Spacer(minLength: 0)
                     cancelButton
                     confirmButton
@@ -90,7 +91,7 @@ extension DS {
                 role: .cancel,
                 state: isBusy ? .disabled : data.cancel.state
             ) {
-                takeCancelPath()
+                await takeCancelPath()
             })
             .modalSheetDiscardDialog(isPresented: $showsDiscardConfirmation) {
                 run(data.cancel.action)
@@ -113,13 +114,13 @@ extension DS {
             }
         }
 
-        private func takeCancelPath() {
+        private func takeCancelPath() async {
             guard !ignoresCancelPath else { return }
 
             if data.confirmsDiscard {
                 showsDiscardConfirmation = true
             } else {
-                run(data.cancel.action)
+                await data.cancel.action()
             }
         }
 
@@ -146,7 +147,7 @@ private struct ModalSheetSamples: View {
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                     .frame(width: configuration.standardWidth.points, height: configuration.maxHeight.points)
-                    .border(.separator)
+                    .border(mds: \.subtle, width: \.thin, cornerRadius: \.small)
                 }
             }
             .padding(configuration.padding.points)
