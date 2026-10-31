@@ -35,6 +35,7 @@ extension DS {
                 .padding([.bottom, .leading, .trailing], configuration.padding.points)
                 .padding(.top, configuration.contentSpacing.points)
             }
+            .interactiveDismissDisabled(ignoresCancelPath)
             #else
             NavigationStack {
                 content
