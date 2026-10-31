@@ -1,5 +1,5 @@
 # Modal sheet
-Status: Approved · Repo: DesignKit · Feature: components · Module or target: DesignKit, DesignSystem, DemoApps · Depends on: components/base-atoms, foundations/theme-and-tokens, foundations/package-and-showcase
+Status: Planned · Repo: DesignKit · Feature: components · Module or target: DesignKit, DesignSystem, DemoApps · Depends on: components/base-atoms, foundations/theme-and-tokens, foundations/package-and-showcase
 
 ## Goal
 A DesignSystem template for the content of a modal sheet, reused by every feature that asks for input in a sheet (the first being the HomeBudgetApps reminder form): a title, an optional subtitle, Cancel and an optional confirm action placed as each platform places them, a content slot, and a discard confirmation the owner's ViewModel switches on while there are unsaved changes. Named after the HIG term "sheet" (Q-1).
