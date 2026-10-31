@@ -1,5 +1,5 @@
 # View state
-Status: Planned · Repo: DesignKit · Feature: components · Module or target: DesignSystem, DemoApps · Depends on: components/base-atoms, components/base-molecules, foundations/theme-and-tokens, foundations/package-and-showcase
+Status: Implemented · Repo: DesignKit · Feature: components · Module or target: DesignSystem, DemoApps · Depends on: components/base-atoms, components/base-molecules, foundations/theme-and-tokens, foundations/package-and-showcase
 
 ## Goal
 A DesignSystem organism rendering a `DK.ViewState<Content>`, the one way every screen or region shows its state (the first being the HomeBudgetApps Reminders root): idle draws nothing, loading shows the activity indicator with a label after a short delay, an edge case shows `DS.EdgeCaseView`, loaded shows the caller's content. Ported from FinanceTracker `DS.LoadableView`.
@@ -75,3 +75,4 @@ A DesignSystem organism rendering a `DK.ViewState<Content>`, the one way every s
 ## Changelog
 - 2026-10-31 Drafted from the placeholder, ported from FinanceTracker `DS.LoadableView` (create-spec)
 - 2026-10-31 One identity across cases for the owner's `.task`, loading set again during loading, unbounded axis (AC-14), default label with an ellipsis; Q-1 and Q-2 to decisions (review round 1); revalidated and Approved (review round 1)
+- 2026-10-31 Implemented: [plan](../../plans/components/view-state.md), 22f6c37..cec21cb

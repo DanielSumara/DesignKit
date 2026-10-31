@@ -1,7 +1,7 @@
 # View state — implementation plan
 Spec: DesignKit/docs/specs/components/view-state.md
 Repo: DesignKit
-Status: In progress
+Status: Done
 Run base: 22f6c3779c46f07b5fe44c714a35630b0b9a9a51
 Depends on: —
 
