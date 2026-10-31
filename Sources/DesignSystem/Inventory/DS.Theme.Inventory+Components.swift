@@ -9,6 +9,7 @@ extension DS.Theme.Inventory {
             + inlineAlertEntries(of: components.inlineAlert, semantic: semantic)
             + edgeCaseEntries(of: components.edgeCase, semantic: semantic)
             + fieldRowEntries(of: components.fieldRow, semantic: semantic)
+            + modalSheetEntries(of: components.modalSheet, semantic: semantic)
     }
 
     private static func activityIndicatorEntries(of configuration: DS.Theme.Components.ActivityIndicator) -> [ComponentEntry] {
@@ -165,6 +166,32 @@ extension DS.Theme.Inventory {
                 component: "fieldRow",
                 name: "supportSpacing",
                 aliasedName: chain(of: spacingEntry(configuration.supportSpacing.token, in: semantic))
+            ),
+        ]
+    }
+
+    private static func modalSheetEntries(
+        of configuration: DS.Theme.Components.ModalSheet,
+        semantic: [SemanticEntry]
+    ) -> [ComponentEntry] {
+        [
+            ComponentEntry(component: "modalSheet", name: "standardWidth", aliasedName: configuration.standardWidth.primitive.name),
+            ComponentEntry(component: "modalSheet", name: "wideWidth", aliasedName: configuration.wideWidth.primitive.name),
+            ComponentEntry(component: "modalSheet", name: "maxHeight", aliasedName: configuration.maxHeight.primitive.name),
+            ComponentEntry(
+                component: "modalSheet",
+                name: "headerSpacing",
+                aliasedName: chain(of: spacingEntry(configuration.headerSpacing.token, in: semantic))
+            ),
+            ComponentEntry(
+                component: "modalSheet",
+                name: "contentSpacing",
+                aliasedName: chain(of: spacingEntry(configuration.contentSpacing.token, in: semantic))
+            ),
+            ComponentEntry(
+                component: "modalSheet",
+                name: "padding",
+                aliasedName: chain(of: spacingEntry(configuration.padding.token, in: semantic))
             ),
         ]
     }

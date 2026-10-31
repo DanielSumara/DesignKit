@@ -174,6 +174,14 @@ extension DS.Theme {
                 errorBorderRadius: Components.Radius(\.small),
                 errorFocusRingWidth: Components.BorderWidth(\.thick),
                 supportSpacing: Components.Spacing(\.xxSmall)
+            ),
+            modalSheet: Components.ModalSheet(
+                standardWidth: Components.Size(.size480),
+                wideWidth: Components.Size(.size640),
+                maxHeight: Components.Size(.size560),
+                headerSpacing: Components.Spacing(\.xxSmall),
+                contentSpacing: Components.Spacing(\.medium),
+                padding: Components.Spacing(\.large)
             )
         )
     )

@@ -6,5 +6,6 @@ extension DS.Theme {
         public internal(set) var inlineAlert: InlineAlert
         public internal(set) var edgeCase: EdgeCase
         public internal(set) var fieldRow: FieldRow
+        public internal(set) var modalSheet: ModalSheet
     }
 }

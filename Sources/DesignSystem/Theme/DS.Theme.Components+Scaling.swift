@@ -7,6 +7,9 @@ extension DS.Theme.Components {
         components.activityIndicator.extraLargePlaceholderSize.factor = scale
         components.inlineAlert.iconSize.factor = scale
         components.edgeCase.iconSize.factor = scale
+        components.modalSheet.standardWidth.factor = scale
+        components.modalSheet.wideWidth.factor = scale
+        components.modalSheet.maxHeight.factor = scale
         return components
     }
 
@@ -18,6 +21,7 @@ extension DS.Theme.Components {
         components.inlineAlert.resolve(against: semanticTokens)
         components.edgeCase.resolve(against: semanticTokens)
         components.fieldRow.resolve(against: semanticTokens)
+        components.modalSheet.resolve(against: semanticTokens)
         return components
     }
 }

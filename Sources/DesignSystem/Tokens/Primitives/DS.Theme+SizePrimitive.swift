@@ -11,6 +11,9 @@ extension DS.Theme {
         static let size24 = SizePrimitive(name: "size24", points: 24)
         static let size48 = SizePrimitive(name: "size48", points: 48)
         static let size64 = SizePrimitive(name: "size64", points: 64)
+        static let size480 = SizePrimitive(name: "size480", points: 480)
+        static let size560 = SizePrimitive(name: "size560", points: 560)
+        static let size640 = SizePrimitive(name: "size640", points: 640)
 
         static let all: [SizePrimitive] = [
             .size12,
@@ -19,6 +22,9 @@ extension DS.Theme {
             .size24,
             .size48,
             .size64,
+            .size480,
+            .size560,
+            .size640,
         ]
     }
 }
