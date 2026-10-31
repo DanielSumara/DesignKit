@@ -1,5 +1,5 @@
 # Form fields
-Status: Planned · Repo: DesignKit · Feature: components · Module or target: DesignKit, DesignSystem, DemoApps · Depends on: components/base-atoms, foundations/theme-and-tokens, foundations/package-and-showcase
+Status: Implemented · Repo: DesignKit · Feature: components · Module or target: DesignKit, DesignSystem, DemoApps · Depends on: components/base-atoms, foundations/theme-and-tokens, foundations/package-and-showcase
 
 ## Goal
 The first form components of DesignSystem, enough for a form of text fields such as HomeBudgetApps reminders/configure-reminders/reminder-form: the field data object a ViewModel fills, a text field, the field row around any control (label, optional qualifier, footnote, message or error text), a section and the form owning the focus order. They live in a `Forms/` folder of DesignKit and DesignSystem, not in packages of their own (Q-1).
@@ -94,3 +94,4 @@ None.
 - 2026-10-31 Approved; AC-16 for previews, AC-4 also checks the focused field scrolled into view, the error focus ring drawn on iOS too, modal-sheet citation dropped from BR-3 (review-spec revalidation)
 - 2026-10-31 BR-6 layout follows the horizontal size class, not the platform (implement-increment S2 review R-1); back to Draft
 - 2026-10-31 Approved; BR-6 layout unless compact, macOS without a size class, cites architecture §3 and Q-11; BR-4 focus kept across a layout switch (Q-12); AC-17 for the layout and the switch; canvas Field Row relabelled by size class and re-approved (review-spec revalidation)
+- 2026-10-31 Implemented: [plan](../../plans/components/form-fields.md), 0803b86..44ee01c

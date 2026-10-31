@@ -1,7 +1,7 @@
 # Form fields — implementation plan
 Spec: DesignKit/docs/specs/components/form-fields.md
 Repo: DesignKit
-Status: In progress
+Status: Done
 Run base: 0803b861f37069120db924b889f8790eabff1d61
 Depends on: —
 
