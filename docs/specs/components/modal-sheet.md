@@ -1,5 +1,5 @@
 # Modal sheet
-Status: Draft · Repo: DesignKit · Feature: components · Module or target: DesignKit, DesignSystem, DemoApps · Depends on: components/base-atoms, foundations/theme-and-tokens, foundations/package-and-showcase
+Status: Approved · Repo: DesignKit · Feature: components · Module or target: DesignKit, DesignSystem, DemoApps · Depends on: components/base-atoms, foundations/theme-and-tokens, foundations/package-and-showcase
 
 ## Goal
 A DesignSystem template for the content of a modal sheet, reused by every feature that asks for input in a sheet (the first being the HomeBudgetApps reminder form): a title, an optional subtitle, Cancel and an optional confirm action placed as each platform places them, a content slot, and a discard confirmation the owner's ViewModel switches on while there are unsaved changes. Named after the HIG term "sheet" (Q-1).
@@ -37,7 +37,7 @@ A DesignSystem template for the content of a modal sheet, reused by every featur
   - confirm: `DK.ActionButton?` — drawn with role `primary` whatever its role; nil shows Cancel only
   - confirmsDiscard: `Bool` — set by the owner's ViewModel while the sheet holds unsaved changes (BR-5)
 - `DS.ModalSheet.Width`: `standard`, `wide` — a configuration of the call site, not data
-- Component tokens `modalSheet`: `standardWidth` (size480), `wideWidth` (size640), `maxHeight` (size560), all text-bound on macOS; `headerSpacing` (Spacing.xxSmall), `contentSpacing` (Spacing.medium), `padding` (Spacing.large); title Typography.headline, subtitle Typography.subheadline in Foreground.secondary (semantic, no tokens of their own)
+- Component tokens `modalSheet`: `standardWidth` (size480), `wideWidth` (size640), `maxHeight` (size560), all on the scaling list and used on macOS only; `headerSpacing` (Spacing.xxSmall), `contentSpacing` (Spacing.medium), `padding` (Spacing.large); title Typography.headline, subtitle Typography.subheadline in Foreground.secondary (semantic, no tokens of their own)
 
 ## Rules
 - BR-1 Port: the header, action placement and sizing start from FinanceTracker `DS.FormSheet` (`Kits/DesignKit/Sources/DesignKitUI/Templates/DS+FormSheet.swift`), with these deviations only: no table styles, status line or footer; the content slot knows nothing of what it holds; actions are `DK.ActionButton`s; window sizing through component tokens instead of window probes where the platform allows (Q-3).
@@ -48,8 +48,8 @@ A DesignSystem template for the content of a modal sheet, reused by every featur
 - BR-6 Busy and disabled: the sheet wraps the confirm action to know when it runs; from the moment it starts until it returns, and while the confirm action's state is `loading`, Cancel shows disabled, the cancel path is ignored and the content is disabled; the confirm button's loading look keeps base-atoms BR-4's delay. When it ends, all are as before. While the cancel action's state is `disabled` the cancel path is ignored too.
 - BR-7 Size: iPhone shows a full-height sheet. iPadOS uses system sizing: `standard` the form size, `wide` the page size, full height in compact width (Q-7). macOS sizes the sheet to `standardWidth` or `wideWidth` and to the content's height, stopping at `maxHeight`, where the content scrolls (Q-3). The widths and `maxHeight` scale with text size on macOS (theme-and-tokens text size); iOS and iPadOS scale text with Dynamic Type.
 - BR-8 Content: given the sheet's width, edge to edge, below the header and above the macOS button row; the sheet adds no scroll view of its own, so a scrolling content (a form, components/form-fields) scrolls itself and a short one is not stretched.
-- BR-9 Configuration: every token of Data is a property of `modalSheet` in `DS.Theme.Components`, read only through `@MDS(\.modalSheet)`; `standardWidth`, `wideWidth` and `maxHeight` join the scaling list.
-- BR-10 Copy: keys `designSystem.modalSheet.discard.{title, message, discard, keepEditing}` in DesignSystem's String Catalog, pl and en (Copy).
+- BR-9 Configuration: every token of Data is a property of `modalSheet` in `DS.Theme.Components`, read only through `@MDS(\.modalSheet)`; `standardWidth`, `wideWidth` and `maxHeight` join the scaling list (theme-and-tokens BR-7); `size480`, `size560` and `size640` join the `size` primitives in order.
+- BR-10 Copy: keys `designSystem.modalSheet.{discardTitle, discardMessage, discardChanges, keepEditing}` in DesignSystem's String Catalog, pl and en (Copy).
 - BR-11 Previews: the component file has light and dark previews of a sheet with and without subtitle, with and without confirm action, and one with `confirmsDiscard` true.
 - BR-12 Lifecycle: the spec is approved only once the canvas page "Template · Modal Sheet" is `Approved` (Q-4); once the showcase page is done, the canvas header shows Implemented and `components.md` gets the entry.
 - BR-13 Showcase page "Modal Sheet" under a new Templates sidebar section: Playground with a button presenting the sheet and controls for title, subtitle, confirm present, each action's state, `confirmsDiscard`, width, a confirm action lasting 2 s and sample content of a few rows or a long list, plus theme, amendment, appearance and text size, with the live `DK.ModalSheet(…)` snippet; Variants: the BR-11 cases, light and dark; Configuration: the `modalSheet` token chains.
@@ -57,13 +57,13 @@ A DesignSystem template for the content of a modal sheet, reused by every featur
 ## Copy
 | Key | pl | en |
 |---|---|---|
-| designSystem.modalSheet.discard.title | Odrzucić zmiany? | Discard changes? |
-| designSystem.modalSheet.discard.message | Wprowadzone zmiany nie zostaną zapisane. | Your changes won't be saved. |
-| designSystem.modalSheet.discard.discard | Odrzuć zmiany | Discard Changes |
-| designSystem.modalSheet.discard.keepEditing | Kontynuuj edycję | Keep Editing |
+| designSystem.modalSheet.discardTitle | Odrzucić zmiany? | Discard changes? |
+| designSystem.modalSheet.discardMessage | Wprowadzone zmiany nie zostaną zapisane. | Your changes won't be saved. |
+| designSystem.modalSheet.discardChanges | Odrzuć zmiany | Discard Changes |
+| designSystem.modalSheet.keepEditing | Kontynuuj edycję | Keep Editing |
 
 ## Acceptance criteria
-- AC-1 (manual) Given a sheet with title, subtitle and both actions on iPhone and iPad, when presented, then the title is inline in the navigation bar with the subtitle below it, Cancel leading, the confirm action trailing; on iPad with a hardware keyboard Return runs the confirm action and Esc runs the cancel action (BR-2, BR-3).
+- AC-1 (manual) Given a sheet with title, subtitle and both actions on iPhone and iPad, when presented, then the title is inline in the navigation bar with the subtitle below it, Cancel leading, the confirm action trailing; on iPad with a hardware keyboard Return runs the confirm action and Esc runs the cancel action (BR-2, BR-3, BR-4).
 - AC-2 (manual) Given the same sheet on macOS, when presented, then title and subtitle are above the content, Cancel and the confirm action at the bottom trailing edge, header and button row inset by `padding` and `contentSpacing` from the content, Return runs the confirm action and Esc runs the cancel action (BR-2, BR-3, BR-4).
 - AC-3 (manual) Given a sheet without subtitle, or without confirm action, when presented, then no subtitle space, or only Cancel, is drawn; Return does nothing on macOS (BR-2, BR-3).
 - AC-4 (manual) Given `confirmsDiscard` false, when Cancel is clicked or Esc pressed, then the cancel action runs once without a dialog; when, on iPhone and iPad, the sheet is swiped down, then it closes and the cancel action doesn't run (BR-4).
@@ -76,9 +76,10 @@ A DesignSystem template for the content of a modal sheet, reused by every featur
 - AC-11 (manual) Given macOS text size 200 %, when the sheet is presented, then its width and maximum height grow with the text size (BR-7, BR-9).
 - AC-12 (manual) Given Polish and English, when the discard confirmation shows, then its texts are the Copy table's (BR-10).
 - AC-13 (manual) Given VoiceOver on macOS, when the sheet appears, then the title is read as a header, followed by the subtitle (BR-2).
-- AC-14 (manual) Given the showcase page, when each Playground control changes, then the sheet and the `DK.ModalSheet(…)` snippet follow it, and Variants show every BR-11 case light and dark (BR-13).
+- AC-14 (manual) Given the showcase page, when each Playground control changes, then the sheet and the `DK.ModalSheet(…)` snippet follow it, and Variants show every BR-11 case light and dark; in Xcode the component file's previews show the same cases, light and dark (BR-11, BR-13).
 - AC-15 (manual) Given the finished showcase page, when checked, then the canvas page shows Implemented and `components.md` has the entry (BR-12).
 
 ## Changelog
 - 2026-10-31 Drafted from the reminder-form design discussion (create-spec)
 - 2026-10-31 Swipe down without discard dialog, iPad system sizing, busy tracking by the sheet, size primitives, macOS insets, own navigation stack, iPad popover without Keep Editing, forced roles; Q-2, Q-3, Q-5, Q-6, Q-7 answered (review-spec round 1)
+- 2026-10-31 Approved; AC-14 also checks the previews, copy keys `designSystem.modalSheet.{element}`, size primitives join the `size` scale, scaling-list wording, AC-1 cites BR-4 (review-spec revalidation)
