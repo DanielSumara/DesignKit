@@ -68,9 +68,10 @@ extension DS {
             }
         }
 
-        private var accessibilityLabel: String {
-            guard field.isOptional else { return field.title }
-            return "\(field.title) \(String(localized: "designSystem.fieldRow.optional", bundle: .module))"
+        private var accessibilityLabel: Text {
+            let title = Text(verbatim: field.title)
+            guard field.isOptional else { return title }
+            return Text("\(title) \(Text("designSystem.fieldRow.optional", bundle: .module))")
         }
 
         private var accessibilityHint: String {
