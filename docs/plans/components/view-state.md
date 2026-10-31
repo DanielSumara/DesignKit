@@ -75,9 +75,9 @@ Depends on: —
 | Slice | Status | Base | Head | Review |
 |---|---|---|---|---|
 | S1 | Done | 22f6c37 | 6d591d3 | 0 fixed / 0 rejected |
-| S2 | Pending | — | — | — |
+| S2 | Done | 152b397 | 5f7d5fb+fix | 2 fixed / 1 rejected |
 | S3 | Pending | — | — | — |
 | S4 | Pending | — | — | — |
 
 ## Open questions
-- None
+- Loaded content must be a single root view (S2 review F-1, rejected as unfixable within BR-2; see `docs/pitfalls/view-state.md`): state it in the spec (BR-2 or BR-8) and on the S3 page, or accept multi-root as caller's responsibility
