@@ -93,7 +93,7 @@ Per the spec: form-inputs components, validation binding, focus to errors, sheet
 | S1 | Done | 0803b86 | d8305b9 | 1 fixed / 0 rejected |
 | S2 | Done | d8305b9 | c0fbe37 | 1 fixed / 0 rejected; R-1 resolved by spec edit (BR-6 size class) |
 | S3 | Done | 9054443 | 678f27d | 4 fixed / 0 rejected (fix commit 9c90d49) |
-| S4 | Pending | — | — | — |
+| S4 | In progress | 9d03b9e | — | — |
 | S5 | Pending | — | — | — |
 
 ## Open questions

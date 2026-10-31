@@ -10,6 +10,10 @@ internal struct Catalog<each Platform: Page> {
         SemanticTokensPage(),
         StatusIconPage(),
         InlineAlertPage(),
+        FormTextFieldPage(),
+        FieldRowPage(),
+        FormSectionPage(),
+        FormPage(),
         EdgeCasePage()
     )
     private let platform: PageCollection<repeat each Platform>
