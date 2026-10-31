@@ -15,7 +15,8 @@ internal struct Catalog<each Platform: Page> {
         FormSectionPage(),
         FormPage(),
         ModalSheetPage(),
-        EdgeCasePage()
+        EdgeCasePage(),
+        ViewStatePage()
     )
     private let platform: PageCollection<repeat each Platform>
 
