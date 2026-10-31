@@ -35,9 +35,12 @@ extension DS {
                 .padding([.bottom, .leading, .trailing], configuration.padding.points)
                 .padding(.top, configuration.contentSpacing.points)
             }
+            .frame(width: sheetWidth, alignment: .top)
+            .frame(maxHeight: configuration.maxHeight.points)
+            .presentationSizing(.fitted)
             .interactiveDismissDisabled(ignoresCancelPath)
             #else
-            NavigationStack {
+            sized(NavigationStack {
                 content
                     .disabled(isBusy)
                     .navigationTitle(data.title)
@@ -49,10 +52,28 @@ extension DS {
                             ToolbarItem(placement: .confirmationAction) { confirmButton }
                         }
                     }
-            }
+            })
             .interactiveDismissDisabled(data.confirmsDiscard || ignoresCancelPath)
             #endif
         }
+
+        #if !os(macOS)
+        @ViewBuilder private func sized(_ view: some View) -> some View {
+            switch width {
+            case .standard: view.presentationSizing(.form)
+            case .wide: view.presentationSizing(.page)
+            }
+        }
+        #endif
+
+        #if os(macOS)
+        private var sheetWidth: CGFloat {
+            switch width {
+            case .standard: configuration.standardWidth.points
+            case .wide: configuration.wideWidth.points
+            }
+        }
+        #endif
 
         private var isBusy: Bool {
             isConfirming || data.confirm?.state == .loading
@@ -106,4 +127,67 @@ extension DS {
             Task { await action() }
         }
     }
+}
+
+private struct ModalSheetSamples: View {
+    private struct Sample: Identifiable {
+        let id: String
+        let data: DK.ModalSheet
+    }
+
+    @MDS(\.modalSheet) private var configuration
+
+    var body: some View {
+        ScrollView([.horizontal, .vertical]) {
+            VStack(alignment: .leading, spacing: configuration.padding.points) {
+                ForEach(samples) { sample in
+                    DS.ModalSheet(sample.data) {
+                        Text("Content")
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    }
+                    .frame(width: configuration.standardWidth.points, height: configuration.maxHeight.points)
+                    .border(.separator)
+                }
+            }
+            .padding(configuration.padding.points)
+        }
+    }
+
+    private var samples: [Sample] {
+        [
+            Sample(id: "title", data: sheet()),
+            Sample(id: "subtitle", data: sheet(subtitle: "Subtitle")),
+            Sample(id: "confirm", data: sheet(confirm: confirm)),
+            Sample(id: "subtitleConfirm", data: sheet(subtitle: "Subtitle", confirm: confirm)),
+            Sample(id: "discard", data: sheet(subtitle: "Subtitle", confirm: confirm, confirmsDiscard: true))
+        ]
+    }
+
+    private var confirm: DK.ActionButton {
+        DK.ActionButton(title: "Save") {}
+    }
+
+    private func sheet(
+        subtitle: String? = nil,
+        confirm: DK.ActionButton? = nil,
+        confirmsDiscard: Bool = false
+    ) -> DK.ModalSheet {
+        DK.ModalSheet(
+            title: "Title",
+            subtitle: subtitle,
+            cancel: DK.ActionButton(title: "Cancel") {},
+            confirm: confirm,
+            confirmsDiscard: confirmsDiscard
+        )
+    }
+}
+
+#Preview("Light") {
+    ModalSheetSamples()
+        .preferredColorScheme(.light)
+}
+
+#Preview("Dark") {
+    ModalSheetSamples()
+        .preferredColorScheme(.dark)
 }
