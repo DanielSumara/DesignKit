@@ -90,10 +90,10 @@ Per the spec: form-inputs components, validation binding, focus to errors, sheet
 | Slice | Status | Base | Head | Review |
 |---|---|---|---|---|
 | S1 | Done | 0803b86 | d8305b9 | 1 fixed / 0 rejected |
-| S2 | In progress | d8305b9 | — | — |
+| S2 | Done | d8305b9 | c0fbe37 | 1 fixed / 0 rejected; R-1 resolved by spec edit (BR-6 size class) |
 | S3 | Pending | — | — | — |
 | S4 | Pending | — | — | — |
 | S5 | Pending | — | — | — |
 
 ## Open questions
-- None
+- Spec back to Draft (BR-6 layout by size class): re-approve with review-spec, then resume at S3
