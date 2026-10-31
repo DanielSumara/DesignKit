@@ -3,8 +3,6 @@ import SwiftUI
 
 extension DS {
     public struct ViewState<Content, Loaded: View>: View {
-        @MDS(\.viewState) private var configuration
-        @State private var showsLoadingLook = false
         private let state: DK.ViewState<Content>
         private let loadingLabel: Text?
         private let content: ((Content) -> Loaded)?
@@ -25,24 +23,16 @@ extension DS {
                 case .idle:
                     placeholder
                 case .loading:
-                    if showsLoadingLook {
-                        ViewStateLoadingLook(label: loadingLabel ?? Text("designSystem.viewState.loading", bundle: .module))
-                    } else {
-                        placeholder
-                    }
+                    ViewStateDelayedLoading(
+                        label: loadingLabel ?? Text("designSystem.viewState.loading", bundle: .module),
+                        placeholder: placeholder
+                    )
                 case .loaded(let value):
                     content?(value)
                 case .edgeCase(let edgeCase):
                     EdgeCaseView(edgeCase)
                 }
             }
-            .task(id: isLoading) {
-                await updateLoadingLook()
-            }
-        }
-
-        private var isLoading: Bool {
-            if case .loading = state { true } else { false }
         }
 
         private var isLoaded: Bool {
@@ -53,22 +43,6 @@ extension DS {
             Color.clear
                 .frame(width: .zero, height: .zero)
                 .accessibilityHidden(true)
-        }
-
-        private func updateLoadingLook() async {
-            guard isLoading else {
-                setShowsLoadingLook(false)
-                return
-            }
-            try? await Task.sleep(for: configuration.activityIndicatorDelay.duration)
-            guard !Task.isCancelled else { return }
-            setShowsLoadingLook(true)
-        }
-
-        private func setShowsLoadingLook(_ value: Bool) {
-            var transaction = Transaction()
-            transaction.disablesAnimations = true
-            withTransaction(transaction) { showsLoadingLook = value }
         }
     }
 }
@@ -82,8 +56,6 @@ extension DS.ViewState where Content == Never, Loaded == Never {
 }
 
 private struct ViewStateCases: View {
-    private static let sampleHeight: CGFloat = 200
-
     @MDS private var mds
 
     private let edgeCase = DK.EdgeCase(
@@ -120,7 +92,7 @@ private struct ViewStateCases: View {
                 .font(mds: \.caption)
                 .foregroundStyle(mds: \.tertiary)
             view()
-                .frame(height: Self.sampleHeight)
+                .padding(mds: \.large)
                 .border(mds: \.subtle, width: \.thin, cornerRadius: \.small)
         }
     }
