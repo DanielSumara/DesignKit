@@ -13,6 +13,6 @@ A spec covers one screen or one capability of one feature; behavior spanning two
 | foundations | [primitives-in-design-system](foundations/primitives-in-design-system.md) | Primitive tier moved from DesignKit to DesignSystem, `internal` | Implemented |
 | components | [base-atoms](components/base-atoms.md) | Activity Indicator, Action Button, Status Icon: `DK.Status`, component tokens, DS components, showcase pages | Implemented |
 | components | [base-molecules](components/base-molecules.md) | Inline Alert, Edge Case: `DK.InlineAlert`, component tokens, AccentTint mapping, String Catalog, DS components, showcase pages | Implemented |
-| components | [modal-sheet](components/modal-sheet.md) | Modal Sheet template: `DK.ModalSheet`, header, Cancel and confirm placement per platform, discard confirmation, sizing tokens, showcase page | Planned |
+| components | [modal-sheet](components/modal-sheet.md) | Modal Sheet template: `DK.ModalSheet`, header, Cancel and confirm placement per platform, discard confirmation, sizing tokens, showcase page | Implemented |
 | components | [form-fields](components/form-fields.md) | Form base and text field in `Forms/` folders: `DK.FormField`, `DK.SupportText`, Form Text Field, Field Row, Form Section, Form, showcase pages | Implemented |
 | components | [form-focus-moves](components/form-focus-moves.md) | Nice-to-have: Return moves the focus to the next form field, scrolled in | Not started |

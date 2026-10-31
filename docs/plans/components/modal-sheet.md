@@ -1,7 +1,7 @@
 # Modal sheet — implementation plan
 Spec: DesignKit/docs/specs/components/modal-sheet.md
 Repo: DesignKit
-Status: Ready
+Status: Done
 Run base: fefb8656820e81d1502639525b4d8e9d23a4ad20
 Depends on: —
 
@@ -89,7 +89,7 @@ Depends on: —
 | S2 | Done | 05e0128 | 190a035 | 1 fixed / 1 rejected |
 | S3 | Done | 190a035 | 31bd079 | 0 fixed / 0 rejected |
 | S4 | Done | 31bd079 | 8f051c1 | 0 fixed / 1 rejected |
-| S5 | Pending | — | — | — |
+| S5 | Done | 769e066 | — | docs and canvas, no commit in DesignKit |
 | Final | Done | fefb865 | 769e066 | 3 fixed / 0 rejected |
 
 ## Open questions
