@@ -160,6 +160,22 @@
           }
         }
       }
+    },
+    "designSystem.viewState.loading": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Loading…"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wczytywanie…"
+          }
+        }
+      }
     }
   },
   "version": "1.0"

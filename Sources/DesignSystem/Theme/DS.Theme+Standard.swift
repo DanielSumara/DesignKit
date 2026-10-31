@@ -182,6 +182,10 @@ extension DS.Theme {
                 headerSpacing: Components.Spacing(\.xxSmall),
                 contentSpacing: Components.Spacing(\.medium),
                 padding: Components.Spacing(\.large)
+            ),
+            viewState: Components.ViewState(
+                activityIndicatorDelay: Components.Delay(\.quick),
+                labelSpacing: Components.Spacing(\.small)
             )
         )
     )

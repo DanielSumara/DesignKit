@@ -7,5 +7,6 @@ extension DS.Theme {
         public internal(set) var edgeCase: EdgeCase
         public internal(set) var fieldRow: FieldRow
         public internal(set) var modalSheet: ModalSheet
+        public internal(set) var viewState: ViewState
     }
 }

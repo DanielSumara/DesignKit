@@ -10,6 +10,7 @@ extension DS.Theme.Inventory {
             + edgeCaseEntries(of: components.edgeCase, semantic: semantic)
             + fieldRowEntries(of: components.fieldRow, semantic: semantic)
             + modalSheetEntries(of: components.modalSheet, semantic: semantic)
+            + viewStateEntries(of: components.viewState, semantic: semantic)
     }
 
     private static func activityIndicatorEntries(of configuration: DS.Theme.Components.ActivityIndicator) -> [ComponentEntry] {
@@ -192,6 +193,25 @@ extension DS.Theme.Inventory {
                 component: "modalSheet",
                 name: "padding",
                 aliasedName: chain(of: spacingEntry(configuration.padding.token, in: semantic))
+            ),
+        ]
+    }
+
+    private static func viewStateEntries(
+        of configuration: DS.Theme.Components.ViewState,
+        semantic: [SemanticEntry]
+    ) -> [ComponentEntry] {
+        let token = configuration.activityIndicatorDelay.token
+        let delay = semantic.first { entry in
+            guard entry.kind == .motion, case .motion(let path) = entry.path else { return false }
+            return path == token
+        }
+        return [
+            ComponentEntry(component: "viewState", name: "activityIndicatorDelay", aliasedName: chain(of: delay)),
+            ComponentEntry(
+                component: "viewState",
+                name: "labelSpacing",
+                aliasedName: chain(of: spacingEntry(configuration.labelSpacing.token, in: semantic))
             ),
         ]
     }

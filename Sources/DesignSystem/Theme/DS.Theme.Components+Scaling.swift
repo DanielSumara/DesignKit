@@ -22,6 +22,7 @@ extension DS.Theme.Components {
         components.edgeCase.resolve(against: semanticTokens)
         components.fieldRow.resolve(against: semanticTokens)
         components.modalSheet.resolve(against: semanticTokens)
+        components.viewState.resolve(against: semanticTokens)
         return components
     }
 }
