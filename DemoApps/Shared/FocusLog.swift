@@ -9,6 +9,10 @@ internal final class FocusLog {
         lines.append("\(title): focused \(focused)")
     }
 
+    func recordAction(_ title: String) {
+        lines.append("\(title): action ran")
+    }
+
     func clear() {
         lines.removeAll()
     }

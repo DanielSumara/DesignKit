@@ -78,7 +78,9 @@ private extension FormPage {
                 }
                 .disabled(isDisabled)
                 .frame(height: FormPage.frameHeight)
-                DS.ActionButton(data: DK.ActionButton(title: "Save", role: .primary) {})
+                if let log {
+                    DS.ActionButton(data: DK.ActionButton(title: "Save", role: .primary) { log.recordAction("Save") })
+                }
             }
         }
 
