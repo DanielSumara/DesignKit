@@ -1,5 +1,5 @@
 # Form fields
-Status: Draft · Repo: DesignKit · Feature: components · Module or target: DesignKit, DesignSystem, DemoApps · Depends on: components/base-atoms, foundations/theme-and-tokens, foundations/package-and-showcase
+Status: Approved · Repo: DesignKit · Feature: components · Module or target: DesignKit, DesignSystem, DemoApps · Depends on: components/base-atoms, foundations/theme-and-tokens, foundations/package-and-showcase
 
 ## Goal
 The first form components of DesignSystem, enough for a form of text fields such as HomeBudgetApps reminders/configure-reminders/reminder-form: the field data object a ViewModel fills, a text field, the field row around any control (label, optional qualifier, footnote, message or error text), a section and the form. They live in a `Forms/` folder of DesignKit and DesignSystem, not in packages of their own (Q-1).
@@ -70,7 +70,7 @@ The first form components of DesignSystem, enough for a form of text fields such
 - AC-1 (manual) Given a form of two sections on macOS, iPadOS and iOS, when shown, then it uses the grouped form style, sections in order with their titles and footers, and scrolls when taller than its space (BR-3, BR-9).
 - AC-2 (manual) Given a field row with `isOptional` true, when shown, then its title is followed by the qualifier in Polish and English (BR-6, BR-11).
 - AC-3 (manual) Given a field with a footnote, a message, then an error, when shown, then the text is below the control `supportSpacing` apart: the footnote leading and the message trailing in Foreground.secondary, the error trailing in Foreground.critical with a Border.critical border over the text field's native one and, when focused, a Border.critical focus ring (BR-6, BR-8, BR-10).
-- AC-4 (manual) Given a form of two sections of three fields on macOS whose ViewModel leaves out the third field, when shown and Tab pressed in the second, then the third isn't drawn and the focus moves to the first field of the second section; given the focus in a field, when the ViewModel leaves it out, then no field has the focus and no `onFocusChange` is called (BR-4, BR-5, BR-6).
+- AC-4 (manual) Given a form of two sections of three fields on macOS in a frame shorter than the form, whose ViewModel leaves out the third field, when shown and Tab pressed in the second, then the third isn't drawn and the focus moves to the first field of the second section, scrolled into view; given the focus in a field, when the ViewModel leaves it out, then no field has the focus and no `onFocusChange` is called (BR-3, BR-4, BR-5, BR-6).
 - AC-5 (manual) Given a form, when it appears, then no field has the focus and no `onFocusChange` is called (BR-4).
 - AC-7 (manual) Given the focus in the first field, when the user clicks or taps the third field, then the first field reports `false`, the third `true` and no other field reports anything (BR-4).
 - AC-8 (manual) Given three text fields and a primary Action Button on macOS, when Return is pressed in the first, then the focus stays and the button's action runs; on iOS and iPadOS the return key reads Done, and Done hides the keyboard with the field reporting `false` (BR-4, BR-5).
@@ -98,3 +98,4 @@ None.
 - 2026-10-31 Implemented: [plan](../../plans/components/form-fields.md), 0803b86..44ee01c
 - 2026-10-31 Simplified: a removed focused field reports nothing, its ViewModel treats it as unfocused (BR-4, AC-4, Q-13); rows sized on their own, no shared label column (BR-6, Q-14); the text field draws its focus look from its own focus state (BR-8, Q-15); canvas pages Form Text Field, Field Row and Form updated, back to Prototype; back to Draft
 - 2026-10-31 The form moves no focus: Return reaches the default action on macOS and reads Done on iOS, Tab moves natively, each field row owns its focus; focus moves on Return a nice-to-have (components/form-focus-moves) (Scope, US-2, BR-3, BR-4, BR-5, AC-4, AC-8, Q-16)
+- 2026-10-31 Approved; AC-4 checks the field Tab reaches scrolled into view (BR-3); canvas pages Form Text Field, Field Row and Form re-approved (review-spec revalidation)
