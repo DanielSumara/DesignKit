@@ -2,7 +2,7 @@
 Spec: DesignKit/docs/specs/components/modal-sheet.md
 Repo: DesignKit
 Status: Ready
-Run base: —
+Run base: fefb8656820e81d1502639525b4d8e9d23a4ad20
 Depends on: —
 
 ## Slices
@@ -85,11 +85,12 @@ Depends on: —
 ## Progress
 | Slice | Status | Base | Head | Review |
 |---|---|---|---|---|
-| S1 | Pending | — | — | — |
-| S2 | Pending | — | — | — |
-| S3 | Pending | — | — | — |
-| S4 | Pending | — | — | — |
+| S1 | Done | fefb865 | 05e0128 | 0 fixed / 0 rejected |
+| S2 | Done | 05e0128 | 190a035 | 1 fixed / 1 rejected |
+| S3 | Done | 190a035 | 31bd079 | 0 fixed / 0 rejected |
+| S4 | Done | 31bd079 | 8f051c1 | 0 fixed / 1 rejected |
 | S5 | Pending | — | — | — |
+| Final | Done | fefb865 | 769e066 | 3 fixed / 0 rejected |
 
 ## Open questions
-- None
+- Spec and plan name `DS.ModalSheet.Width`; code has top-level `DS.ModalSheetWidth` with `typealias Width` inside `DS.ModalSheet<Content>` (Swift cannot reference a nested type of a generic without arguments). Spec wording needs the user's decision (S2 review R-2, rejected)

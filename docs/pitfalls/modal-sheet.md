@@ -11,3 +11,7 @@ Check: Before changing the sizing of `DS.ModalSheet` or taking up its manual ACs
 ## iOS and iPadOS
 - `.presentationSizing(.form)` for `standard`, `.page` for `wide`; the two members have different generic types, so choose them in a `switch` inside a `@ViewBuilder`, not with a ternary.
 - iPhone and compact width ignore the sizing and show the full-height sheet; nothing else is set.
+
+## Naming and lint
+- A type nested in a generic struct cannot be named without arguments (`DS.ModalSheet.Width` fails with "generic parameter 'Content' could not be inferred"): `DS.ModalSheetWidth` is top-level, with `typealias Width` inside `DS.ModalSheet<Content>`.
+- SwiftLint `no_literal_styling` also matches `.seconds(2)`: keep the number in a constant.
