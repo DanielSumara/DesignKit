@@ -1,5 +1,5 @@
 # View state
-Status: Draft · Repo: DesignKit · Feature: components · Module or target: DesignSystem, DemoApps · Depends on: components/base-atoms, components/base-molecules, foundations/theme-and-tokens, foundations/package-and-showcase
+Status: Approved · Repo: DesignKit · Feature: components · Module or target: DesignSystem, DemoApps · Depends on: components/base-atoms, components/base-molecules, foundations/theme-and-tokens, foundations/package-and-showcase
 
 ## Goal
 A DesignSystem organism rendering a `DK.ViewState<Content>`, the one way every screen or region shows its state (the first being the HomeBudgetApps Reminders root): idle draws nothing, loading shows the activity indicator with a label after a short delay, an edge case shows `DS.EdgeCaseView`, loaded shows the caller's content. Ported from FinanceTracker `DS.LoadableView`.
@@ -36,11 +36,11 @@ A DesignSystem organism rendering a `DK.ViewState<Content>`, the one way every s
 
 ## Rules
 - BR-1 Port: starts from FinanceTracker `DS+LoadableView.swift` (`Kits/DesignKit/Sources/DesignKitUI/Organisms`), with these deviations only: named `DS.ViewState`, after the data it renders; no `placeholder:` form (Scope); the delay is the component token of Data instead of a literal; the loading label is drawn as text below the indicator (BR-5), since `DS.ActivityIndicator` keeps its label for accessibility only (components/base-atoms BR-2).
-- BR-2 Area: in idle, loading and edge case the view takes all the space it is offered, so modifiers its owner attaches (`.task`, `.onAppear`) run in every state, idle included. In loaded it is the content as the closure returns it: no frame, padding, background or scroll view added.
+- BR-2 Area: in idle, loading and edge case the view takes all the space it is offered, so modifiers its owner attaches (`.task`, `.onAppear`) run in every state, idle included; along an unbounded axis (a scroll view) it takes its ideal size there: none for idle, the loading look's or the edge case's own (Q-2). In loaded it is the content as the closure returns it: no frame, padding, background or scroll view added. The view keeps one identity across its cases: an owner's `.task` and `.onAppear` start once when it appears, and a change of case neither cancels nor restarts them (Q-2).
 - BR-3 Idle: nothing visible and nothing for accessibility.
-- BR-4 Loading delay: entering loading shows the empty area; once the state has stayed loading for `activityIndicatorDelay`, the indicator and label of BR-5 appear, without animation. Leaving loading earlier never shows them; entering loading again restarts the delay. The delay is the same with Reduce Motion (as components/base-atoms BR-4b).
+- BR-4 Loading delay: entering loading shows the empty area; once the state has stayed loading for `activityIndicatorDelay`, the indicator and label of BR-5 appear, without animation. Leaving loading earlier never shows them; entering loading again restarts the delay, while loading set again during loading keeps the running delay or the shown indicator. Before the delay ends the area is empty for accessibility too. The delay is the same with Reduce Motion (as components/base-atoms BR-4b) (Q-2).
 - BR-5 Loading look: centered in the area, a `DS.ActivityIndicator` at control size regular whatever the environment's control size, so macOS text size never turns it into the static large symbol (theme-and-tokens BR-8); below it, `labelSpacing` apart, the loading label in Typography.subheadline and Foreground.secondary, centered, wrapping, scaling with text size. Indicator and label are one accessibility element read with the label.
-- BR-6 Loading label: the caller's `loadingLabel`; nil shows `designSystem.viewState.loading` (Copy).
+- BR-6 Loading label: the caller's `loadingLabel`; nil shows `designSystem.viewState.loading` (Copy), ending in the ellipsis character, not three dots (Q-1).
 - BR-7 Edge case: `DS.EdgeCaseView` for the state's edge case, with its layout, actions and keys (components/base-molecules BR-9).
 - BR-8 Loaded: the content closure is called with the state's content on every update.
 - BR-9 Changes: the view switches between cases at once, with no animation of its own; an owner's `withAnimation` around the state change applies. A change from loaded to loaded keeps the content's view identity, so its own state (scroll position, focus, text) survives new content; a change of case replaces the shown view.
@@ -48,18 +48,18 @@ A DesignSystem organism rendering a `DK.ViewState<Content>`, the one way every s
 - BR-11 Configuration: every token of Data is a property of `viewState` in `DS.Theme.Components`, read only through `@MDS(\.viewState)`; every built-in theme defines it (a missing one fails to compile); `activityIndicatorDelay` aliases the `duration` of Motion.quick as `actionButton.activityIndicatorDelay` does (components/base-atoms BR-4b). No token joins the scaling list.
 - BR-12 Copy: key `designSystem.viewState.loading` in DesignSystem's String Catalog, pl and en (Copy).
 - BR-13 Previews: the component file has light and dark previews of idle, loading after the delay, loaded and an edge case with one action, and of the content-less form in loading.
-- BR-14 Showcase page "View State" under Organisms: Playground with controls for the state (idle, loading, loaded, edge case), the loading label (default or custom text), the edge case (symbol, title, message, zero to two actions) and a replay of loading followed by loaded after 0.1 s or 1 s, plus theme, amendment, appearance and text size, with the live `DS.ViewState(…)` snippet; Variants: the BR-13 cases light and dark, and idle with a counter of its `.task` runs; Configuration: the `viewState` token chains.
+- BR-14 Showcase page "View State" under Organisms: Playground with controls for the state (idle, loading, loaded, edge case), the loading label (default or custom text), the edge case (symbol, title, message, zero to two actions) and a replay of loading followed by loaded after 0.1 s or 1 s, plus theme, amendment, appearance and text size, with the live `DS.ViewState(…)` snippet and a counter of the `.task` runs of the view; Variants: the BR-13 cases light and dark, and loading and an edge case inside a vertical scroll view; Configuration: the `viewState` token chains.
 - BR-15 Lifecycle: the spec is approved only once the canvas page "Organism · View State" is `Approved`; once the showcase page is done, the canvas header shows Implemented and `components.md` gets the entry.
 
 ## Copy
 | Key | pl | en |
 |---|---|---|
-| designSystem.viewState.loading | Wczytywanie | Loading |
+| designSystem.viewState.loading | Wczytywanie… | Loading… |
 
 ## Acceptance criteria
-- AC-1 (manual) Given the Variants idle sample, when the page appears, then nothing is drawn in its area and its `.task` counter reads 1 (BR-2, BR-3).
+- AC-1 (manual) Given the Playground state idle, when the page appears, then nothing is drawn in its area and the `.task` counter reads 1; when the state then goes through loading, loaded, edge case and back to idle, the counter still reads 1 (BR-2, BR-3).
 - AC-2 (manual) Given the Playground state loading, when it is chosen, then the area stays empty for 150 ms, then the spinning native indicator and the label below it appear centered, without animation (BR-4, BR-5).
-- AC-3 (manual) Given the replay with loaded after 0.1 s, when it runs, then the indicator never appears and the content shows; with loaded after 1 s, the indicator appears after 150 ms and gives way to the content (BR-4, BR-8).
+- AC-3 (manual) Given the replay with loaded after 0.1 s, when it runs, then the indicator never appears and the content shows; with loaded after 1 s, the indicator appears after 150 ms and gives way to the content; with loaded after 1 s, replay pressed again while the indicator shows keeps it shown until the content arrives (BR-4, BR-8).
 - AC-4 (manual) Given Reduce Motion on, when the 1 s replay runs, then the indicator still appears after 150 ms (BR-4).
 - AC-5 (manual) Given no custom label, when loading shows in Polish and in English, then the label reads the Copy table's text; given a custom label, then that text shows (BR-6, BR-12).
 - AC-6 (manual) Given VoiceOver in Polish and in English, when the loading look is focused, then the label is read once as one element; in idle nothing is focusable (BR-3, BR-5).
@@ -70,9 +70,8 @@ A DesignSystem organism rendering a `DK.ViewState<Content>`, the one way every s
 - AC-11 (manual) Given the content-less form, when its state is idle, loading or an edge case, then it draws as AC-1, AC-2 and AC-8 do (BR-10).
 - AC-12 (manual) Given the showcase page, when each Playground control changes, then the view and the `DS.ViewState(…)` snippet follow it, Variants show every BR-13 case light and dark, Configuration and the Component tokens page show `viewState.activityIndicatorDelay` → Motion.quick and `labelSpacing` → Spacing.small with their primitives; in Xcode the component file's previews show the BR-13 cases light and dark (BR-11, BR-13, BR-14).
 - AC-13 (manual) Given the finished showcase page, when checked, then the canvas page shows Implemented and `components.md` has the entry (BR-15).
-
-## Open questions
-- Q-1 Should the default label carry an ellipsis ("Wczytywanie…", "Loading…"), as macOS progress labels usually do? FinanceTracker has none; the Copy table follows it until answered.
+- AC-14 (manual) Given the Variants samples inside a vertical scroll view, when shown, then the loading look and the edge case take their own height, centered across the width, with no empty space added above or below (BR-2).
 
 ## Changelog
 - 2026-10-31 Drafted from the placeholder, ported from FinanceTracker `DS.LoadableView` (create-spec)
+- 2026-10-31 One identity across cases for the owner's `.task`, loading set again during loading, unbounded axis (AC-14), default label with an ellipsis; Q-1 and Q-2 to decisions (review round 1); revalidated and Approved (review round 1)
