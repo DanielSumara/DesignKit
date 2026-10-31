@@ -77,7 +77,7 @@ Depends on: —
 | S1 | Done | 22f6c37 | 6d591d3 | 0 fixed / 0 rejected |
 | S2 | Done | 152b397 | 5f7d5fb+fix | 2 fixed / 1 rejected |
 | S3 | Done | 562aad2 | be91f44+fix | 1 fixed / 0 rejected |
-| S4 | Pending | — | — | — |
+| S4 | Done | aa875e5 (HomeBudgetApps) | 1be46ed (HomeBudgetApps) | 0 fixed / 0 rejected |
 
 ## Open questions
 - Loaded content must be a single root view (S2 review F-1, rejected as unfixable within BR-2; see `docs/pitfalls/view-state.md`): state it in the spec (BR-2 or BR-8) and on the S3 page, or accept multi-root as caller's responsibility
