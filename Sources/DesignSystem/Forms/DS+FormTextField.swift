@@ -4,7 +4,7 @@ extension DS {
     public struct FormTextField: View {
         @MDS(\.fieldRow) private var configuration
         @Environment(\.fieldShowsError) private var showsError
-        @FocusState private var isFocused: Bool
+        @Environment(\.fieldIsFocused) private var isFocused
         @Binding private var text: String
         private let prompt: String?
 
@@ -18,7 +18,6 @@ extension DS {
                 EmptyView()
             }
             .textFieldStyle(.roundedBorder)
-            .focused($isFocused)
             .focusEffectDisabled(showsError)
             .overlay {
                 if showsError {
@@ -38,7 +37,6 @@ extension DS {
                     .allowsHitTesting(false)
                 }
             }
-            .preference(key: FieldFocusPreferenceKey.self, value: isFocused)
         }
     }
 }

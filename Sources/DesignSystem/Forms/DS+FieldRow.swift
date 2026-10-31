@@ -6,7 +6,9 @@ extension DS {
         @MDS private var mds
         @MDS(\.fieldRow) private var configuration
         @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-        @State private var hasFocus = false
+        @Environment(\.formFocus) private var formFocus
+        @FocusState private var localFocus: Bool
+        @State private var id = FieldID()
         @Binding private var field: DK.FormField<Value>
         private let control: (Binding<Value>) -> Control
 
@@ -16,26 +18,29 @@ extension DS {
         }
 
         public var body: some View {
-            Group {
-                if horizontalSizeClass == .compact {
-                    VStack(alignment: .leading, spacing: mds(spacing: \.xxSmall)) {
-                        title
-                        column
-                    }
-                } else {
-                    LabeledContent {
-                        column
-                    } label: {
-                        title
-                    }
-                }
+            layout {
+                title
+                column
             }
-            .onPreferenceChange(FieldFocusPreferenceKey.self) { hasFocus = $0 }
+            .id(id)
+            .preference(key: FieldRegistrationKey.self, value: [FieldRegistration(id: id, onFocusChange: field.onFocusChange)])
             .onChange(of: field.supportText?.errorContent) { _, error in
-                if let error, hasFocus {
+                if let error, isFocused {
                     AccessibilityNotification.Announcement(announcement(error: error)).post()
                 }
             }
+        }
+
+        private var layout: AnyLayout {
+            if horizontalSizeClass == .compact {
+                AnyLayout(VStackLayout(alignment: .leading, spacing: mds(spacing: \.xxSmall)))
+            } else {
+                AnyLayout(HStackLayout(alignment: .firstTextBaseline, spacing: mds(spacing: \.medium)))
+            }
+        }
+
+        private var isFocused: Bool {
+            formFocus?.isFocused(id) ?? localFocus
         }
 
         private var title: some View {
@@ -53,7 +58,10 @@ extension DS {
 
         private var column: some View {
             VStack(alignment: .leading, spacing: configuration.supportSpacing.points) {
-                control($field.value)
+                focusable(control($field.value))
+                    .submitLabel(formFocus?.isLast(id) == false ? .next : .done)
+                    .onSubmit { formFocus?.submit(from: id) }
+                    .environment(\.fieldIsFocused, isFocused)
                     .environment(\.fieldShowsErrorState, field.supportText?.errorContent != nil)
                     .accessibilityLabel(accessibilityLabel)
                     .accessibilityHint(accessibilityHint)
@@ -65,6 +73,15 @@ extension DS {
                         .frame(maxWidth: .infinity, alignment: support.isFootnote ? .leading : .trailing)
                         .accessibilityHidden(true)
                 }
+            }
+        }
+
+        @ViewBuilder
+        private func focusable(_ control: Control) -> some View {
+            if let formFocus {
+                control.focused(formFocus.focused, equals: id)
+            } else {
+                control.focused($localFocus)
             }
         }
 
