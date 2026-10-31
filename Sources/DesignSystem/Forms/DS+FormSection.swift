@@ -14,31 +14,11 @@ extension DS {
         }
 
         public var body: some View {
-            switch (title, footer) {
-            case (let title?, let footer?):
-                Section {
-                    content
-                } header: {
-                    Text(verbatim: title)
-                } footer: {
-                    footerText(footer)
-                }
-            case (let title?, nil):
-                Section {
-                    content
-                } header: {
-                    Text(verbatim: title)
-                }
-            case (nil, let footer?):
-                Section {
-                    content
-                } footer: {
-                    footerText(footer)
-                }
-            case (nil, nil):
-                Section {
-                    content
-                }
+            FormSectionContainer(
+                header: title.map { Text(verbatim: $0) },
+                footer: footer.map(footerText)
+            ) {
+                content
             }
         }
 

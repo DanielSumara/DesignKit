@@ -4,31 +4,11 @@ internal struct FormSectionRows: View {
     let section: SectionConfiguration
 
     var body: some View {
-        switch (section.header.isEmpty, section.footer.isEmpty) {
-        case (false, false):
-            Section {
-                rows
-            } header: {
-                section.header
-            } footer: {
-                section.footer
-            }
-        case (false, true):
-            Section {
-                rows
-            } header: {
-                section.header
-            }
-        case (true, false):
-            Section {
-                rows
-            } footer: {
-                section.footer
-            }
-        case (true, true):
-            Section {
-                rows
-            }
+        FormSectionContainer(
+            header: section.header.isEmpty ? nil : section.header,
+            footer: section.footer.isEmpty ? nil : section.footer
+        ) {
+            rows
         }
     }
 

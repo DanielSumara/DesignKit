@@ -22,14 +22,19 @@ extension DS {
                         }
                     }
                     .formStyle(.grouped)
-                    .environment(\.formFocus, FormFocusContext(focused: $focused, order: order, registry: registry))
+                    .environment(\.formFocus, FormFocusContext(
+                        focused: $focused,
+                        order: order,
+                        registry: registry,
+                        scrollTo: { proxy.scrollTo($0.rawValue) }
+                    ))
                     .environment(\.fieldLabelWidth, labelWidth)
                     .onPreferenceChange(FieldLabelWidthKey.self) { labelWidth = $0 }
                     .onChange(of: order) { _, order in
                         orderChanged(order)
                     }
                     .onChange(of: focused) { old, new in
-                        focusChanged(from: old, to: new)
+                        focusChanged(from: old, to: new, order: order)
                         if let new {
                             proxy.scrollTo(new.rawValue)
                         }
@@ -45,23 +50,23 @@ extension DS {
         }
 
         private func orderChanged(_ order: [FieldID]) {
-            var keep = Set(order)
-            if let focused {
-                keep.insert(focused)
-            }
-            registry.prune(keeping: keep)
             if let focused, !order.contains(focused) {
                 self.focused = nil
             }
         }
 
-        private func focusChanged(from old: FieldID?, to new: FieldID?) {
+        private func focusChanged(from old: FieldID?, to new: FieldID?, order: [FieldID]) {
             if let old {
                 registry.notify(old, focused: false)
             }
             if let new {
                 registry.notify(new, focused: true)
             }
+            var keep = Set(order)
+            if let new {
+                keep.insert(new)
+            }
+            registry.prune(keeping: keep)
         }
     }
 }
