@@ -126,7 +126,8 @@ private extension ViewStatePage {
     }
 
     struct Playground: View {
-        @State private var kind = StateKind.loaded
+        @State private var kind = StateKind.idle
+        @State private var content = "Loaded content"
         @State private var labelKind = LabelKind.standard
         @State private var label = "Fetching your data…"
         @State private var symbol = "exclamationmark.triangle"
@@ -167,6 +168,7 @@ private extension ViewStatePage {
                 if labelKind == .custom {
                     TextField("Label", text: $label)
                 }
+                TextField("Content", text: $content)
                 TextField("Symbol", text: $symbol)
                 TextField("Title", text: $edgeTitle)
                 TextField("Message", text: $edgeMessage)
@@ -200,7 +202,7 @@ private extension ViewStatePage {
             switch kind {
             case .idle: .idle
             case .loading: .loading
-            case .loaded: .loaded("Loaded content")
+            case .loaded: .loaded(content)
             case .edgeCase: .edgeCase(edgeCase)
             }
         }
@@ -227,7 +229,7 @@ private extension ViewStatePage {
             switch kind {
             case .idle: "DK.ViewState<String>.idle"
             case .loading: "DK.ViewState<String>.loading"
-            case .loaded: "DK.ViewState<String>.loaded(\"Loaded content\")"
+            case .loaded: "DK.ViewState<String>.loaded(\"\(content.snippetLiteral)\")"
             case .edgeCase: "DK.ViewState<String>.edgeCase(edgeCase)"
             }
         }

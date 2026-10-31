@@ -7,7 +7,8 @@ internal struct ViewStateLayout: Layout {
         guard fillsSpace else {
             return union(of: subviews.map { $0.sizeThatFits(proposal) })
         }
-        let ideal = union(of: subviews.map { $0.sizeThatFits(.unspecified) })
+        let measure = ProposedViewSize(width: proposal.width, height: proposal.height)
+        let ideal = union(of: subviews.map { $0.sizeThatFits(measure) })
         return CGSize(width: proposal.width ?? ideal.width, height: proposal.height ?? ideal.height)
     }
 
