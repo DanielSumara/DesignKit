@@ -170,7 +170,7 @@ extension DS.Theme.Inventory {
     }
 
     private static func colorEntry(
-        _ token: DS.Theme.Components.StatusColors.ColorToken,
+        _ token: DS.Theme.Components.ColorToken.Token,
         in semantic: [SemanticEntry]
     ) -> SemanticEntry? {
         semantic.first { entry in

@@ -3,7 +3,7 @@ import SwiftUI
 
 extension DS.Theme.Components {
     public struct StatusColors: Equatable, Sendable {
-        typealias ColorToken = KeyPath<DS.Theme.SemanticTokens.Colors, DS.Theme.AdaptiveColor> & Sendable
+        typealias ColorToken = DS.Theme.Components.ColorToken.Token
 
         var info: ColorToken
         var success: ColorToken
