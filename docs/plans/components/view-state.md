@@ -76,7 +76,7 @@ Depends on: —
 |---|---|---|---|---|
 | S1 | Done | 22f6c37 | 6d591d3 | 0 fixed / 0 rejected |
 | S2 | Done | 152b397 | 5f7d5fb+fix | 2 fixed / 1 rejected |
-| S3 | Pending | — | — | — |
+| S3 | Done | 562aad2 | be91f44+fix | 1 fixed / 0 rejected |
 | S4 | Pending | — | — | — |
 
 ## Open questions
