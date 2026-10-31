@@ -14,11 +14,16 @@ extension DS {
         }
 
         public var body: some View {
-            FormSectionContainer(
-                header: title.map { Text(verbatim: $0) },
-                footer: footer.map(footerText)
-            ) {
+            Section {
                 content
+            } header: {
+                if let title {
+                    Text(verbatim: title)
+                }
+            } footer: {
+                if let footer {
+                    footerText(footer)
+                }
             }
         }
 

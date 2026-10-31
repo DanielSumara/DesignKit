@@ -32,7 +32,7 @@ private extension FormPage {
                 tokens: playgroundEnvironment.componentTokens(of: "fieldRow"),
                 playgroundIntro: "Playground: two sections of three fields in a frame shorter than the form. "
                     + "Toggles leave out the third field, disable the form, and make the second field optional "
-                    + "with an error. Return moves to the next field; the log lists every onFocusChange call.",
+                    + "with an error. Tab moves to the next field; the log lists every onFocusChange call.",
                 variantsIntro: "Variants: the default form, the form disabled, and the second field optional "
                     + "with an error, in light and dark.",
                 configurationIntro: "Configuration: properties with their defaults, "
