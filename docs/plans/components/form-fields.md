@@ -89,8 +89,8 @@ Per the spec: form-inputs components, validation binding, focus to errors, sheet
 ## Progress
 | Slice | Status | Base | Head | Review |
 |---|---|---|---|---|
-| S1 | In progress | 0803b86 | — | — |
-| S2 | Pending | — | — | — |
+| S1 | Done | 0803b86 | d8305b9 | 1 fixed / 0 rejected |
+| S2 | In progress | d8305b9 | — | — |
 | S3 | Pending | — | — | — |
 | S4 | Pending | — | — | — |
 | S5 | Pending | — | — | — |
