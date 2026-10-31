@@ -1,7 +1,7 @@
 # Form fields — implementation plan
 Spec: DesignKit/docs/specs/components/form-fields.md
 Repo: DesignKit
-Status: Done
+Status: Ready
 Run base: 0803b861f37069120db924b889f8790eabff1d61
 Depends on: —
 
@@ -19,7 +19,7 @@ Requires the base-atoms plan `Done` (Action Button for the form showcase) and th
 - Manual ACs: —
 
 ### S2 — DesignSystem: Form Text Field and Field Row
-- ACs: AC-2, AC-3, AC-9, AC-10, AC-11, AC-15
+- ACs: AC-2, AC-9, AC-10, AC-11, AC-15 (AC-3 re-planned in S6)
 - Area: `Sources/DesignSystem/Forms`
 - Depends on: S1
 - Skills: design-system
@@ -29,7 +29,7 @@ Requires the base-atoms plan `Done` (Action Button for the form showcase) and th
 - Manual ACs: AC-2, AC-3, AC-9, AC-10, AC-11, AC-15
 
 ### S3 — DesignSystem: Form Section and Form with focus order
-- ACs: AC-1, AC-4, AC-5, AC-7, AC-8, AC-12, AC-17
+- ACs: AC-1, AC-12 (AC-4, AC-5, AC-7, AC-8, AC-17 re-planned in S6)
 - Area: `Sources/DesignSystem/Forms`
 - Depends on: S2
 - Skills: design-system
@@ -39,7 +39,7 @@ Requires the base-atoms plan `Done` (Action Button for the form showcase) and th
 - Manual ACs: AC-1, AC-4, AC-5, AC-7, AC-8, AC-12, AC-17
 
 ### S4 — DemoApps: Form showcase pages
-- ACs: AC-13, AC-16
+- ACs: AC-16 (AC-13 re-planned in S6)
 - Area: `DemoApps/Shared`
 - Depends on: S3
 - Skills: design-system
@@ -49,7 +49,7 @@ Requires the base-atoms plan `Done` (Action Button for the form showcase) and th
 - Manual ACs: AC-13, AC-16
 
 ### S5 — Docs and canvas: lifecycle
-- ACs: AC-14
+- ACs: — (AC-14 re-planned in S7)
 - Area: Design System canvas, `docs/components.md` (skill `design-system`)
 - Depends on: S4
 - Skills: design-system
@@ -58,25 +58,48 @@ Requires the base-atoms plan `Done` (Action Button for the form showcase) and th
 - Done when: canvas headers, `components.md` and architecture §2 checked
 - Manual ACs: AC-14
 
+## Increment 2 — simplification delta (commit 4226312, spec re-approved df8431d)
+Code exists (row-owned focus, no form focus moves, rows sized on their own, text field owns its focus look). Changed rules BR-3, BR-4, BR-5, BR-6, BR-8; changed ACs AC-4, AC-8. S1 to S5 stay Done; the ACs below move to S6 and S7 (their earlier manual checks predate the change).
+
+### S6 — DesignSystem, DemoApps: verify the simplified forms, fix residuals
+- ACs: AC-3, AC-4, AC-5, AC-7, AC-8, AC-13, AC-17
+- Area: `Sources/DesignSystem/Forms`, `DemoApps/Shared` (Form, Field Row, Form Text Field pages)
+- Depends on: S5
+- Skills: design-system
+- Review: full
+- Builds: no new types expected; fixes only to `DS+Form.swift`, `DS+FormSection.swift`, `DS+FieldRow.swift`, `DS+FormTextField.swift` and `FormPage.swift`, `FormFieldProperties.swift`, `FormFieldSnippet.swift` where a check fails; Form page still matches BR-14 (two sections of three fields in a frame shorter than the form, left-out toggle, disabled toggle, optional second field with error, primary Action Button, `onFocusChange` log) and uses no removed focus type
+- Done when: the manual ACs pass; lint clean; DesignSystem builds for iOS and macOS; the three Showcase builds pass; no reference to the removed files (`FormFocusContext`, `FormFocusRegistry`, `FieldRowLayout`, `FieldLabelWidthKey`, `FormSectionContainer`) remains
+- Manual ACs: AC-3, AC-4, AC-5, AC-7, AC-8, AC-13, AC-17
+
+### S7 — Docs and canvas: back to Implemented
+- ACs: AC-14
+- Area: Design System canvas (Form Text Field, Field Row, Form Section, Form), `docs/components.md`, `docs/architecture.md` §2 (skill `design-system`)
+- Depends on: S6
+- Skills: design-system
+- Review: diff-only
+- Builds: canvas headers of the four pages Implemented (BR-13); `components.md` entries and architecture §2 still describe row-owned focus and no form focus moves
+- Done when: canvas headers, `components.md` and architecture §2 checked
+- Manual ACs: AC-14
+
 ## AC coverage
 | AC | Slice | Verified by |
 |---|---|---|
 | AC-1 | S3 | manual, Form page on Mac, iPad, iPhone |
 | AC-2 | S2 | manual, Field Row page pl and en |
-| AC-3 | S2 | manual, Field Row page, Variants |
-| AC-4 | S3 | manual, Form page |
-| AC-5 | S3 | manual, Form page log |
-| AC-7 | S3 | manual, Form page log |
-| AC-8 | S3 | manual, Form page, Mac and iOS |
+| AC-3 | S6 | manual, Field Row page, Variants |
+| AC-4 | S6 | manual, Form page |
+| AC-5 | S6 | manual, Form page log |
+| AC-7 | S6 | manual, Form page log |
+| AC-8 | S6 | manual, Form page, Mac and iOS |
 | AC-9 | S2 | manual, VoiceOver |
 | AC-10 | S2 | manual, Form Text Field page |
 | AC-11 | S2 | manual, Form page disabled toggle |
 | AC-12 | S3 | manual, Mac 200 % and iOS largest size |
-| AC-13 | S4 | manual, four pages |
-| AC-14 | S5 | manual, canvas and docs |
+| AC-13 | S6 | manual, four pages |
+| AC-14 | S7 | manual, canvas and docs |
 | AC-15 | S2 | manual, VoiceOver pl and en |
 | AC-16 | S4 | manual, Xcode previews |
-| AC-17 | S3 | manual, Form page on Mac, iPad full screen and Split View, iPhone Max portrait and landscape |
+| AC-17 | S6 | manual, Form page on Mac, iPad full screen and Split View, iPhone Max portrait and landscape |
 
 ## Manual verification
 - AC-1, AC-4, AC-5, AC-7, AC-8, AC-12, AC-17 — Form showcase page on Mac, iPad (full screen and Split View) and iPhone (Max rotated)
@@ -84,8 +107,11 @@ Requires the base-atoms plan `Done` (Action Button for the form showcase) and th
 - AC-13, AC-16 — all four showcase pages, Xcode previews
 - AC-14 — canvas pages, `components.md`, architecture §2
 
+- AC-3, AC-4, AC-5, AC-7, AC-8, AC-13, AC-17 (S6) — Form page on macOS (frame shorter than the form: Tab to the first field of the second section scrolled into view; Return runs the primary button, focus stays), iPad, iPhone (Done hides the keyboard, size-class switch keeps focus); Field Row page error look
+- AC-14 (S7) — canvas headers Implemented
+
 ## Out of scope
-Per the spec: form-inputs components, validation binding, focus to errors, sheet presentation.
+Per the spec: focus moves on Return (components/form-focus-moves), form-inputs components, validation binding, focus to errors, sheet presentation.
 
 ## Progress
 | Slice | Status | Base | Head | Review |
@@ -95,6 +121,8 @@ Per the spec: form-inputs components, validation binding, focus to errors, sheet
 | S3 | Done | 9054443 | 678f27d | 4 fixed / 0 rejected (fix commit 9c90d49) |
 | S4 | Done | 9d03b9e | 73088c0 | 1 fixed / 0 rejected (plan text, level Atoms) |
 | S5 | Done | 4c544ac | HomeBudgetApps d10267f | 2 fixed / 1 rejected (R-3 footer line out of scope); canvas headers Implemented |
+| S6 | Pending | — | — | — |
+| S7 | Pending | — | — | — |
 
 ## Open questions
 - None
