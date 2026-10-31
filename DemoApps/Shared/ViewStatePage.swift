@@ -135,12 +135,21 @@ private extension ViewStatePage {
         @State private var actionCount = 1
         @State private var taskRuns = 0
         @State private var replayTask: Task<Void, Never>?
+        @State private var replayKind: StateKind?
 
         var body: some View {
             PlaygroundLayout(snippet: snippet) {
                 DS.ViewState(state, loadingLabel: loadingLabel) { SampleContent(value: $0) }
                     .task { taskRuns += 1 }
                     .frame(minHeight: ViewStatePage.previewHeight)
+                    .onChange(of: kind) { _, new in
+                        if replayKind == new {
+                            replayKind = nil
+                        } else {
+                            cancelReplay()
+                        }
+                    }
+                    .onDisappear { cancelReplay() }
             } controls: {
                 LabeledContent("State") {
                     Picker("State", selection: $kind) {
@@ -198,12 +207,20 @@ private extension ViewStatePage {
 
         private func replay(after delay: Duration) {
             replayTask?.cancel()
+            replayKind = kind == .loading ? nil : .loading
             kind = .loading
             replayTask = Task {
                 try? await Task.sleep(for: delay)
                 guard !Task.isCancelled else { return }
+                replayKind = .loaded
                 kind = .loaded
             }
+        }
+
+        private func cancelReplay() {
+            replayTask?.cancel()
+            replayTask = nil
+            replayKind = nil
         }
 
         private var stateSnippet: String {
