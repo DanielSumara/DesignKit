@@ -1,5 +1,5 @@
 # Form fields
-Status: Planned · Repo: DesignKit · Feature: components · Module or target: DesignKit, DesignSystem, DemoApps · Depends on: components/base-atoms, foundations/theme-and-tokens, foundations/package-and-showcase
+Status: Implemented · Repo: DesignKit · Feature: components · Module or target: DesignKit, DesignSystem, DemoApps · Depends on: components/base-atoms, foundations/theme-and-tokens, foundations/package-and-showcase
 
 ## Goal
 The first form components of DesignSystem, enough for a form of text fields such as HomeBudgetApps reminders/configure-reminders/reminder-form: the field data object a ViewModel fills, a text field, the field row around any control (label, optional qualifier, footnote, message or error text), a section and the form. They live in a `Forms/` folder of DesignKit and DesignSystem, not in packages of their own (Q-1).
@@ -99,3 +99,4 @@ None.
 - 2026-10-31 Simplified: a removed focused field reports nothing, its ViewModel treats it as unfocused (BR-4, AC-4, Q-13); rows sized on their own, no shared label column (BR-6, Q-14); the text field draws its focus look from its own focus state (BR-8, Q-15); canvas pages Form Text Field, Field Row and Form updated, back to Prototype; back to Draft
 - 2026-10-31 The form moves no focus: Return reaches the default action on macOS and reads Done on iOS, Tab moves natively, each field row owns its focus; focus moves on Return a nice-to-have (components/form-focus-moves) (Scope, US-2, BR-3, BR-4, BR-5, AC-4, AC-8, Q-16)
 - 2026-10-31 Approved; AC-4 checks the field Tab reaches scrolled into view (BR-3); canvas pages Form Text Field, Field Row and Form re-approved (review-spec revalidation)
+- 2026-10-31 Implemented: [plan](../../plans/components/form-fields.md), 0803b86..2a4ec1d

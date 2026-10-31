@@ -1,7 +1,7 @@
 # Form fields — implementation plan
 Spec: DesignKit/docs/specs/components/form-fields.md
 Repo: DesignKit
-Status: Ready
+Status: Done
 Run base: 0803b861f37069120db924b889f8790eabff1d61
 Depends on: —
 
@@ -121,8 +121,9 @@ Per the spec: focus moves on Return (components/form-focus-moves), form-inputs c
 | S3 | Done | 9054443 | 678f27d | 4 fixed / 0 rejected (fix commit 9c90d49) |
 | S4 | Done | 9d03b9e | 73088c0 | 1 fixed / 0 rejected (plan text, level Atoms) |
 | S5 | Done | 4c544ac | HomeBudgetApps d10267f | 2 fixed / 1 rejected (R-3 footer line out of scope); canvas headers Implemented |
-| S6 | Pending | — | — | — |
-| S7 | Pending | — | — | — |
+| S6 | Done | 29f6a0a | 29f6a0a | audit found no residual, no code change; manual ACs pending |
+| S7 | Done | HomeBudgetApps 5a0111c | HomeBudgetApps 459d215 | 1 fixed / 0 rejected (R-1 platform of the Done note); canvas headers Form Text Field, Field Row, Form Implemented |
+| Final | Done | 0803b86 | 2a4ec1d | 2 fixed / 0 rejected (F-1 Save logs its action on the Form page, F-2 duplicate previews) |
 
 ## Open questions
 - None
