@@ -1,0 +1,4 @@
+# Form fields: decisions
+
+- Q-1 Dedicated FormsKit and FormsDesign packages, as thought to be in FinanceTracker, or form components inside DesignKit and DesignSystem? Answer: inside, in `Forms/` folders, flat `DK` and `DS` names. A separate design package couldn't add component tokens to the complete themes without opening the `internal` primitives, and would split the catalogue; FinanceTracker itself keeps its form components in DesignKit. Validators are UtilitiesKit's (UtilitiesKit validation/validators); HomeBudgetApps FormKit binds them to `DK.FormField` (HomeBudgetApps forms/validated-fields); UtilitiesKit and DesignKit never import each other.
+- Q-2 The design-system lifecycle wants `Approved` canvas pages before a component spec. Answer: draft the spec now; the four canvas pages are made next and must be `Approved` before `review-spec` approves the spec. First scope: base components and the text field; other inputs in components/form-inputs.
