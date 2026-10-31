@@ -1,5 +1,5 @@
-import Foundation
+import SwiftUI
 
-internal struct FieldID: Hashable, Sendable {
-    private let rawValue = UUID()
+internal struct FieldID: Hashable {
+    let rawValue: Subview.ID
 }

@@ -4,8 +4,8 @@ import SwiftUI
 extension DS {
     public struct Form<Content: View>: View {
         @FocusState private var focused: FieldID?
-        @State private var registrations: [FieldRegistration] = []
-        @State private var focusedRegistration: FieldRegistration?
+        @State private var registry = FormFocusRegistry()
+        @State private var labelWidth: CGFloat = 0
         private let content: Content
 
         public init(@ViewBuilder content: () -> Content) {
@@ -13,35 +13,54 @@ extension DS {
         }
 
         public var body: some View {
-            ScrollViewReader { proxy in
-                SwiftUI.Form {
-                    content
-                }
-                .formStyle(.grouped)
-                .environment(\.formFocus, FormFocusContext(focused: $focused, order: registrations.map(\.id)))
-                .onPreferenceChange(FieldRegistrationKey.self) { registrations = $0 }
-                .onChange(of: registrations) { _, registrations in
-                    if let focused, !registrations.contains(where: { $0.id == focused }) {
-                        self.focused = nil
+            Group(sections: content) { sections in
+                let order = fieldOrder(sections)
+                ScrollViewReader { proxy in
+                    SwiftUI.Form {
+                        ForEach(sections) { section in
+                            FormSectionRows(section: section)
+                        }
                     }
-                }
-                .onChange(of: focused) { old, new in
-                    focusChanged(from: old, to: new)
-                    if let new {
-                        proxy.scrollTo(new)
+                    .formStyle(.grouped)
+                    .environment(\.formFocus, FormFocusContext(focused: $focused, order: order, registry: registry))
+                    .environment(\.fieldLabelWidth, labelWidth)
+                    .onPreferenceChange(FieldLabelWidthKey.self) { labelWidth = $0 }
+                    .onChange(of: order) { _, order in
+                        orderChanged(order)
+                    }
+                    .onChange(of: focused) { old, new in
+                        focusChanged(from: old, to: new)
+                        if let new {
+                            proxy.scrollTo(new.rawValue)
+                        }
                     }
                 }
             }
         }
 
-        private func focusChanged(from old: FieldID?, to new: FieldID?) {
-            if old != nil {
-                focusedRegistration?.onFocusChange(false)
-                focusedRegistration = nil
+        private func fieldOrder(_ sections: SectionCollection) -> [FieldID] {
+            sections.flatMap { section in
+                section.content.filter(\.containerValues.isFieldRow).map { FieldID(rawValue: $0.id) }
             }
-            if let new, let registration = registrations.first(where: { $0.id == new }) {
-                focusedRegistration = registration
-                registration.onFocusChange(true)
+        }
+
+        private func orderChanged(_ order: [FieldID]) {
+            var keep = Set(order)
+            if let focused {
+                keep.insert(focused)
+            }
+            registry.prune(keeping: keep)
+            if let focused, !order.contains(focused) {
+                self.focused = nil
+            }
+        }
+
+        private func focusChanged(from old: FieldID?, to new: FieldID?) {
+            if let old {
+                registry.notify(old, focused: false)
+            }
+            if let new {
+                registry.notify(new, focused: true)
             }
         }
     }

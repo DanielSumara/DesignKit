@@ -8,7 +8,8 @@ extension DS {
         @Environment(\.horizontalSizeClass) private var horizontalSizeClass
         @Environment(\.formFocus) private var formFocus
         @FocusState private var localFocus: Bool
-        @State private var id = FieldID()
+        @Environment(\.fieldID) private var fieldID
+        @Environment(\.fieldLabelWidth) private var labelWidth
         @Binding private var field: DK.FormField<Value>
         private let control: (Binding<Value>) -> Control
 
@@ -18,12 +19,16 @@ extension DS {
         }
 
         public var body: some View {
+            register()
+            return row
+        }
+
+        private var row: some View {
             layout {
                 title
                 column
             }
-            .id(id)
-            .preference(key: FieldRegistrationKey.self, value: [FieldRegistration(id: id, onFocusChange: field.onFocusChange)])
+            .containerValue(\.isFieldRow, true)
             .onChange(of: field.supportText?.errorContent) { _, error in
                 if let error, isFocused {
                     AccessibilityNotification.Announcement(announcement(error: error)).post()
@@ -32,21 +37,57 @@ extension DS {
         }
 
         private var layout: AnyLayout {
-            if horizontalSizeClass == .compact {
+            if isCompact {
                 AnyLayout(VStackLayout(alignment: .leading, spacing: mds(spacing: \.xxSmall)))
             } else {
-                AnyLayout(HStackLayout(alignment: .firstTextBaseline, spacing: mds(spacing: \.medium)))
+                AnyLayout(FieldRowLayout(labelWidth: labelWidth, spacing: mds(spacing: \.medium)))
             }
         }
 
+        private var isCompact: Bool {
+            horizontalSizeClass == .compact
+        }
+
         private var isFocused: Bool {
-            formFocus?.isFocused(id) ?? localFocus
+            if let formFocus, let fieldID {
+                formFocus.isFocused(fieldID)
+            } else {
+                localFocus
+            }
+        }
+
+        private var isLast: Bool? {
+            guard let formFocus, let fieldID else { return nil }
+            return formFocus.isLast(fieldID)
+        }
+
+        private var submitTriggers: SubmitTriggers {
+            #if os(macOS)
+            isLast == true ? [] : .text
+            #else
+            .text
+            #endif
+        }
+
+        private func register() {
+            guard let formFocus, let fieldID else { return }
+            formFocus.registry.register(fieldID, handler: field.onFocusChange)
+        }
+
+        private func submit() {
+            guard let formFocus, let fieldID else { return }
+            formFocus.submit(from: fieldID)
         }
 
         private var title: some View {
             titleText
                 .font(mds: \.body)
                 .accessibilityHidden(true)
+                .background {
+                    GeometryReader { proxy in
+                        Color.clear.preference(key: FieldLabelWidthKey.self, value: isCompact ? 0 : proxy.size.width)
+                    }
+                }
         }
 
         private var titleText: Text {
@@ -59,8 +100,8 @@ extension DS {
         private var column: some View {
             VStack(alignment: .leading, spacing: configuration.supportSpacing.points) {
                 focusable(control($field.value))
-                    .submitLabel(formFocus?.isLast(id) == false ? .next : .done)
-                    .onSubmit { formFocus?.submit(from: id) }
+                    .submitLabel(isLast == false ? .next : .done)
+                    .onSubmit(of: submitTriggers) { submit() }
                     .environment(\.fieldIsFocused, isFocused)
                     .environment(\.fieldShowsErrorState, field.supportText?.errorContent != nil)
                     .accessibilityLabel(accessibilityLabel)
@@ -78,8 +119,8 @@ extension DS {
 
         @ViewBuilder
         private func focusable(_ control: Control) -> some View {
-            if let formFocus {
-                control.focused(formFocus.focused, equals: id)
+            if let formFocus, let fieldID {
+                control.focused(formFocus.focused, equals: fieldID)
             } else {
                 control.focused($localFocus)
             }

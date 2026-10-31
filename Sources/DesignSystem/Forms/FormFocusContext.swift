@@ -3,6 +3,7 @@ import SwiftUI
 internal struct FormFocusContext {
     let focused: FocusState<FieldID?>.Binding
     let order: [FieldID]
+    let registry: FormFocusRegistry
 
     func isFocused(_ id: FieldID) -> Bool {
         focused.wrappedValue == id
