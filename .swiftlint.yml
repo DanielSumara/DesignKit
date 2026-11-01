@@ -91,5 +91,5 @@ custom_rules:
     regex: '\b(?:FileManager\.default|UserDefaults\.standard|NotificationCenter\.default|DistributedNotificationCenter\.default|Bundle\.main|ProcessInfo\.processInfo|URLSession\.shared|NSApplication\.shared|NSWorkspace\.shared|NSScreen\.main|UIApplication\.shared|UIScreen\.main|UIDevice\.current|NSPasteboard\.general|UIPasteboard\.general|(?:Locale|Calendar|TimeZone)\.(?:current|autoupdatingCurrent))\b(?=\s*[?!]?\.)'
     excluded: '^$' # allowed files: extend as '^$|path/File\.swift|path/Other\.swift'; empty on purpose
     match_kinds: [identifier, typeidentifier]
-    message: "Do not use a singleton in a method; inject the instance (private let assigned in init). Passing the singleton as an init argument is fine."
+    message: "Do not call members on a singleton; pass or store it as a value (argument, parameter default or property default)."
     severity: error
